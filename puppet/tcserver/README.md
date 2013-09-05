@@ -51,8 +51,11 @@ node 'default' {
 The base class of tcserver supports the following configuration variables
 
 **tcserver_version** - Specifies the version of tc Server to use. This must match the installation media placed in puppet:///modules/tcserver/files. _Default_: 2.9.3.RELEASE
+
 **tcserver_edition** - Specifies the edition of tc Server to use(standard, developer). This must match the installation media placed in puppet:///modules/tcserver/files. _Default_:developer
+
 **tcserver_user** - The user to create on the system to run tc Server instances and own files. _Default_: tcserver
+
 **install_path** - The location to install the tc Server base. _Default_: /opt/pivotal
 
 ## tc Server Instance
