@@ -15,40 +15,70 @@ define vfws::instance (
   $group = undef,
   $port = undef,
   $hostname = undef,  
-  $version = undef,
+#  $version = undef,
   $base_dir = undef,
+  $overlay = undef,
+  $serverdir = undef,
+  $mpm = undef,
+  $httpdver = undef,
+  $sourcedir = undef,
+
 ){
-  
+ 
   if $admin_email {
-    $set += "--set AdminEmail={$admin_email} "
+    $set_admin_email = "--set AdminEmail={$admin_email} "
   }
 
   if $sslport {
-    $set += "--set SSLPort=${sslport} "
+    $set_port = "--set SSLPort=${sslport} "
   }
 
   if $user {
-    $set += "--set User=${user} "
+    $set_user = "--set User=${user} "
   }
 
   if $group {
-    $set += "--set Group=${group} "
+    $set_group = "--set Group=${group} "
   }
 
   if $port {
-    $set += "--set Port=${port} "
+    $set_port = "--set Port=${port} "
   }
 
   if $hostname {
-    $set += "--set Hostname=${hostname}"
+    $set_hostname += "--set Hostname=${hostname}"
   }
+
+  $set = "${set_admin_email} ${set_ssl_port} ${set_user} ${set_group} ${set_port} ${set_hostname}"
+
+  if $overlay and $overlay == "true" {
+    $options_overlay = "--overlay "
+  }
+
+  if $serverdir {
+    $options_serverdir = "${options} --serverdir=${serverdir} "
+  }
+
+  if $mpm {
+    $options_mpm = "${options} --mpm=${mpm} "
+  }
+
+  if $httpdver {
+    $options_httpdver = "${options} --httpdver=${httpdver} "
+  }
+
+  if $sourcedir {
+    $options_sourcedir = "${options} --sourcedir=${sourcedir} "
+  }
+
+  $options = "${options_overlay} ${options_serverdir} ${options_mpm} ${options_httpdver} ${options_source_dir}"
 
   $cwd = "${vfws::installed_base}"
 
   if $ensure == "running" or $ensure == "stopped" {
     exec { "create_instance-${name}":
       cwd => "${cwd}",
-      command => "${vfws::installed_base}/newserver --quiet ${name} ${set}",
+      command => "${vfws::installed_base}/newserver --quiet ${name} ${options} ${set}",
       creates => "${cwd}/${name}"
     }
 
