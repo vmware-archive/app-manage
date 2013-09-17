@@ -1,5 +1,10 @@
 ##  tcserver::instance
-##  
+##
+## LEGAL NOTICE
+##
+## Use of this module and packages installed via this module require
+## acceptace of of the VMWare End User License Agreement located at
+## http://www.vmware.com/download/eula/vfabric_app-platform_eula.html
 ##
 ##  Creates an instance on a tc Server installation. 
 ##
@@ -30,7 +35,6 @@ define tcserver::instance (
   $bio_http_port = 8080,
   $bio_https_port = 8443
 ){
-  
   if $template {
     $template_option = "-t ${template}"
   } else {
@@ -74,7 +78,7 @@ define tcserver::instance (
       environment => "JAVA_HOME=${java_home}",
       cwd => "${cwd}",
       command => "${tcserver::installed_base}/tcruntime-instance.sh create ${name} ${template_option} ${java_home_option} ${properties} ${properties_file_option} ${layout_option} ${version_option}",
-      creates => "${cwd}/${name}"
+      creates => "${cwd}/${name}",
     }
 
     file { "${cwd}/${name}":
@@ -103,7 +107,6 @@ define tcserver::instance (
         source => "${apps_source}"
       }
     }
-
   } else {
     service { "tcserver-instance-${name}":
       name => "tcserver-instance-${name}",

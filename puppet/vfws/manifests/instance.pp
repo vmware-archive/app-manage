@@ -1,5 +1,10 @@
 ##  vfws::instance
-##  
+##
+## LEGAL NOTICE
+##
+## Use of this module and packages installed via this module require
+## acceptace of of the VMWare End User License Agreement located at
+## http://www.vmware.com/download/eula/vfabric_app-platform_eula.html
 ##
 ##  Creates an instance on a vfws installation. 
 ##
@@ -85,7 +90,8 @@ define vfws::instance (
     exec { "install_instance-${name}":
       cwd => "${cwd}/${name}",
       command => "${cwd}/${name}/bin/httpdctl install",
-      require => Exec["create_instance-${name}"]
+      require => Exec["create_instance-${name}"],
+      creates => "/etc/init.d/vFabric-httpd-$name"
     }
 
     service { "vfws-instance-${name}":
