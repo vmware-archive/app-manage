@@ -40,6 +40,16 @@ class vfabric_repo (
       content => "I_ACCEPT_EULA_LOCATED_AT=http://www.vmware.com/download/eula/vfabric_app-platform_eula.html",
       ensure => present,
     }
+
+    file {"/etc/vmware":
+      ensure => directory
+    }
+
+    file {"/etc/vmware/vfabric":
+      ensure => directory,
+      require => File['/etc/vmware']
+    }
+                                  
   } else {
       alert "[${fqdn}] You must accept the terms of the EULA located at http://www.vmware.com/download/eula/vfabric_app-platform_eula.html"
   }
