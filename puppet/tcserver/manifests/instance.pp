@@ -28,6 +28,7 @@ define tcserver::instance (
   $version = undef,
   $base_dir = undef,
   $user = "${tcserver::tcserver_user}",
+  $group = "${tcserver::tcserver_group}",
   $apps_dir = "webapps",
   $apps_source = "puppet:///modules/tcserver/webapps",
   $deploy_apps = false,
@@ -84,6 +85,7 @@ define tcserver::instance (
     file { "${cwd}/${name}":
       ensure => directory,
       owner => $user,
+      group => $group,
       recurse => true,
       ignore => "${cwd}/${name}/${apps_dir}",
       require => Exec["create_instance-${name}"]
