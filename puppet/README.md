@@ -2,6 +2,10 @@
 
 These modules are provided to simplify the installation of vFabric/Pivotal products.  They may be used together or separately. Tested with puppet 3.x
 
+# Installation 
+
+To install these modules copy each directory recursively into /etc/puppet/modules
+
 # Example site.pp
 
 The following example shows basic usage and includes all modules
