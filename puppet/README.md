@@ -9,7 +9,7 @@ The following example shows basic usage and includes all modules
 ```puppet
 node 'default' {
   class {'vfabric_repo':
-    i_accept_eula => true  # TODO: Is this ok with legal?
+    i_accept_eula => true
   }
 
   include tcserver
