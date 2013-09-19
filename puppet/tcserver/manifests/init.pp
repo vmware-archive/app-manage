@@ -14,6 +14,7 @@
 class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for non-repo based installs
   $tcserver_edition = "developer",
   $tcserver_user = "tc-server",
+  $tcserver_group = "vfabric",
   $install_path = "/opt/vmware",
   $uses_templates = true,
   $templates_source = "puppet:///modules/tcserver/templates",
@@ -33,12 +34,12 @@ class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for 
     package {'vfabric-tc-server-standard.noarch':
       provider => 'yum',
       ensure => "installed",
-      require => Package['vfabric-5-repo'],
+      require => [ Package['vfabric-5-repo'], Exec['vfabric-eula-acceptance'] ]
     }
     $installed_base = "/opt/vmware/vfabric-tc-server-standard"
     if $uses_templates {
       file { "${installed_base}/templates":
-        group => "${tcserver_user}",
+        group => "${tcserver_group}",
         recurse => true,
         source => "${templates_source}",
         require => Package['vfabric-tc-server-standard.noarch']
@@ -59,7 +60,7 @@ class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for 
       "${install_path}":
         ensure => "directory",
         owner => "${tcserver_user}",
-        group => "${tcserver_user}"
+        group => "${tcserver_group}"
     }
     exec {
       "unpack-tcserver":
@@ -71,12 +72,12 @@ class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for 
       "${installed_base}":
       ensure => "directory",
       owner => "${tcserver_user}",
-      group => "${tcserver_user}",
+      group => "${tcserver_group}",
       require => Exec['unpack-tcserver']
     }
     if $uses_templates {
       file { "${installed_base}/templates":
-        group => "${tcserver_user}",
+        group => "${tcserver_group}",
         recurse => true,
         source => "${templates_source}",
         require => Exec['unpack-tcserver']
