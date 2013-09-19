@@ -13,7 +13,7 @@
 
 class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for non-repo based installs
   $tcserver_edition = "developer",
-  $tcserver_user = "tc-server",
+  $tcserver_user = "tcserver",
   $tcserver_group = "vfabric",
   $install_path = "/opt/vmware",
   $uses_templates = true,
