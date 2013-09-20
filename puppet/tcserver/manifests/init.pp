@@ -45,10 +45,14 @@ class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for 
         require => Package['vfabric-tc-server-standard.noarch']
       }
     }
+    user { "${tcserver_user}":
+      groups => "${tcserver_group}",
+      require => Package['vfabric-tc-server-standard.noarch']
+    }
   } else {
     user { "${tcserver_user}":
-        ensure => present,
-        shell => "/bin/sh",
+      ensure => present,
+      shell => "/bin/sh",
     }
 
     $installed_base = "${install_path}/${basename}-${tcserver_edition}-${tcserver_version}"
