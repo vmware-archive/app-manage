@@ -21,7 +21,7 @@ class vfabric_repo (
   $vfabric_all_repo_url = "http://repo.vmware.com/pub/rhel5/vfabric-all/vfabric-all-repo-1-1.noarch.rpm"
   
   if $osfamily == "RedHat" and $i_accept_eula == true{
-    package { 'vfabric-5-repo':
+    package { 'vfabric-5.3-repo':
       provider => 'rpm',
       ensure => $ensure,
       source => $vfabric5_repo_url,
@@ -38,7 +38,7 @@ class vfabric_repo (
    
     exec {'vfabric-eula-acceptance':
         command => '/etc/vmware/vfabric/vfabric-5.3-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1',
-        require => Package['vfabric-5-repo']
+        require => Package['vfabric-5.3-repo']
     }
    
   } else {

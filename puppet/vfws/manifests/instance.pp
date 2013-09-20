@@ -84,7 +84,8 @@ define vfws::instance (
     exec { "create_instance-${name}":
       cwd => "${cwd}",
       command => "${vfws::installed_base}/newserver --quiet ${name} ${options} ${set}",
-      creates => "${cwd}/${name}"
+      creates => "${cwd}/${name}",
+      require => File["${vfws::installed_base}"]
     }
 
     exec { "install_instance-${name}":

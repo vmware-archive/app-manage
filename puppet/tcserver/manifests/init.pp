@@ -34,7 +34,7 @@ class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for 
     package {'vfabric-tc-server-standard.noarch':
       provider => 'yum',
       ensure => "installed",
-      require => [ Package['vfabric-5-repo'], Exec['vfabric-eula-acceptance'] ]
+      require => [ Package['vfabric-5.3-repo'], Exec['vfabric-eula-acceptance'] ]
     }
     $installed_base = "/opt/vmware/vfabric-tc-server-standard"
     if $uses_templates {
