@@ -19,13 +19,6 @@ class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for 
   $uses_templates = true,
   $templates_source = "puppet:///modules/tcserver/templates",
   ) {
-  $module = "tcserver"
-  $prefix = "/etc/puppet/modules"
-  $p1 = "${prefix}/${module}/files"
-  $p2 = "puppet:///modules/${module}"
-# Shouldn't need to customize beyond this line
-  $basename = "vfabric-tc-server"
-  $installer = "${basename}-${tcserver_edition}-${tcserver_version}.tar.gz"
 # Resource defaults.
   Exec { path => "/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin" }
 
@@ -38,7 +31,7 @@ class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for 
     }
     $installed_base = "/opt/vmware/vfabric-tc-server-standard"
     if $uses_templates {
-      file { "${installed_base}/templates":
+      file { "${tcserver::params::installed_base}/templates":
         group => "${tcserver_group}",
         recurse => true,
         source => "${templates_source}",
@@ -58,7 +51,7 @@ class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for 
     $installed_base = "${install_path}/${basename}-${tcserver_edition}-${tcserver_version}"
     file {
       "/var/tmp/${installer}":
-        source  => [ "${p1}/${installer}", "${p2}/${installer}" ],
+        source  => [ "${tcserver::params::p1}/${tcserver::params::installer}", "${tcserver::params::p2}/${tcserver::params::installer}" ],
     }
     file {
       "${install_path}":
@@ -68,9 +61,9 @@ class tcserver ( $tcserver_version = "2.9.3.RELEASE",   #this is only valid for 
     }
     exec {
       "unpack-tcserver":
-        command => "tar -C ${install_path} -x -z -f /var/tmp/${installer}",
+        command => "tar -C ${install_path} -x -z -f /var/tmp/${tcserver::params::installer}",
         creates => "${installed_base}",
-        require => File["/var/tmp/${installer}"];
+        require => File["/var/tmp/${tcserver::params::installer}"];
     }
     file {
       "${installed_base}":
