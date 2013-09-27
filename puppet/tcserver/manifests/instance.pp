@@ -100,11 +100,10 @@ define tcserver::instance (
       }
     }
   } else {
-    service { "tcserver-instance-${name}":
-      ensure      => stopped,
-      name        => "tcserver-instance-${name}",
-      status      => "ps -p `cat ${cwd}/${name}/logs/tcserver.pid` > /dev/null 2>&1",
-      before      => File["${cwd}/${name}"]
+    class {'tcserver::service':
+      ensure      => absent,
+      name        => $name,
+      cwd         => $cwd,
     }
 
     file { "${cwd}/${name}":
