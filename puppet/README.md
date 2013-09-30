@@ -18,17 +18,17 @@ node 'default' {
 
   include tcserver
 
-  tcserver::instance {"myinstance":
-    bio_http_port => "8081",
-    ensure => "running"
+  tcserver::instance {'myinstance':
+    bio_http_port => 8081,
+    ensure => 'running'
   }
 
   include vfws
 
-  vfws::instance { "myserver":
-    port => "8082",
-    overlay => "true",
-    mpm => "prefork",
+  vfws::instance { 'myserver':
+    port => 8082,
+    overlay => true,
+    mpm => 'prefork',
   }
 }
 
