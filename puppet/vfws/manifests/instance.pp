@@ -28,18 +28,6 @@ define vfws::instance (
   $sourcedir = undef,
 
 ){
-  $set_admin_email = ''
-  $set_ssl_port = ''
-  $set_user = ''
-  $set_group = ''
-  $set_port = ''
-  $set_hostname = ''
-  $options_overlay = ''
-  $options_serverdir = ''
-  $options_mpm = ''
-  $options_httpdver = ''
-  $options_sourcedir = ''
-
   if $admin_email {
     $set_admin_email = "--set AdminEmail=${admin_email}"
   }
