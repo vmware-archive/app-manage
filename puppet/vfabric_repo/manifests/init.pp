@@ -38,11 +38,11 @@ class vfabric_repo (
         command => '/etc/vmware/vfabric/vfabric-5.3-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1',
         require => Package['vfabric-5.3-repo']
     }
-  } elsif $::osfamily == 'Debian' and $i_accept_eula == true {
+  } elsif $::osfamily == 'Debian' {
     if $::operatingsystemrelease == '10.04' {
-
-    } elsif $::operatingsystemrelease = '12.04' {
-
+      fail "Operating System Release ${::operatingsystemrelease} not implemented yet"
+    } elsif $::operatingsystemrelease == '12.04' {
+      fail "Operating System Release ${::operatingsystemrelease} not implemented yet"
     } else {
       fail "Operating System Release ${::operatingsystemrelease} not supported"
     }
