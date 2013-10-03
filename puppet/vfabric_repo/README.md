@@ -8,6 +8,13 @@ This module will install vFabric Package Repository to the target node(s). Use o
 
 This module should be used with other vFabric modules to prefer repository packages over .tar.gz/sfx packages.
 
+# Prerequisites 
+
+This module requires the following modules
+
+  * maestrodev/wget
+  * puppetlabs/apt
+
 
 # Usage
 
