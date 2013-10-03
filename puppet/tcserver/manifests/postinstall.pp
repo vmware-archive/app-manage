@@ -14,7 +14,7 @@ class tcserver::postinstall (
   $uses_templates = true,
 ) {
   if $uses_templates {
-    file { "${::tcserver::installed_base}/templates}":
+    file { "${::tcserver::installed_base}/templates":
       group   => $::tcserver::tcserver_group,
       recurse => true,
       source  => $::tcserver::templates_source,
