@@ -23,7 +23,6 @@ class tcserver (
   class {'tcserver::install':
     version => $version
   } ->
-
   class {'tcserver::postinstall':
     uses_templates => $uses_templates
   }

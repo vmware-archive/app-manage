@@ -15,13 +15,12 @@ class vfws (
   $templates_source = 'puppet:///modules/vfws/templates'  #Location to copy templates from
   ) {
 
-  $installed_base = '/opt/vmware/vfabric-web-server}'
+  $installed_base = '/opt/vmware/vfabric-web-server'
 
   if defined('vfabric_repo') {
     package {'vfabric-web-server':
       ensure   => $version,
-      provider => 'yum',
-      require  => [ Package['vfabric-5.3-repo'], Exec['vfabric-eula-acceptance'] ],
+      require  => Exec['vfabric-eula-acceptance'],
     }
     if $uses_templates {
       file { "${installed_base}/${templates_dir}":

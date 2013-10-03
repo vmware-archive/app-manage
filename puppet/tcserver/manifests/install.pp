@@ -15,10 +15,9 @@ class tcserver::install(
 ) {
 
   if defined('vfabric_repo') {
-    package {'vfabric-tc-server-standard.noarch':
-    ensure    => $version,
-    provider  => 'yum',
-    require   => [ Package['vfabric-5.3-repo'], Exec['vfabric-eula-acceptance'] ]
+    package {'vfabric-tc-server-standard':
+      ensure    => $version,
+      require   => Exec['vfabric-eula-acceptance']
     }
   } else {
     fail 'vfabric_repo module not included'

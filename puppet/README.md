@@ -4,7 +4,7 @@ These modules are provided to simplify the installation of vFabric/Pivotal produ
 
 # Installation 
 
-To install these modules copy each directory recursively into /etc/puppet/modules
+To install these modules copy each directory recursively into /etc/puppet/modules. Please check individual READMEs for module specific requirements
 
 # Example site.pp
 

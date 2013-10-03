@@ -18,11 +18,11 @@ class tcserver::postinstall (
       group   => $::tcserver::tcserver_group,
       recurse => true,
       source  => $::tcserver::templates_source,
-      require => Package['vfabric-tc-server-standard.noarch']
+      require => Package['vfabric-tc-server-standard']
     }
   }
   user { $::tcserver::tcserver_user:
     groups  => $::tcserver::tcserver_group,
-    require => Package['vfabric-tc-server-standard.noarch']
+    require => Package['vfabric-tc-server-standard']
   }
 }
