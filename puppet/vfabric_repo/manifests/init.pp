@@ -19,15 +19,21 @@ class vfabric_repo (
 
   if $i_accept_eula {
     case $::operatingsystem {
-      'RedHat': {
+      'RedHat', 'CentOS': {
         $org_name = 'vmware' # Red Hat YUM repo uses vmware
         $package_name = "vfabric-${release}-repo"
         $cmd = "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
-        $vfabric_repo_url = $::operatingsystemrelease ? {
-          /^5/    => "http://repo.vmware.com/pub/rhel6/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm",
-          /^6/    => "http://repo.vmware.com/pub/rhel6/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm",
+        $rhel_release = $::operatingsystemrelease ? {
+          /^5/    => '5',
+          /^6/    => '6',
           default => Fail["OS Release ${::operatingsystemrelease} not supported at this time"]
         }
+        $vfabric_repo_url = "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm"
+        $vfabric_gpg_url = "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
+        exec { 'gpg_import':
+          command => "/bin/rpm --import ${vfabric_gpg_url}",
+          creates => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
+        } ->
         # The Repo RPM installs the acceptance script so instead of maintaining the repo with a yumrepo resource we have to install
         # the rpm ourselves.
         package { $package_name:
