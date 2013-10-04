@@ -86,18 +86,17 @@ define vfws::instance (
       require => File[$::vfws::installed_base]
     }
 
-    exec { "install_instance-${name}":
-      cwd     => "${cwd}/${name}",
-      command => "${cwd}/${name}/bin/httpdctl install",
+    file { "/etc/init.d/vFabric-httpd-${name}":
+      ensure  => link,
+      source  => "${cwd}/${name}/bin/httpdctl",
       require => Exec["create_instance-${name}"],
-      creates => "/etc/init.d/vFabric-httpd-${name}"
     }
 
     service { "vfws-instance-${name}":
       ensure  => $ensure,
       name    => "vFabric-httpd-${name}",
       status  => "ps -p `cat ${cwd}/${name}/logs/httpd.pid` > /dev/null 2>&1",
-      require => Exec["install_instance-${name}"]
+      require => File["/etc/init.d/vFabric-httpd-${name}"]
     }
   } else {
     service { "vfws-instance-${name}":
