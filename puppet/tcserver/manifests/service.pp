@@ -17,7 +17,7 @@ class tcserver::service (
 ) {
   service { "tcserver-instance-${name}":
     ensure    => $ensure,
-    status    => "ps -p `cat ${::tcserver::instance::cwd}/${name}/logs/tcserver.pid` > /dev/null 2>&1",
+    status    => "ps -p `cat ${cwd}/${name}/logs/tcserver.pid` > /dev/null 2>&1",
     require   => File["${cwd}/${name}"]
   }
 
