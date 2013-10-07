@@ -6,15 +6,16 @@ This README covers the initial release of the vFabric Package Repository module 
 
 This module will install vFabric Package Repository to the target node(s). Use of this module requires acceptance of the End User License Agreement(EULA) located at http://www.vmware.com/download/eula/vfabric_app-platform_eula.html
 
-This module should be used with other vFabric modules to prefer repository packages over .tar.gz/sfx packages.
+All other vFabric/Pivotal modules depend on this module for product installation. 
 
-# Prerequisites 
+# Before you begin 
 
-This module requires the following modules
+Currently only RHEL 5/6 and Ubuntu 10.04/12.04 are supported. 
+
+This module requires the following modules.
 
   * maestrodev/wget
   * puppetlabs/apt
-
 
 # Usage
 
@@ -26,10 +27,3 @@ This module requires the following modules
 
 
 ```
-
-# Configuration Variables
-
-##vFabric Package Repository Base
-
-**i_accept_eula** - This option must be set to true and requires acceptance of the End User License Agreement
-
