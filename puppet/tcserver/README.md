@@ -46,6 +46,18 @@ node 'default' {
 }
 ```
 
+*Tempates* - This will copy "mytemplate" placed in modules/tcserver/files/templates on the puppet master and will create the instance with "-t myinstance".  Due to the way the instances are managed changing templates on an existing instance configuration will not actually change the template. 
+
+```puppet
+
+  class {'tcserver':
+    uses_templates => true  # True is the default this is here for illustration and can be omitted
+  }
+
+  tcserver::instance {'mytemplate':
+    template => 'mytemplate'
+  }
+
 # Configuration Variables
 
 See init.pp and instance.pp for variable details
