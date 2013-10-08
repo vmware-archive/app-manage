@@ -1,3 +1,7 @@
+## Class redis::config
+#
+# See manifiests/init.pp for variable definitions
+
 class redis::config (
   $owner = 'redis',
   $group = 'redis',
@@ -19,7 +23,7 @@ class redis::config (
   $rdbcompression = 'yes',
   $rdbchecksum = 'yes',
   $dbfilename = 'dump.rdb',
-  $dir = "./",
+  $dir = './',
   $slaveof = '',
   $masterauth = '',
   $slave_serve_stale_data = 'yes',
