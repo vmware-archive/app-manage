@@ -28,7 +28,7 @@
 ##  $i_accept_eula
 ##    Default - false
 ##    When true this indicates that the vFabric EULA is accepted which allows
-##    the repository to be installed. 
+##    the repository to be installed.
 
 class vfabric_repo (
   $ensure = installed,
