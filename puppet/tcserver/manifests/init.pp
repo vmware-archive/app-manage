@@ -19,7 +19,7 @@
 ##  $version
 ##    Default - latest
 ##    Specifies the version of the tc-server package to install. When value is
-##    latest then the latest version of the package available in repositories 
+##    latest then the latest version of the package available in repositories
 ##    will be used
 ##
 ##  $uses_templates

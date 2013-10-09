@@ -22,7 +22,7 @@
 ##  $ensure
 ##    Default - running
 ##    Specify the state for the instance. Valid values are
-##    running, stopped, absent. 
+##    running, stopped, absent.
 ##
 ##  $java_home
 ##    Default - '/usr'
