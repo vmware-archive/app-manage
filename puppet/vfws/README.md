@@ -40,6 +40,10 @@ This module depends on the vfabric_repo module
 }
 ```
 
+# License
+
+Licensed under the Apache 2.0 License
+
 # Configuration Variables
 
 See init.pp and instance.pp for configuration options
