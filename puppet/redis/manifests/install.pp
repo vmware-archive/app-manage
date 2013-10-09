@@ -3,7 +3,7 @@
 # See manifests/init.pp for variable definitions
 
 class redis::install ( $version = 'latest' ) {
-  package {'redis':
+  package {'redis-server':
     ensure => $version
   }
 }
