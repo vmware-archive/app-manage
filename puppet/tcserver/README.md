@@ -57,6 +57,7 @@ node 'default' {
   tcserver::instance {'mytemplate':
     template => 'mytemplate'
   }
+```
 
 # Configuration Variables
 
