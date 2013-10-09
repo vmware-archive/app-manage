@@ -1,3 +1,4 @@
 apt/
 stdlib/
 wget/
+Gemfile.lock
