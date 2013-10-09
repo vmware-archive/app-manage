@@ -1,13 +1,47 @@
-##  tcserver::instance
+## Web Server Puppet Module
 ##
-## LEGAL NOTICE
+## Copyright 2013 GoPivotal, Inc
 ##
-## Use of this module and packages installed via this module require
-## acceptace of of the VMWare End User License Agreement located at
-## http://www.vmware.com/download/eula/vfabric_app-platform_eula.html
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
 ##
-##  Creates an instance on a tc Server installation.
+## http://www.apache.org/licenses/LICENSE-2.0
 ##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
+## Requirements
+##   This module requires a working java installation
+##
+## Configuration Information
+##
+##  $ensure
+##    Default - running
+##    Specify the state for the instance. Valid values are
+##    running, stopped, absent.
+##
+##  $java_home
+##    Default - '/usr'
+##    The value of JAVA_HOME which should be set for the instance.
+##
+##  $apps_dir
+##    Default - 'webapps'
+##    The location on the instance to copy files from $apps_source
+##
+##  $apps_source
+##    Default - 'puppet:///modules/tcserver/webapps'
+##    The url to copy webapps from. This must be a valid puppet url
+##
+##  The remainder of the variables correspond to a tc server property
+##  underscores(_) are used in place of hyphens(-)
+##
+## Ports are not checked for availability. If a port is specified and it is
+## in use already the instance will fail to start and puppet will report
+## a generic error starting the instance.
 
 define tcserver::instance (
   $ensure = running,

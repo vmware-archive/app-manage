@@ -1,16 +1,27 @@
-##  vfws::instance
+## vFabric Web Server Puppet Module
 ##
-## LEGAL NOTICE
+## Copyright 2013 GoPivotal, Inc
 ##
-## Use of this module and packages installed via this module require
-## acceptace of of the VMWare End User License Agreement located at
-## http://www.vmware.com/download/eula/vfabric_app-platform_eula.html
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
 ##
-##  Creates an instance on a vfws installation.
+## http://www.apache.org/licenses/LICENSE-2.0
 ##
-## Variables:
-##   $name = Name of the instance to be passed to the newserver script
-##   $ensure = One of running, stopped, absent
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
+## Configuration Information
+##
+##  $ensure
+##    Default - running
+##    The default state of the instance. Valid options are running, absent, stopped
+##
+## The remainder of thevariables below correspond to vfws "newserver"
+## command options. Please see the appropriate documentation for details
 
 define vfws::instance (
   $ensure = 'running',

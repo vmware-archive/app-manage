@@ -24,6 +24,11 @@ This module requires the following modules.
   class {'vfabric_repo':
     i_accept_eula => true
   }
-
-
 ```
+# License Information
+
+This module is licensed under the Apache 2.0 license
+
+# Configuration Information
+
+Please see manifests/init.pp for configuration options

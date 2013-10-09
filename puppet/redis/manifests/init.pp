@@ -1,44 +1,36 @@
-# == Class: redis
-#
-#
-#
-# === Parameters
-#
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
-#
-# === Examples
-#
-#  class { redis:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
-#
-# === Authors
-#
-# Author Name <author@domain.com>
-#
-# === Copyright
-#
-# Copyright 2013 Your name here, unless otherwise noted.
-#
+## vFabric Web Server Puppet Module
+##
+## Copyright 2013 GoPivotal, Inc
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
+## Configuration Information
+##
+##  $ensure
+##    Default - running
+##    Desired state of the redis server
+##
+##  $version
+##    Default - latest
+##    The version of the redis-server package to install. The value of 
+##    latest will tell the package manager to use the latest available
+##    in the repository. The version specified must be available to
+##    the system to install.
+##
+##  The remainder of the variables are taken from redis.conf. Please see
+##  that file for definitions. Default values match the defaults specified
+##  in 2.6's redis.conf file
 
-
-# Defaults are taken from redis.conf as distributed with 2.6
-# The values specified are not checked for sanity.
 class redis (
   $ensure = running,
   $version = 'latest',

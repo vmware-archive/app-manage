@@ -59,6 +59,10 @@ node 'default' {
   }
 ```
 
+# License Information
+
+This module is licensed under Apache 2.0 license
+
 # Configuration Variables
 
 See init.pp and instance.pp for variable details

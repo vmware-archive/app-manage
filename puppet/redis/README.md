@@ -19,6 +19,11 @@ This module depends on the vfabric_repo module
   }
 
 ```
+
+# License Information
+
+This module is licensed under the Apache 2.0 license
+
 # Configuration Variables
 
 See init.pp for configuration options
