@@ -20,8 +20,9 @@
 ##    Default - running
 ##    The default state of the instance. Valid options are running, absent, stopped
 ##
-## The remainder of thevariables below correspond to vfws "newserver" 
+## The remainder of thevariables below correspond to vfws "newserver"
 ## command options. Please see the appropriate documentation for details
+
 define vfws::instance (
   $ensure = 'running',
   $admin_email = undef,
