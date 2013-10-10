@@ -4,13 +4,15 @@ This README covers the initial release of the Pivotal's Redis module for puppet.
 
 # About this module
 
-This module installs redis from the Pivotal APT Repo (YUM Repo Pending).
+This module installs redis from the Pivotal APT Repo (YUM Repo Pending). For RHEL/Yum usage you will need to add a separate repository prior to invoking this module.
 
 # Before you begin
 
 This module depends on the vfabric_repo module
 
 # Example Usage
+
+The following example will install redis (see above for repository information with RHEL), configure it to listen on port 9001, and keep the service running. 
 
 ```puppet
   class {'redis':
