@@ -1,11 +1,13 @@
 name    'wesschlichter-vfabric_repo'
 version '0.1.0'
-source 'UNKNOWN'
+source 'https://github.com/pivotal/app-manage/tree/master/puppet/vfabric_repo'
 author 'wesschlichter'
 license 'Apache License, Version 2.0'
-summary 'UNKNOWN'
-description 'UNKNOWN'
-project_page 'UNKNOWN'
+summary 'Manages vfabric yum/apt repositories'
+description 'Manages vFabric YUM/APT Repositories'
+project_page 'https://github.com/pivotal/app-manage/tree/master/puppet/vfabric_repo'
 
 ## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
+dependency 'maestrodev/wget'
+dependency 'puppetlabs/apt'
+
