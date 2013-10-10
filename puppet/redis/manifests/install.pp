@@ -16,6 +16,8 @@
 
 class redis::install ( $version = 'latest' ) {
   package {'redis-server':
-    ensure => $version
+    ensure  => $version,
+    require => Exec['vfabric-eula-acceptance']
   }
 }
+

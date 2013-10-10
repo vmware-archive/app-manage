@@ -22,7 +22,7 @@
 ##
 ##  $version
 ##    Default - latest
-##    The version of the redis-server package to install. The value of 
+##    The version of the redis-server package to install. The value of
 ##    latest will tell the package manager to use the latest available
 ##    in the repository. The version specified must be available to
 ##    the system to install.
