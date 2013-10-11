@@ -1,3 +1,7 @@
+# IMPORTANT NOTICE
+
+This github repository contains code which is currently in development. Please do not distribute to customers, PoCs, or other 3rd parties. The code contained in this repo is subject to breakage.
+
 # Pivotal/vFabric Puppet Modules
 
 These modules are provided to simplify the installation of vFabric/Pivotal products.  They may be used together or separately. Tested with puppet 3.x.
