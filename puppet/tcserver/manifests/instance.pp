@@ -122,7 +122,7 @@ define tcserver::instance (
       target      => "${cwd}/${name}/bin/init.d.sh",
     }
 
-    class {'tcserver::service':
+    tcserver::service {$name:
       ensure      => $ensure,
       name        => $name,
       cwd         => $cwd,

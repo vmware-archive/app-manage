@@ -17,7 +17,7 @@
 ## Configuration Information
 ##
 
-class tcserver::service (
+define tcserver::service (
   $ensure = running,
   $name = undef,
   $cwd = undef,
