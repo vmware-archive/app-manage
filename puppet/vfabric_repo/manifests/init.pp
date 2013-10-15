@@ -89,6 +89,10 @@ class vfabric_repo (
           provider => 'dpkg',
           source   => "/tmp/${package_name}",
           before   => Exec['vfabric-eula-acceptance']
+        } ->
+        exec { 'apt-update':
+          cmd      => '/usr/bin/apt-get update',
+          resfreshonly => Package[$package_name]
         }
       }
       default: {
