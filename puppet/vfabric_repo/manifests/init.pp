@@ -91,7 +91,7 @@ class vfabric_repo (
           before   => Exec['vfabric-eula-acceptance']
         } ->
         exec { 'apt-update':
-          cmd      => '/usr/bin/apt-get update',
+          command      => '/usr/bin/apt-get update',
           resfreshonly => Package[$package_name]
         }
       }
