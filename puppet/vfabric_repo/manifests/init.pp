@@ -92,7 +92,7 @@ class vfabric_repo (
         } ->
         exec { 'apt-update':
           command      => '/usr/bin/apt-get update',
-          resfreshonly => Package[$package_name]
+          refreshonly => Package[$package_name]
         }
       }
       default: {
