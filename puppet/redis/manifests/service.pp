@@ -14,9 +14,27 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-class redis::service ( $ensure = running) {
-  service { 'redis-server':
+define redis::service (
+  $ensure = running,
+  $owner = 'redis',
+  $group = 'pivotal',
+  $port = 6379) {
+
+  ## Ubuntu Specific
+  ## TODO: Added support for others
+
+  file {"/etc/init.d/redis-${port}":
+    ensure  => link,
+    target  => '/lib/init/upstart-job'
+  } ->
+  file {"/etc/init/redis-${port}.conf":
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0444',
+    content => template('redis/redis.upstart.erb'),
+  } ->
+  service { "redis-${port}":
     ensure  => $ensure,
-    require => Package['redis-server']
+    require => Package['pivotal-redis']
   }
 }

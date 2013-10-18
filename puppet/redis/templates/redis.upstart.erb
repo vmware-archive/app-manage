@@ -1,0 +1,18 @@
+env PORT=<%= scope.lookupvar('redis::config::listen_port') %>
+
+description "redis server $PORT"
+
+start on filesystem or runlevel [2345]
+stop on runlevel [!2345]
+
+setuid <%= scope.lookupvar('redis::config::owner') %>
+setgid pivotal
+
+limit nofile 10032 10500
+
+expect fork
+
+exec /usr/bin/redis-server /etc/opt/pivotal/pivotal-redis/redis-$PORT.conf
+
+#respawn
+

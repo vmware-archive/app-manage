@@ -68,8 +68,8 @@ class vfabric_repo (
         $vfabric_repo_package_gpgurl = 'http://packages.gopivotal.com/pub/apt/ubuntu/DEB-GPG-KEY-VFABRIC'
         $cmd = "/etc/${org_name}/vfabric/vfabric-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
         $vfabric_repo_package_url = $::operatingsystemrelease ? {
-          /^10.04/ => 'http://packages.gopivotal.com/pub/apt/ubuntu/vfabric-repo-lucid_1.0-5_all.deb',
-          /^12.04/ => 'http://packages.gopivotal.com/pub/apt/ubuntu/vfabric-repo-precise_1.0-5_all.deb',
+          /^10.04/ => 'http://packages.gopivotal.com/pub/apt/ubuntu/vfabric-repo-lucid_1.0-6_all.deb',
+          /^12.04/ => 'http://packages.gopivotal.com/pub/apt/ubuntu/vfabric-repo-precise_1.0-6_all.deb',
           default  => Fail["OS Release ${::operatingsystemrelease} not supported at this time"]
         }
         $package_name = $::operatingsystemrelease ? {

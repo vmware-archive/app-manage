@@ -78,7 +78,7 @@ class redis::config (
     $file_ensure = absent
   }
 
-  file { '/etc/redis.conf':
+  file { "/etc/opt/pivotal/pivotal-redis/redis-${listen_port}.conf":
     ensure  => $file_ensure,
     owner   => $owner,
     group   => $group,

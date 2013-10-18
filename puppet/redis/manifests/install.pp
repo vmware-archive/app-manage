@@ -15,7 +15,7 @@
 ## limitations under the License.
 
 class redis::install ( $version = 'latest' ) {
-  package {'redis-server':
+  package {'pivotal-redis':
     ensure  => $version,
     require => Exec['vfabric-eula-acceptance']
   }

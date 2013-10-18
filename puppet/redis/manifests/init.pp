@@ -22,7 +22,7 @@
 ##
 ##  $version
 ##    Default - latest
-##    The version of the redis-server package to install. The value of
+##    The version of the pivotal-redis package to install. The value of
 ##    latest will tell the package manager to use the latest available
 ##    in the repository. The version specified must be available to
 ##    the system to install.
@@ -33,6 +33,8 @@
 
 class redis (
   $ensure = running,
+  $owner = 'redis',
+  $group = 'pivotal',
   $version = 'latest',
   $listen_address = '127.0.0.1',
   $listen_port = '6379',
@@ -90,6 +92,8 @@ class redis (
   } ->
 
   class { 'redis::config':
+    owner                         => $owner,
+    group                         => $group,
     listen_address                => $listen_address,
     listen_port                   => $listen_port,
     timeout                       => $timeout,
@@ -140,7 +144,10 @@ class redis (
     hz                            => $hz,
     aof_rewrite_incremental_fsync => $aof_rewrite_incremental_fsync,
   } ->
-  class { 'redis::service':
-    ensure => $ensure
+  redis::service{"redis-${listen_port}":
+    ensure => $ensure,
+    owner  => $owner,
+    group  => $group,
+    port   => $listen_port,
   }
 }
