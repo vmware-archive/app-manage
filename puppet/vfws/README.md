@@ -8,7 +8,7 @@ This module installs vfabric-web-server from the vFabric YUM Repo and manages in
 
 # Before you begin
 
-This module depends on the vfabric_repo module
+This module depends on the pivotal_repo module
 
 # Example Usage
 

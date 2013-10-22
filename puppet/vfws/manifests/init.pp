@@ -47,7 +47,7 @@ class vfws (
 
   $installed_base = '/opt/vmware/vfabric-web-server'
 
-  if defined('vfabric_repo') {
+  if defined('pivotal_repo') {
     package {'vfabric-web-server':
       ensure   => $version,
       require  => Exec['vfabric-eula-acceptance'],
@@ -63,6 +63,6 @@ class vfws (
       require => Package['vfabric-web-server']  #this just gives us something to require from the instance
     }
   } else {
-    fail 'vfabric_repo module missing'
+    fail 'pivotal_repo module missing'
   }
 }

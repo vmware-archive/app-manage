@@ -21,7 +21,7 @@ The following example shows basic usage and includes all modules
 
 ```puppet
 node 'default' {
-  class {'vfabric_repo':
+  class {'pivotal_repo':
     i_accept_eula => true
   }
 

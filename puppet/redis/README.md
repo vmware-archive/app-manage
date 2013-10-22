@@ -8,7 +8,7 @@ This module installs redis from the Pivotal APT Repo (YUM Repo Pending). For RHE
 
 # Before you begin
 
-This module depends on the vfabric_repo module
+This module depends on the pivotal_repo module
 
 # Example Usage
 

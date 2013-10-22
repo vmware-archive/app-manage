@@ -18,12 +18,12 @@ class tcserver::install(
   $version = 'latest'
 ) {
 
-  if defined('vfabric_repo') {
+  if defined('pivotal_repo') {
     package {'vfabric-tc-server-standard':
       ensure    => $version,
       require   => Exec['vfabric-eula-acceptance']
     }
   } else {
-    fail 'vfabric_repo module not included'
+    fail 'pivotal_repo module not included'
   }
 }

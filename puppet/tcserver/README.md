@@ -8,7 +8,7 @@ This module will install tc Server to the target node(s) from the vFabric Reposi
 
 # Before you begin
 
-This module depends on the vfabric_repo module 
+This module depends on the pivotal_repo module 
 
 # Example Usage
 

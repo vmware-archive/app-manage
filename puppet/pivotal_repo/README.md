@@ -21,7 +21,7 @@ This module requires the following modules.
 
 ```puppet
 
-  class {'vfabric_repo':
+  class {'pivotal_repo':
     i_accept_eula => true
   }
 ```
