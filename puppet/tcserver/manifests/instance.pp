@@ -64,7 +64,7 @@ define tcserver::instance (
   require tcserver
 
   if !$user {
-    $owner = $::tcserver::tcserver_user
+    $tcserver_user = $::tcserver::tcserver_user
   } else {
     $tcserver_user = $user
   }
