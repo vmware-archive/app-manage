@@ -39,6 +39,8 @@ define vfws::instance (
   $sourcedir = undef,
 
 ){
+  require vfws
+
   if $admin_email {
     $set_admin_email = "--set AdminEmail=${admin_email}"
   }
