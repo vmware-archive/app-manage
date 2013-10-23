@@ -52,8 +52,8 @@ define tcserver::instance (
   $layout = undef,
   $version = undef,
   $base_dir = undef,
-  $user = $tcserver::tcserver_user,
-  $group = $tcserver::tcserver_group,
+  $user = $::tcserver::tcserver_user,
+  $group = $::tcserver::tcserver_group,
   $apps_dir = 'webapps',
   $apps_source = 'puppet:///modules/tcserver/webapps',
   $deploy_apps = false,
@@ -137,7 +137,7 @@ define tcserver::instance (
       }
     }
   } else {
-    class {'tcserver::service':
+    tcserver::service {$name:
       ensure      => absent,
       name        => $name,
       cwd         => $cwd,

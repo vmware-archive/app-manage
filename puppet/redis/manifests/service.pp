@@ -31,10 +31,11 @@ define redis::service (
     owner   => 'root',
     group   => 'root',
     mode    => '0444',
-    content => template('redis/redis.upstart.erb'),
+    content => template("redis/redis.upstart-${::operatingsystemrelease}.erb"),
   } ->
   service { "redis-${port}":
     ensure  => $ensure,
+    status    => "/usr/sbin/service redis-${port} status| grep start",
     require => Package['pivotal-redis']
   }
 }
