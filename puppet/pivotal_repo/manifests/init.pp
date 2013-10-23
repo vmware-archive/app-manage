@@ -1,4 +1,4 @@
-## vFabric Web Server Puppet Module
+## Pivotal RPM/DEB Repository Module
 ##
 ## Copyright 2013 GoPivotal, Inc
 ##
