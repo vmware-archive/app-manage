@@ -16,7 +16,6 @@ This module depends on the pivotal_repo module
 
 ```puppet
 node 'default' {
-  include tcserver    # Include the base tcserver class. This will automatically install tc Server using the defaults
 
   tcserver::instance {'myinstance':
   }
@@ -28,9 +27,6 @@ node 'default' {
 
 ```puppet
 node 'default' {
-
-  class {'tcserver':
-  }
 
   tcserver::instance {'default_properties':
   }

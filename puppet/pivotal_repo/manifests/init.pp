@@ -76,6 +76,9 @@ class pivotal_repo (
           /^10.04/ => 'vfabric-repo-lucid',
           /^12.04/ => 'vfabric-repo-precise'
         }
+        class { 'apt':
+          always_apt_update    => true,
+        } ->
         apt::key {'vfabric':
           key_source => 'http://packages.gopivotal.com/pub/apt/ubuntu/DEB-GPG-KEY-VFABRIC'
         } ->

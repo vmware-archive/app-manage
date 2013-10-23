@@ -52,8 +52,8 @@ define tcserver::instance (
   $layout = undef,
   $version = undef,
   $base_dir = undef,
-  $user = $::tcserver::tcserver_user,
-  $group = $::tcserver::tcserver_group,
+  $user = undef,
+  $group = undef,
   $apps_dir = 'webapps',
   $apps_source = 'puppet:///modules/tcserver/webapps',
   $deploy_apps = false,
@@ -62,6 +62,18 @@ define tcserver::instance (
   $bio_https_port = 8443
 ){
   require tcserver
+
+  if !$user {
+    $owner = $::tcserver::tcserver_user
+  } else {
+    $tcserver_user = $user
+  }
+
+  if !$group {
+    $tcserver_group = $::tcserver::tcserver_group
+  } else {
+    $tcserver_group = $group
+  }
 
   if $template {
     $template_option = "-t ${template}"
@@ -112,8 +124,8 @@ define tcserver::instance (
 
     file { "${cwd}/${name}":
       ensure      => directory,
-      owner       => $user,
-      group       => $group,
+      owner       => $tcserver_user,
+      group       => $tcserver_group,
       recurse     => true,
       ignore      => "${cwd}/${name}/${apps_dir}",
       require     => Exec["create_instance-${name}"]
