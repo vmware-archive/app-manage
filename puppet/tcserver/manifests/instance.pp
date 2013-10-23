@@ -61,6 +61,8 @@ define tcserver::instance (
   $bio_http_port = 8080,
   $bio_https_port = 8443
 ){
+  require tcserver
+
   if $template {
     $template_option = "-t ${template}"
   } else {
