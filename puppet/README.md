@@ -25,14 +25,10 @@ node 'default' {
     i_accept_eula => true
   }
 
-  include tcserver
-
   tcserver::instance {'myinstance':
     bio_http_port => 8081,
     ensure => 'running'
   }
-
-  include vfws
 
   vfws::instance { 'myserver':
     port => 8082,
