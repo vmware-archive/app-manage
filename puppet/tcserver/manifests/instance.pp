@@ -25,7 +25,7 @@
 ##    running, stopped, absent.
 ##
 ##  $java_home
-##    Default - '/usr'
+##    Default - JAVA_HOME environment variable
 ##    The value of JAVA_HOME which should be set for the instance.
 ##
 ##  $apps_dir
@@ -45,9 +45,9 @@
 
 define tcserver::instance (
   $ensure = running,
-  $template = undef,
+  $templates = [ ],
   $use_java_home = false,
-  $java_home = '/usr',
+  $java_home = undef,
   $properties_file = undef,
   $layout = undef,
   $version = undef,
@@ -62,6 +62,16 @@ define tcserver::instance (
   $bio_https_port = 8443
 ){
   require tcserver
+
+  if !$java_home {
+    if $env_java_home {
+      $my_java_home = $env_java_home
+    } else {
+      fail "Please set the configuration variable java_home for this instance."
+    }
+  } else {
+    $my_java_home = $java_home
+  }
 
   if !$user {
     $tcserver_user = $::tcserver::tcserver_user
@@ -82,7 +92,7 @@ define tcserver::instance (
   }
 
   if $use_java_home {
-    $java_home_option = "--java-home ${java_home}"
+    $java_home_option = "--java-home ${my_java_home}"
   } else {
     $java_home_option = ''
   }
@@ -115,7 +125,7 @@ define tcserver::instance (
 
   if $ensure == 'running' or $ensure == 'stopped' {
     exec { "create_instance-${name}":
-      environment => "JAVA_HOME=${java_home}",
+      environment => "JAVA_HOME=${my_java_home}",
       cwd         => $cwd,
       command     => "${::tcserver::installed_base}/tcruntime-instance.sh create ${name} ${template_option} ${java_home_option} ${properties} ${properties_file_option} ${layout_option} ${version_option}",
       creates     => "${cwd}/${name}",
