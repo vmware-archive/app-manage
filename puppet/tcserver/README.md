@@ -10,6 +10,8 @@ This module will install tc Server to the target node(s) from the vFabric Reposi
 
 This module depends on the pivotal_repo module 
 
+tc Server requires a working java installation. Installation of java is beyond the scope of this module.  Once installed you'll need to set the environment variable of JAVA_HOME for the user running puppet or set the java_home instance variable as per the examples below.
+
 # Example Usage
 
 *Basic usage* - The following example will install tc Server and create an instance called myinstance using all the defaults
@@ -18,6 +20,7 @@ This module depends on the pivotal_repo module
 node 'default' {
 
   tcserver::instance {'myinstance':
+    java_home => '/opt/java/jdk7'
   }
 
 }
@@ -29,6 +32,7 @@ node 'default' {
 node 'default' {
 
   tcserver::instance {'default_properties':
+    java_home => '/opt/java/jdk7'
   }
 
   tcserver::instance {'special_ports':
@@ -37,6 +41,7 @@ node 'default' {
     base_jmx_port => 6970,
     deploy_apps => true,
     ensure => running
+    java_home => '/opt/java/jdk6'
   }
 
 }
