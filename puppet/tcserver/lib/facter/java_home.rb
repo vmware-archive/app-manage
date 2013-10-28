@@ -1,5 +1,4 @@
-puts ENV["JAVA_HOME"]
-if !ENV["JAVA_HOME"].empty?
+if ENV["JAVA_HOME"]
   Facter.add("env_java_home".to_sym) do 
     setcode do 
       ENV["JAVA_HOME"] 
