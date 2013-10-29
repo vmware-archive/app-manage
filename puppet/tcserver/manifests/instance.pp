@@ -28,6 +28,12 @@
 ##    Default - JAVA_HOME environment variable
 ##    The value of JAVA_HOME which should be set for the instance.
 ##
+##  $user_java_home
+##    Default - true
+##    Whether to use the --java-home argument to create the instance
+##    If this is false then the instance will be expected to find
+##    $JAVA_HOME environment variable to run
+##
 ##  $apps_dir
 ##    Default - 'webapps'
 ##    The location on the instance to copy files from $apps_source
@@ -46,7 +52,7 @@
 define tcserver::instance (
   $ensure = running,
   $templates = [ ],
-  $use_java_home = false,
+  $use_java_home = true,
   $java_home = undef,
   $properties_file = undef,
   $layout = undef,
