@@ -8,15 +8,13 @@ This module installs vfabric-web-server from the vFabric YUM Repo and manages in
 
 # Before you begin
 
-This module depends on the pivotal_repo module
+This module depends on the pivotal\_repo module
 
 # Example Usage
 
 *Default options on port 8000* - The following example will install vFabric Web Server and create an instance called myserver on port 8000
 
 ```puppet
-
-  include vfws
 
   vfws::instance { 'myserver':
     port => '8000',
@@ -27,8 +25,6 @@ This module depends on the pivotal_repo module
 *More Options* - The following example will install vFabric Web Server and create two instances on the same node running on separate ports
 ```puppet
 
-  include vfws
-  
   vfws::instance { 'web1':
     port => '8081',
     mpm  => 'worker'
