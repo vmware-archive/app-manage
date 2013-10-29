@@ -8,7 +8,7 @@ This module installs redis from the Pivotal APT Repo (YUM Repo Pending). For RHE
 
 # Before you begin
 
-This module depends on the pivotal_repo module
+This module depends on the pivotal\_repo module
 
 # Example Usage
 
@@ -28,5 +28,5 @@ This module is licensed under the Apache 2.0 license
 
 # Configuration Variables
 
-See init.pp for configuration options
+See init.pp for configuration options. All options available in redis.conf should be available via puppet
 
