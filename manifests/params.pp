@@ -24,9 +24,14 @@ class rabbitmq::params {
     }
     'RedHat', 'SUSE': {
       $package_ensure   = 'installed'
-      $package_name     = 'rabbitmq-server'
+      if defined('pivotal_repo') {
+        $package_name   = 'vfabric-rabbitmq-server'
+        $package_provider = 'yum'
+      } else {
+        $package_name     = 'rabbitmq-server'
+        $package_provider = 'rpm'
+      }
       $service_name     = 'rabbitmq-server'
-      $package_provider = 'rpm'
       $version          = '3.1.5-1'
       $base_version     = regsubst($version,'^(.*)-\d$','\1')
       # This must remain at the end as we need $base_version and $version defined first.

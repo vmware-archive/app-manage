@@ -101,13 +101,18 @@ class rabbitmq(
   include '::rabbitmq::service'
   include '::rabbitmq::management'
 
-  case $::osfamily {
-    'RedHat', 'SUSE':
-      { include '::rabbitmq::repo::rhel' }
-    'Debian':
-      { include '::rabbitmq::repo::apt' }
-    default:
-      { }
+  # Prefer the Pivotal RabbitMQ Commercial Packages
+  if !defined('pivotal_repo') {
+    case $::osfamily {
+      'RedHat', 'SUSE':
+        { include '::rabbitmq::repo::rhel' }
+      'Debian':
+        { include '::rabbitmq::repo::apt' }
+      default:
+        { }
+    }
+  } else {
+    include '::rabbitmq::repo::erlang'
   }
 
   if $admin_enable and $service_manage {

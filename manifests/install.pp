@@ -9,10 +9,11 @@ class rabbitmq::install {
     ensure   => $package_ensure,
     name     => $package_name,
     provider => $package_provider,
+    require  => Exec['vfabric-eula-acceptance'],
     notify   => Class['rabbitmq::service'],
   }
 
-  if $package_source {
+  if $package_source and !defined('pivotal_repo') {
     Package['rabbitmq-server'] {
       source  => $package_source,
       require => Class['rabbitmq::repo::rhel'],
