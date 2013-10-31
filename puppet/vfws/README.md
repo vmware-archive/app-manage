@@ -4,11 +4,11 @@ This README covers the initial release of the vFabric Web Server module for pupp
 
 # About this module
 
-This module installs vfabric-web-server from the vFabric YUM Repo and manages instances. It is important to note that this module uses the newserver command to create the instances. This means that if a configuration variable changes in a manifest that it will not be reflected in the instance unless it is destroyed first and allowed to be recreated.
+This module installs vfabric-web-server and manages instances. It is important to note that this module uses the newserver command to create the instances. This means that if a configuration variable changes in a manifest that it will not be reflected in the instance unless it is destroyed first and allowed to be recreated.
 
 # Before you begin
 
-This module depends on the pivotal\_repo module
+This module depends on the pivotal\_repo module.
 
 # Example Usage
 
