@@ -54,7 +54,6 @@ disabling puppet support of the service:
 class { '::rabbitmq':
   service_manage    => false,
   port              => '5672',
-  delete_guest_user => true,
 }
 ```
 
@@ -163,7 +162,7 @@ Boolean to enable or disable stomp.
 
 ####`delete_guest_user`
 
-Boolean to decide if we should delete the default guest user.
+Boolean to decide if we should delete the default guest user. The use of this variable depends on service_manage being set to true.
 
 ####`env_config`
 
