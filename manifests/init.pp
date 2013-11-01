@@ -112,7 +112,9 @@ class rabbitmq(
         { }
     }
   } else {
-    include '::rabbitmq::repo::erlang'
+    if $::osfamily == 'Debian' {
+      include '::rabbitmq::repo::erlang'
+    }
   }
 
   if $admin_enable and $service_manage {
