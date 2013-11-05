@@ -1,0 +1,5 @@
+pkg/
+*.swp
+metadata.json
+spec/fixtures/modules/*
+Gemfile.lock
