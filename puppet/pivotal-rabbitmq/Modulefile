@@ -1,11 +1,11 @@
-name    'puppetlabs-rabbitmq'
+name    'pivotal-rabbitmq'
 version '3.0.0'
-source 'git://github.com/puppetlabs/puppetlabs-rabbitmq.git'
+source 'https://github.com/pivotal/app-manage/tree/master/puppet/pivotal-rabbitmq'
 author 'puppetlabs'
 license 'Apache'
 summary 'RabbitMQ Puppet Module'
 description 'This module manages RabbitMQ. Tested on Debian/Ubuntu'
-project_page 'http://github.com/puppetlabs/puppetlabs-rabbitmq'
+project_page 'https://github.com/pivotal/app-manage/tree/master/puppet/tcserver'
 
 ## Add dependencies, if any:
 dependency 'puppetlabs/stdlib', '>= 2.0.0'
