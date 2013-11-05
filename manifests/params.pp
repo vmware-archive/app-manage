@@ -5,15 +5,6 @@
 class rabbitmq::params {
 
   case $::osfamily {
-    'Archlinux': {
-      $package_ensure   = 'installed'
-      $package_name     = 'rabbitmq'
-      $service_name     = 'rabbitmq'
-      $package_source   = ''
-      $version          = '3.1.3-1'
-      $base_version     = regsubst($version,'^(.*)-\d$','\1')
-      # This must remain at the end as we need $base_version and $version defined first
-    }
     'Debian': {
       $package_ensure   = 'installed'
       $package_name     = 'rabbitmq-server'
@@ -22,20 +13,13 @@ class rabbitmq::params {
       $package_source   = ''
       $version          = '3.1.5'
     }
-    'RedHat', 'SUSE': {
+    'RedHat': {
       $package_ensure   = 'installed'
-      if defined('pivotal_repo') {
-        $package_name   = 'vfabric-rabbitmq-server'
-        $package_provider = 'yum'
-      } else {
-        $package_name     = 'rabbitmq-server'
-        $package_provider = 'rpm'
-      }
+      $package_name   = 'vfabric-rabbitmq-server'
+      $package_provider = 'yum'
       $service_name     = 'rabbitmq-server'
       $version          = '3.1.5-1'
-      $base_version     = regsubst($version,'^(.*)-\d$','\1')
       # This must remain at the end as we need $base_version and $version defined first.
-      $package_source   = "http://www.rabbitmq.com/releases/rabbitmq-server/v${base_version}/rabbitmq-server-${version}.noarch.rpm"
     }
     default: {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")

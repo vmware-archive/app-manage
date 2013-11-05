@@ -1,9 +1,8 @@
 class rabbitmq::install {
 
-  $package_ensure   = $rabbitmq::package_ensure
+  $package_ensure   = $rabbitmq::version
   $package_name     = $rabbitmq::package_name
   $package_provider = $rabbitmq::package_provider
-  $package_source   = $rabbitmq::package_source
 
   package { 'rabbitmq-server':
     ensure   => $package_ensure,
@@ -11,13 +10,6 @@ class rabbitmq::install {
     provider => $package_provider,
     require  => Exec['vfabric-eula-acceptance'],
     notify   => Class['rabbitmq::service'],
-  }
-
-  if $package_source and !defined('pivotal_repo') {
-    Package['rabbitmq-server'] {
-      source  => $package_source,
-      require => Class['rabbitmq::repo::rhel'],
-    }
   }
 
 }

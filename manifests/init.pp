@@ -20,7 +20,6 @@ class rabbitmq(
   $management_port            = $rabbitmq::params::management_port,
   $node_ip_address            = $rabbitmq::params::node_ip_address,
   $package_apt_pin            = $rabbitmq::params::package_apt_pin,
-  $package_ensure             = $rabbitmq::params::package_ensure,
   $package_gpg_key            = $rabbitmq::params::package_gpg_key,
   $package_name               = $rabbitmq::params::package_name,
   $package_provider           = $rabbitmq::params::package_provider,
@@ -48,12 +47,11 @@ class rabbitmq(
   validate_bool($erlang_manage)
   # Validate install parameters.
   validate_re($package_apt_pin, '^(|\d+)$')
-  validate_string($package_ensure)
   validate_string($package_gpg_key)
   validate_string($package_name)
   validate_string($package_provider)
   validate_string($package_source)
-  validate_re($version, '^\d+\.\d+\.\d+(-\d+)*$') # Allow 3 digits and optional -n postfix.
+  validate_string($version)
   # Validate config parameters.
   validate_array($cluster_disk_nodes)
   validate_re($cluster_node_type, '^(ram|disc)$')
