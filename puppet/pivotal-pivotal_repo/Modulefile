@@ -1,11 +1,11 @@
-name    'wesschlichter-pivotal_repo'
+name    'pivotal-pivotal_repo'
 version '0.1.0'
-source 'https://github.com/pivotal/app-manage/tree/master/puppet/pivotal_repo'
-author 'wesschlichter'
+source 'https://github.com/pivotal/app-manage/tree/master/puppet/pivotal-pivotal_repo'
+author 'pivotal'
 license 'Apache License, Version 2.0'
 summary 'Manages vfabric yum/apt repositories'
 description 'Manages vFabric YUM/APT Repositories'
-project_page 'https://github.com/pivotal/app-manage/tree/master/puppet/pivotal_repo'
+project_page 'https://github.com/pivotal/app-manage/tree/master/puppet/pivotal-pivotal_repo'
 
 ## Add dependencies, if any:
 dependency 'maestrodev/wget'
