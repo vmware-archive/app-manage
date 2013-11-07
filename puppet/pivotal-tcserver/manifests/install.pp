@@ -22,7 +22,6 @@ class tcserver::install(
     package {'vfabric-tc-server-standard':
       ensure    => $version,
       require   => Exec['vfabric-eula-acceptance'],
-      before    => Class['::tcserver::postinstall']
     }
   } else {
     fail 'pivotal_repo module not included'

@@ -23,11 +23,11 @@ class tcserver::postinstall (
       group   => $::tcserver::tcserver_group,
       recurse => true,
       source  => $::tcserver::templates_source,
-      require => Package['vfabric-tc-server-standard']
+      require => Class['::tcserver::install']
     }
   }
   user { $::tcserver::tcserver_user:
     groups  => $::tcserver::tcserver_group,
-    require => Package['vfabric-tc-server-standard']
+    require => Class['::tcserver::install']
   }
 }
