@@ -135,7 +135,7 @@ define tcserver::instance (
       cwd         => $cwd,
       command     => "${::tcserver::installed_base}/tcruntime-instance.sh create ${name} ${template_option} ${java_home_option} ${properties} ${properties_file_option} ${layout_option} ${version_option}",
       creates     => "${cwd}/${name}",
-      require     => Class['tcserver::install']
+      require     => Package['vfabric-tc-server-standard']
     }
 
     file { "${cwd}/${name}":
