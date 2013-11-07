@@ -6,7 +6,7 @@ class rabbitmq::repo::erlang {
   Class['rabbitmq::repo::erlang'] -> Package<| title == 'rabbitmq-server' |>
 
   apt::source { 'erlang-solutions':
-    location    => 'http://packages.erlang-solutions.com/debian ',
+    location    => 'http://packages.erlang-solutions.com/debian',
     release     => 'lucid',
     repos       => 'contrib',
     include_src => false,
@@ -14,6 +14,7 @@ class rabbitmq::repo::erlang {
     key_source  => 'http://packages.erlang-solutions.com/debian/erlang_solutions.asc'
   }->
   package {'esl-erlang':
-    ensure      => present
+    ensure      => present,
+    before      => Package['rabbitmq-server']
   }
 }
