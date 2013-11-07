@@ -51,7 +51,7 @@
 
 define tcserver::instance (
   $ensure = running,
-  $templates = [ ],
+  $template = undef,
   $use_java_home = true,
   $java_home = undef,
   $properties_file = undef,
