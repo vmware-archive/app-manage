@@ -11,14 +11,14 @@ class rabbitmq::params {
       $service_name     = 'rabbitmq-server'
       $package_provider = 'apt'
       $package_source   = ''
-      $version          = '3.1.5'
+      $version          = 'latest'
     }
     'RedHat': {
       $package_ensure   = 'installed'
       $package_name   = 'vfabric-rabbitmq-server'
       $package_provider = 'yum'
       $service_name     = 'rabbitmq-server'
-      $version          = '3.1.5-1'
+      $version          = 'latest'
       # This must remain at the end as we need $base_version and $version defined first.
     }
     default: {
