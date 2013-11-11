@@ -92,11 +92,11 @@ class pivotal_repo (
           provider => 'dpkg',
           source   => "/tmp/${package_name}",
           before   => Exec['vfabric-eula-acceptance']
-        } 
+        }
         exec { 'apt-update':
           command      => '/usr/bin/apt-get update',
         }
-        Exec["apt-update"] -> Package <| |>
+        Exec['apt-update'] -> Package <| |>
       }
       default: {
         fail "OS ${::operatingsystem} not supported at this time"
