@@ -48,8 +48,8 @@ class pivotal_repo (
           /^6/    => '6',
           default => Fail["OS Release ${::operatingsystemrelease} not supported at this time"]
         }
-        $pivotal_repo_url = "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm"
-        $vfabric_gpg_url = "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
+        $pivotal_repo_url = "http://packages.gopivotal.com/pub/rpm/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm"
+        $vfabric_gpg_url = "http://packages.gopivotal.com/pub/rpm/rhel${rhel_release}/vfabric/${release}/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
         exec { 'gpg_import':
           command => "/bin/rpm --import ${vfabric_gpg_url}",
           creates => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
