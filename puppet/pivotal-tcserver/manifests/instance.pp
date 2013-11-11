@@ -70,10 +70,10 @@ define tcserver::instance (
   require tcserver
 
   if !$java_home {
-    if $env_java_home {
-      $my_java_home = $env_java_home
+    if $::env_java_home {
+      $my_java_home = $::env_java_home
     } else {
-      fail "Please set the configuration variable java_home for this instance."
+      fail 'Please set the configuration variable java_home for this instance.'
     }
   } else {
     $my_java_home = $java_home
