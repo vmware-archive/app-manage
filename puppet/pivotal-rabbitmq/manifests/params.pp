@@ -34,7 +34,6 @@ class rabbitmq::params {
   $package_gpg_key            = 'http://www.rabbitmq.com/rabbitmq-signing-key-public.asc'
   $service_ensure             = 'running'
   $service_manage             = true
-  #config 
   $cluster_disk_nodes         = []
   $cluster_node_type          = 'disc'
   $cluster_nodes              = []
