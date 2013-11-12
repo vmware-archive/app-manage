@@ -12,12 +12,15 @@ This module depends on the pivotal\_repo module
 
 # Example Usage
 
-The following example will install redis (see above for repository information with RHEL), configure it to listen on port 9001, and keep the service running. 
-
+The following will install Pivotal Redis and configure 2 instances on the same node. 
 ```puppet
-  class {'redis':
+  redis {'redis-9001':
     ensure => running,
     listen_port => '9001'
+  }
+
+  redis {'redis-9002':
+    listen_port => '9002'
   }
 
 ```
