@@ -20,22 +20,41 @@ define redis::service (
   $group = 'pivotal',
   $port = 6379) {
 
-  ## Ubuntu Specific
-  ## TODO: Added support for others
 
-  file {"/etc/init.d/redis-${port}":
-    ensure  => link,
-    target  => '/lib/init/upstart-job'
-  } ->
-  file {"/etc/init/redis-${port}.conf":
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0444',
-    content => template("redis/redis.upstart-${::operatingsystemrelease}.erb"),
-  } ->
-  service { "redis-${port}":
-    ensure  => $ensure,
-    status  => "/usr/sbin/service redis-${port} status| grep start",
-    require => Package['pivotal-redis']
+  case $::osfamily {
+    'Debian': {
+      file {"/etc/init.d/redis-${port}":
+        ensure  => link,
+        target  => '/lib/init/upstart-job'
+      } ->
+      file {"/etc/init/redis-${port}.conf":
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0444',
+        content => template("redis/redis.upstart-${::operatingsystemrelease}.erb"),
+      } ->
+      service { "redis-${port}":
+        ensure  => $ensure,
+        status  => "/usr/sbin/service redis-${port} status| grep start",
+        require => Package['pivotal-redis']
+      }
+    }
+    'RedHat': {
+      file {"/etc/init.d/pivotal-redis-${port}":
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0555',
+        content => template("redis/pivotal-redis.erb")
+      } ->
+      service { "pivotal-redis-${port}":
+        ensure  => $ensure,
+        status => "/usr/sbin/service redis-${port} status| grep start",
+        require => Package['pivotal-redis']
+      }
+    }
+    default: {
+      fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
+    }
   }
 }
