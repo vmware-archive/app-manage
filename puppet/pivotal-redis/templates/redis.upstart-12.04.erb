@@ -1,11 +1,11 @@
-env PORT=<%= scope.lookupvar('redis::config::listen_port') %>
+env PORT=<%= @listen_port %>
 
 description "redis server $PORT"
 
 start on filesystem or runlevel [2345]
 stop on runlevel [!2345]
 
-setuid <%= scope.lookupvar('redis::config::owner') %>
+setuid <%= @owner %>
 setgid pivotal
 
 limit nofile 10032 10500

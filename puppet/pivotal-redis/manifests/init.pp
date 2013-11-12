@@ -31,7 +31,7 @@
 ##  that file for definitions. Default values match the defaults specified
 ##  in 2.6's redis.conf file
 
-class redis (
+define redis (
   $ensure = running,
   $owner = 'redis',
   $group = 'pivotal',
@@ -87,13 +87,16 @@ class redis (
   $aof_rewrite_incremental_fsync = 'yes'
 ) {
 
-  class { 'redis::install':
-    version => $version
-  } ->
+  if !defined(Class['redis::install']) { 
+    class { 'redis::install':
+      version => $version
+    }
+  }
 
-  class { 'redis::config':
+  redis::config {$listen_port:
     owner                         => $owner,
     group                         => $group,
+    require                       => Class['redis::install'],
     listen_address                => $listen_address,
     listen_port                   => $listen_port,
     timeout                       => $timeout,

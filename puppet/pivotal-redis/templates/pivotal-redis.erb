@@ -15,8 +15,8 @@
 RETVAL=0
 PROG="redis-server"
 
-PORT=<%= scope.lookupvar('redis::config::listen_port') %>
-REDIS_USER=<%= scope.lookupvar('redis::config::owner') %>
+PORT=<%= @listen_port %>
+REDIS_USER=<%= @owner %>
 REDIS_SERVER=/opt/pivotal/pivotal-redis/bin/redis-server
 REDIS_CLI=/opt/pivotal/pivotal-redis/bin/redis-cli
 REDIS_CONF=/etc/opt/pivotal/pivotal-redis/redis-${PORT}.conf
