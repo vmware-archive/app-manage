@@ -45,11 +45,11 @@ define redis::service (
         owner   => 'root',
         group   => 'root',
         mode    => '0555',
-        content => template("redis/pivotal-redis.erb")
+        content => template('redis/pivotal-redis.erb')
       } ->
       service { "pivotal-redis-${port}":
         ensure  => $ensure,
-        status => "/usr/sbin/service redis-${port} status| grep start",
+        status  => "/usr/sbin/service redis-${port} status| grep start",
         require => Package['pivotal-redis']
       }
     }
