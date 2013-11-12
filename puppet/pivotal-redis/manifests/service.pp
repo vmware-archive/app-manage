@@ -49,7 +49,7 @@ define redis::service (
       } ->
       service { "pivotal-redis-${port}":
         ensure  => $ensure,
-        status  => "/usr/sbin/service redis-${port} status| grep start",
+#        status  => "/usr/sbin/service redis-${port} status| grep start",
         require => Package['pivotal-redis']
       }
     }
