@@ -284,7 +284,7 @@ slave-priority <%= scope.lookupvar('redis::config::slave_priority') %>
 #
 # requirepass foobared
 <% if scope.lookupvar('redis::config::requirepass') != '' %>
-  requirepass <%= scope.lookupvar('redis::config::requirepass ') %>
+  requirepass <%= scope.lookupvar('redis::config::requirepass') %>
 <% end %>
 
 # Command renaming.
