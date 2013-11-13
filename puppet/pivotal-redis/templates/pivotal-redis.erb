@@ -36,7 +36,7 @@ start() {
          RETVAL=1
          echo ;;
       1|2) echo "PID file $REDIS_PID exists, but $PROG not running"
-         failure
+         #failure
          RETVAL=1
          echo ;;
       3) echo -n $"Starting $prog: "
@@ -51,7 +51,7 @@ stop()
 {
    case "`check_status`" in
       0) echo -n $"Stopping $prog: "
-         $REDIS_CLI -p $PORT shutdown  
+         kill `cat $REDIS_PID`
          while [ "`check_status`" = "0" ]; do
             echo "Waiting for $PROG to shutdown"
             sleep 1

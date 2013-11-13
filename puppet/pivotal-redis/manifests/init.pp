@@ -51,7 +51,7 @@ define redis (
   $rdbcompression = 'yes',
   $rdbchecksum = 'yes',
   $dbfilename = 'dump.rdb',
-  $dir = './',
+  $dir = undef,
   $slaveof = '',
   $masterauth = '',
   $slave_serve_stale_data = 'yes',

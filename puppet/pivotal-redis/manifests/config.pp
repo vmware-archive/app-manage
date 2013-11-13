@@ -35,7 +35,7 @@ define redis::config (
   $rdbcompression = 'yes',
   $rdbchecksum = 'yes',
   $dbfilename = 'dump.rdb',
-  $dir = './',
+  $dir = undef,
   $slaveof = '',
   $masterauth = '',
   $slave_serve_stale_data = 'yes',
@@ -78,6 +78,17 @@ define redis::config (
     $file_ensure = absent
   }
 
+  if $dir != undef {
+    $working_dir = $dir
+  } else {
+    $working_dir = "/var/opt/pivotal/pivotal-redis/lib/${listen_port}"
+  }
+
+  file { $working_dir:
+    ensure  => directory,
+    owner   => $owner,
+    group   => $group,
+  } 
   file { "/etc/opt/pivotal/pivotal-redis/redis-${listen_port}.conf":
     ensure  => $file_ensure,
     owner   => $owner,
