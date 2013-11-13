@@ -37,7 +37,7 @@ puppet module install maestrodev/wget
 puppet module install garethr/erlang
 puppet module install puppetlabs/stdlib
 
-``
+```
 
 # Example site.pp
 
