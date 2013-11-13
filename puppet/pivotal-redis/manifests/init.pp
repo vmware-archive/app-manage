@@ -87,7 +87,7 @@ define redis (
   $aof_rewrite_incremental_fsync = 'yes'
 ) {
 
-  if !defined(Class['redis::install']) { 
+  if !defined(Class['redis::install']) {
     class { 'redis::install':
       version => $version
     }

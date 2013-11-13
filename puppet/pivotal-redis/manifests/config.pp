@@ -88,7 +88,7 @@ define redis::config (
     ensure  => directory,
     owner   => $owner,
     group   => $group,
-  } 
+  }
   file { "/etc/opt/pivotal/pivotal-redis/redis-${listen_port}.conf":
     ensure  => $file_ensure,
     owner   => $owner,

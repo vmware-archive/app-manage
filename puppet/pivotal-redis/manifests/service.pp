@@ -20,37 +20,50 @@ define redis::service (
   $group = 'pivotal',
   $port = 6379) {
 
+  if $ensure != present or $ensure != running {
+    $file_ensure = present
+    $link_ensure = link
+  } else {
+    $file_ensure = absent
+    $link_ensure = absent
+  }
+
+  if $ensure == absent or $ensure == present {
+    $service_ensure = stopped
+  } else {
+    $service_ensure = $ensure
+  }
 
   case $::osfamily {
     'Debian': {
       file {"/etc/init.d/redis-${port}":
-        ensure  => link,
+        ensure  => $link_ensure,
         target  => '/lib/init/upstart-job'
       } ->
       file {"/etc/init/redis-${port}.conf":
+        ensure  => $file_ensure,
         owner   => 'root',
         group   => 'root',
         mode    => '0444',
         content => template("redis/redis.upstart-${::operatingsystemrelease}.erb"),
       } ->
       service { "redis-${port}":
-        ensure  => $ensure,
+        ensure  => $service_ensure,
         status  => "/usr/sbin/service redis-${port} status| grep start",
         require => Package['pivotal-redis']
       }
     }
     'RedHat': {
       file {"/etc/init.d/pivotal-redis-${port}":
-        ensure  => present,
+        ensure  => $file_ensure,
         owner   => 'root',
         group   => 'root',
         mode    => '0555',
         content => template('redis/pivotal-redis.erb')
       } ->
       service { "redis-${port}":
+        ensure  => $service_ensure,
         name    => "pivotal-redis-${port}",
-        ensure  => $ensure,
-#        status  => "/usr/sbin/service redis-${port} status| grep start",
         require => Package['pivotal-redis']
       }
     }
