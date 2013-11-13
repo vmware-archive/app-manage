@@ -13,7 +13,29 @@ These modules are provided to simplify the installation of vFabric/Pivotal produ
 
 # Installation 
 
-To install these modules copy each directory recursively into /etc/puppet/modules.
+**insert verbage about puppet forge**
+
+## Manual Installation
+
+In the event that manual installation is preferred, the modules will need to be manually copied to your puppet master and renamed to remove the "pivotal-" from each folder. The below is an example of
+installation steps on Linux with the community version of puppet installed in /etc/puppet
+
+```
+cd /etc/puppet/
+git clone https://github.com/pivotal/app-manage.git
+cd /etc/puppet/modules
+ln -s ../app-manage/puppet/pivotal-pivotal_repo pivotal_repo
+ln -s ../app-manage/puppet/pivotal-redis redis
+ln -s ../app-manage/puppet/pivotal-tcserver tcserver
+ln -s ../app-manage/puppet/pivotal-rabbitmq rabbitmq
+
+# Install puppet module deps
+puppet module install puppetlabs/apt
+puppet module install maestrodev/wget
+puppet module install garethr/erlang
+puppet module install puppetlabs/stdlib
+
+``
 
 # Example site.pp
 
@@ -21,21 +43,37 @@ The following example shows basic usage and includes all modules
 
 ```puppet
 node 'default' {
+  
   class {'pivotal_repo':
     i_accept_eula => true
   }
 
-  tcserver::instance {'myinstance':
-    bio_http_port => 8081,
-    ensure => 'running'
+  tcserver::instance {"mySiteWebApps":
+    bio_http_port => "8081",
+    java_home => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64',
   }
 
-  vfws::instance { 'myserver':
-    port => 8082,
-    overlay => true,
-    mpm => 'prefork',
+  vfws::instance { "mySite":
+    port => "8093",
+  }
+
+  class { '::rabbitmq':
+    service_manage    => true,
+    port              => '5672',
+    delete_guest_user => true,
+  }
+
+  redis {'9003':
+    listen_port => '9003',
+    requirepass => 'fooballz1',
+    slaveof     => '127.0.0.1 9002'
+  }
+
+  redis {'9002':
+    listen_port => '9002',
+    masterauth  => 'fooballz1'
   }
 }
 
-
 ```
+
