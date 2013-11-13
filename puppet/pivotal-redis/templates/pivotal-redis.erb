@@ -35,9 +35,10 @@ start() {
          failure
          RETVAL=1
          echo ;;
-      1|2) echo "PID file $REDIS_PID exists, but $PROG not running"
+      1|2) echo "PID file $REDIS_PID exists, but $PROG not running."
          #failure
-         RETVAL=1
+         /bin/su $REDIS_USER -c "$REDIS_SERVER $REDIS_CONF" && success || failure
+         RETVAL=$?
          echo ;;
       3) echo -n $"Starting $prog: "
          /bin/su $REDIS_USER -c "$REDIS_SERVER $REDIS_CONF" && success || failure
