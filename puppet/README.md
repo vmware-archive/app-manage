@@ -1,5 +1,7 @@
 # IMPORTANT NOTICE
 
+**TODO: Remove this before public release**
+
 This github repository contains code which is currently in development. Please do not distribute to customers, PoCs, or other 3rd parties. The code contained in this repo is subject to breakage.
 
 # Pivotal/vFabric Puppet Modules
@@ -13,7 +15,7 @@ These modules are provided to simplify the installation of vFabric/Pivotal produ
 
 # Installation 
 
-**insert verbage about puppet forge**
+**TODO: insert verbage about puppet forge**
 
 ## Manual Installation
 
