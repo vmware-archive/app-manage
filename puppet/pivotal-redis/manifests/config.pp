@@ -95,5 +95,6 @@ define redis::config (
     group   => $group,
     mode    => '0444',
     content => template('redis/redis.conf.erb'),
+    notify  => Service["redis-${listen_port}"]
   }
 }
