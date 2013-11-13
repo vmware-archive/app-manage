@@ -9,7 +9,6 @@
     * [Setup requirements](#setup-requirements)
     * [Beginning with rabbitmq](#beginning-with-rabbitmq)
 4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
@@ -18,6 +17,9 @@
 This module manages RabbitMQ (www.rabbitmq.com)
 
 ##Module Description
+The Pivotal RabbitMQ module is an adaptation of the original puppetlabs-rabbitmq module. This module has been adapted to work
+with the commercial RabbitMQ packages provided by Pivotal. 
+
 The rabbitmq module sets up rabbitmq and has a number of providers to manage
 everything from vhosts to exchanges after setup.
 
@@ -36,6 +38,7 @@ all features against earlier versions.
 ###Beginning with rabbitmq
 
 ```puppet
+
 include '::rabbitmq'
 ```
 
@@ -51,6 +54,10 @@ you can control many parameters relating to the package and service, such as
 disabling puppet support of the service:
 
 ```puppet
+class {'pivotal_repo':
+  i_accept_eula => true
+}
+
 class { '::rabbitmq':
   service_manage    => false,
   port              => '5672',
@@ -110,141 +117,6 @@ class { 'rabbitmq':
 }
 ```
 
-##Reference
-
-##Classes
-
-* rabbitmq: Main class for installation and service management.
-* rabbitmq::config: Main class for rabbitmq configuration/management.
-* rabbitmq::install: Handles package installation.
-* rabbitmq::params: Different configuration data for different systems.
-* rabbitmq::service: Handles the rabbitmq service.
-* rabbitmq::repo::apt: Handles apt repo for Debian systems.
-* rabbitmq::repo::rhel: Handles yum repo for Redhat systems.
-
-###Parameters
-
-####`admin_enable`
-
-If enabled sets up the management interface/plugin for RabbitMQ.
-
-####`cluster_disk_nodes`
-
-DEPRECATED AND REPLACED BY CLUSTER_NODES.
-
-####`cluster_node_type`
-
-Choose between disk and ram nodes.
-
-####`cluster_nodes`
-
-An array of nodes for clustering.
-
-####`config`
-
-The file to use as the rabbitmq.config template.
-
-####`config_cluster`
-
-Boolean to enable or disable clustering support.
-
-####`config_mirrored_queues`
-
-Boolean to enable or disable mirrored queues.
-
-####`config_path`
-
-The path to write the RabbitMQ configuration file to.
-
-####`config_stomp`
-
-Boolean to enable or disable stomp.
-
-####`delete_guest_user`
-
-Boolean to decide if we should delete the default guest user. The use of this variable depends on service_manage being set to true.
-
-####`env_config`
-
-The template file to use for rabbitmq_env.config.
-
-####`env_config_path`
-
-The path to write the rabbitmq_env.config file to.
-
-####`erlang_cookie`
-
-The erlang cookie to use for clustering - must be the same between all nodes.
-
-####`erlang_enable`
-
-If true then we include an erlang module.
-
-####`config_variables`
-
-To set config variables in rabbitmq.config
-
-####`node_ip_address`
-
-The value of RABBITMQ_NODE_IP_ADDRESS in rabbitmq_env.config
-
-####`environment_variables`
-
-RabbitMQ Environment Variables in rabbitmq_env.config
-
-####`package_ensure`
-
-Determines the ensure state of the package.  Set to installed by default, but could
-be changed to latest.
-
-####`package_name`
-
-The name of the package to install.
-
-####`package_provider`
-
-What provider to use to install the package.
-
-####`package_source`
-
-Where should the package be installed from?
-
-####`plugin_dir`
-
-Location of RabbitMQ plugins.
-
-####`port`
-
-The RabbitMQ port.
-
-####`management_port`
-
-The port for the RabbitMQ management interface.
-
-####`service_ensure`
-
-The state of the service.
-
-####`service_manage`
-
-Determines if the service is managed.
-
-####`service_name`
-
-The name of the service to manage.
-
-####`stomp_port`
-
-The port to use for Stomp.
-
-####`wipe_db_on_cookie_change`
-
-Boolean to determine if we should DESTROY AND DELETE the RabbitMQ database.
-
-####`version`
-
-Sets the version to install.
-
 ##Native Types
 
 ### rabbitmq\_user
@@ -295,26 +167,15 @@ This module has been built on and tested against Puppet 2.7 and higher.
 The module has been tested on:
 
 * RedHat Enterprise Linux 5/6
-* Debian 6/7
 * CentOS 5/6
 * Ubuntu 12.04
+* Ubunut 10.04
 
 Testing on other platforms has been light and cannot be guaranteed.
 
-##Development
-
-Puppet Labs modules on the Puppet Forge are open projects, and community
-contributions are essential for keeping them great. We can’t access the
-huge number of platforms and myriad of hardware, software, and deployment
-configurations that Puppet is intended to serve.
-
-We want to keep it as easy as possible to contribute changes so that our
-modules work in your environment. There are a few guidelines that we need
-contributors to follow so that we can have a chance of keeping on top of things.
-
-You can read the complete module contribution guide [on the Puppet Labs wiki.](http://projects.puppetlabs.com/projects/module-site/wiki/Module_contributing)
 
 ### Authors
+* Wes Schlichter <wschlichter@gopivotal.com>
 * Jeff McCune <jeff@puppetlabs.com>
 * Dan Bode <dan@puppetlabs.com>
 * RPM/RHEL packages by Vincent Janelle <randomfrequency@gmail.com>
