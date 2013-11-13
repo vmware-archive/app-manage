@@ -39,6 +39,7 @@ define redis (
   $listen_address = '127.0.0.1',
   $listen_port = '6379',
   $timeout = '0',
+  $daemonize = undef,
   $tcp_keepalive = '0',
   $redis_loglevel = 'notice', #this has redis_ prefixed to avoid a conflict with puppet loglevel
   $logfile = 'stdout',

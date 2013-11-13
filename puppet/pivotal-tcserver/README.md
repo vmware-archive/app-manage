@@ -4,7 +4,7 @@ This README covers the initial release of the tc Server module for puppet. This 
 
 # About this module
 
-This module will install tc Server to the target node(s) from the Pivotal Package Repository(APT/YUM). It is important to note that this module uses the tcruntime-instace create command to create the instances. This means that if a configuration variable changes in a manifest that it will not be reflected in the instance unless it is destroyed first and allowed to be recreated.
+This module will install tc Server to the target node(s) from the Pivotal Package Repository(APT/YUM). It is important to note that this module uses the tcruntime-instance create command to create the instances. This means that if a configuration variable changes in a manifest that it will not be reflected in the instance unless it is destroyed first and allowed to be recreated.
 
 At this time only a single template is supported. 
 
@@ -43,7 +43,7 @@ node 'default' {
     java_home => '/opt/java/jdk7'
   }
 
-  # This creates a second instance named special_ports, deployes the contents of webapps from the puppet master to the instance,
+  # This creates a second instance named special_ports, deploys the contents of webapps from the puppet master to the instance,
   # ensures that the instance is running, and sets the java home. 
   tcserver::instance {'special_ports':
     bio_http_port => 8081,
@@ -57,7 +57,7 @@ node 'default' {
 }
 ```
 
-*Tempates* - This will copy "mytemplate" placed in modules/tcserver/files/templates on the puppet master and will create the instance with "-t myinstance".  Due to the way the instances are managed changing templates on an existing instance configuration will not actually change the template. 
+*Templates* - This will copy "mytemplate" placed in modules/tcserver/files/templates on the puppet master and will create the instance with "-t mytemplate".  Due to the way the instances are managed changing templates on an existing instance configuration will not actually change the template. 
 
 ```puppet
 

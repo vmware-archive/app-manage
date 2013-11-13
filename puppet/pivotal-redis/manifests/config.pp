@@ -21,6 +21,7 @@ define redis::config (
   $listen_address = '127.0.0.1',
   $listen_port = '6379',
   $unixsocket = '',
+  $daemonize = undef,
   $unixsocketperm = '755',
   $timeout = '0',
   $tcp_keepalive = '0',
@@ -82,6 +83,12 @@ define redis::config (
     $working_dir = $dir
   } else {
     $working_dir = "/var/opt/pivotal/pivotal-redis/lib/${listen_port}"
+  }
+
+  if $::operatingsystem == 'Ubuntu' and !$daemonize {
+    $daemonize_var = 'no'
+  } else {
+    $daeminize_var = 'yes'
   }
 
   file { $working_dir:
