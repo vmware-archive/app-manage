@@ -67,13 +67,13 @@ node 'default' {
 
   redis {'9003':
     listen_port => '9003',
-    requirepass => 'fooballz1',
+    requirepass => 'mySecurePassword',
     slaveof     => '127.0.0.1 9002'
   }
 
   redis {'9002':
     listen_port => '9002',
-    masterauth  => 'fooballz1'
+    masterauth  => 'mySecurePassword'
   }
 }
 
