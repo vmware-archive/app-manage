@@ -25,6 +25,19 @@ The following will install Pivotal Redis and configure 2 instances on the same n
 
 ```
 
+The following will install Pivotal Redis with a master-slave replication config on the same node and include authentication
+```puppet
+  redis {'master-9001':
+    listen_port  => '9001',
+    requirepass  => 'mycoolpassword',
+  }
+
+  redis {'slave-9002':
+    listen_port  => '9002',
+    masterauth   => 'mycoolpassword',
+    slaveof      => '127.0.0.1 9001'
+  }
+
 # License Information
 
 This module is licensed under the Apache 2.0 license
