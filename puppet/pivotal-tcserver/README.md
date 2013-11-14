@@ -40,18 +40,15 @@ node 'default' {
  
   # This creates an instance named default_properties and sets the java_home used to create the instance to /opt/java/jdk7
   tcserver::instance {'default_properties':
-    java_home => '/opt/java/jdk7'
+    java_home    => '/opt/java/jdk7'
   }
 
   # This creates a second instance named special_ports, deploys the contents of webapps from the puppet master to the instance,
   # ensures that the instance is running, and sets the java home. 
   tcserver::instance {'special_ports':
-    bio_http_port => 8081,
-    bio_https_port => 8444,
-    base_jmx_port => 6970,
-    deploy_apps => true,
-    ensure => running
-    java_home => '/opt/java/jdk6'
+    properties   => [['bio-http-port' => '8080'], ['bio-ssl-port' => '8443']]
+    deploy_apps  => true,
+    java_home    => '/opt/java/jdk6'
   }
 
 }
@@ -61,13 +58,10 @@ node 'default' {
 
 ```puppet
 
-  class {'tcserver':
-    uses_templates => true  # True is the default this is here for illustration and can be omitted
-  }
-  
-  # Creates an instance named mytemplate using the template named mytemplate and expects the JAVA_HOME environment variable to be set for the user running puppet on the target node
-  tcserver::instance {'mytemplate':
-    template => 'mytemplate'
+  # Creates an instance named custom-templates using the templates 'nio' and 'nio-ssl'
+  tcserver::instance {'custom-templates':
+    templates    => ['nio',  'nio-ssl'],
+    java_home    => '/opt/java/jdk6',
   }
 ```
 
