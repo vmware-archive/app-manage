@@ -28,7 +28,7 @@
 ##    Default - JAVA_HOME environment variable
 ##    The value of JAVA_HOME which should be set for the instance.
 ##
-##  $user_java_home
+##  $use_java_home
 ##    Default - true
 ##    Whether to use the --java-home argument to create the instance
 ##    If this is false then the instance will be expected to find
@@ -64,9 +64,6 @@ define tcserver::instance (
   $apps_dir = 'webapps',
   $apps_source = 'puppet:///modules/tcserver/webapps',
   $deploy_apps = false,
-  $base_jmx_port = 6969,
-  $bio_http_port = 8080,
-  $bio_https_port = 8443
 ){
   require tcserver
 
