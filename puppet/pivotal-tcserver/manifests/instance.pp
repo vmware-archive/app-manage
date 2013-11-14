@@ -51,10 +51,11 @@
 
 define tcserver::instance (
   $ensure = running,
-  $template = undef,
+  $templates = [],
   $use_java_home = true,
   $java_home = undef,
   $properties_file = undef,
+  $properties = [],
   $layout = undef,
   $version = undef,
   $base_dir = undef,
@@ -97,44 +98,23 @@ define tcserver::instance (
     $template_option = ''
   }
 
-  if $use_java_home {
-    $java_home_option = "--java-home ${my_java_home}"
-  } else {
-    $java_home_option = ''
-  }
-
-  if $properties_file {
-    $properties_file_option = "--properties-file ${properties_file}"
-  } else {
-    $properties_file_option = ''
-  }
-
-  if $layout {
-    $layout_option = "--layout ${layout}"
-  } else {
-    $layout_option = ''
-  }
-
-  if $version {
-    $version_option = "--version ${version}"
-  } else {
-    $version_option = ''
-  }
-
   if $base_dir {
     $cwd = $base_dir
   } else {
     $cwd = $::tcserver::installed_base
   }
 
-  $properties = "-p bio.http.port=${bio_http_port} -p bio.https.port=${bio_https_port} -p base.jmx.port=${base_jmx_port}"
+#  $properties.merge = "-p bio.http.port=${bio_http_port} -p bio.https.port=${bio_https_port} -p base.jmx.port=${base_jmx_port}"
 
   if $ensure == 'running' or $ensure == 'stopped' {
-    exec { "create_instance-${name}":
-      environment => "JAVA_HOME=${my_java_home}",
-      cwd         => $cwd,
-      command     => "${::tcserver::installed_base}/tcruntime-instance.sh create ${name} ${template_option} ${java_home_option} ${properties} ${properties_file_option} ${layout_option} ${version_option}",
-      creates     => "${cwd}/${name}",
+    tcruntime_instance {$name:
+      templates       => $templates,
+      properties      => $properties,
+      version         => $version,
+      layout          => $layout,
+      properties_file => $properties_file,
+      java_home       => $my_java_home,
+      use_java_home   => $use_java_home,
       require     => Class['::tcserver::postinstall']
     }
 
@@ -144,7 +124,7 @@ define tcserver::instance (
       group       => $tcserver_group,
       recurse     => true,
       ignore      => "${cwd}/${name}/${apps_dir}",
-      require     => Exec["create_instance-${name}"]
+      require     => Tcruntime_instance[$name]
     }
 
     file { "/etc/init.d/tcserver-instance-${name}":
