@@ -26,7 +26,7 @@ You may specify multiple templates via the "templates" configuration variable. I
   template => ['nio',  'nio-ssl'],
 ```
 
-By default if there are custom templates located on the puppet master's tcserver files directory they will be copied to the node for use. This behavior can be turned off at the class level with
+By default if there are custom templates located on the puppet master's tcserver module files directory(puppet:///modules/tcserver/templates) they will be copied to the node for use. This behavior can be turned off at the class level with
 
 ```puppet
   class {'tcserver':
