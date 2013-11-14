@@ -54,7 +54,7 @@ Puppet::Type.type(:tcruntime_instance).provide(:tcruntime_instance) do
     end
 
     if resource[:use_java_home]
-      java_home_opt = "--java-home ${resource[:java_home]} "
+      java_home_opt = "--java-home #{resource[:java_home]} "
       all_opts = all_opts + java_home_opt
     end
     tcruntime_instance('create', resource[:name], *all_opts.split(" "))

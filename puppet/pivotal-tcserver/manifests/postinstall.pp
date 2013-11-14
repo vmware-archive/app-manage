@@ -16,14 +16,22 @@
 ##
 
 class tcserver::postinstall (
+  $ensure = present,
   $uses_templates = true,
 ) {
   if $uses_templates {
-    file { "${::tcserver::installed_base}/templates":
-      group   => $::tcserver::tcserver_group,
-      recurse => true,
-      source  => $::tcserver::templates_source,
-      require => Class['::tcserver::install']
+    if $ensure == absent {
+      file { "${::tcserver::installed_base}/templates":
+        ensure => $ensure,
+        force  => true,
+      }
+    } else {
+      file { "${::tcserver::installed_base}/templates":
+        group   => $::tcserver::tcserver_group,
+        recurse => true,
+        source  => $::tcserver::templates_source,
+        require => Class['::tcserver::install']
+      }
     }
   }
   user { $::tcserver::tcserver_user:

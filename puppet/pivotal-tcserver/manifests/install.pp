@@ -15,7 +15,7 @@
 ## limitations under the License.
 
 class tcserver::install(
-  $version = 'latest'
+  $version = 'latest',
 ) {
 
   if defined('pivotal_repo') {

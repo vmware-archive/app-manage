@@ -44,6 +44,7 @@
 ##    except for expert usage.
 
 class tcserver (
+  $ensure = present,
   $version = 'latest',
   $tcserver_user = 'tcserver',
   $tcserver_group = 'vfabric',
@@ -53,10 +54,17 @@ class tcserver (
 
   $installed_base = '/opt/vmware/vfabric-tc-server-standard'
 
+  if $ensure == absent {
+    $package_ensure = absent
+  } else {
+    $package_ensure = $version
+  }
+
   class {'tcserver::install':
-    version => $version
+    version => $package_ensure
   } ->
   class {'tcserver::postinstall':
+    ensure         => $package_ensure,
     uses_templates => $uses_templates
   }
 }
