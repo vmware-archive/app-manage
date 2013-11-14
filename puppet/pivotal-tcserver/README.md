@@ -18,9 +18,34 @@ This module depends on the pivotal\_repo module
 
 tc Server requires a working java installation. Installation of java is beyond the scope of this module.
 
+## Templates and Properties
+
+You may specify multiple templates via the "templates" configuration variable. It takes them in the form of a comma separated list enclosed in square brackets \[ \]. Example:
+
+```puppet
+  template => ['nio',  'nio-ssl'],
+```
+
+By default if there are custom templates located on the puppet master's tcserver files directory they will be copied to the node for use. This behavior can be turned off at the class level with
+
+```puppet
+  class tcserver {
+    uses_templates => false,
+  }
+```
+
+Properties may also be specified as an array in the form of \['key' => 'value'\]. Example:
+
+```puppet
+    properties  => [['bio-ssl.https.port' => '8444'], ['bio.http.port' => '8081']],
+```
+
+At this time the module does not support changing templates or properties on an existing template.
+
 # Example Usage
 
 *Basic usage* - The following example will install tc Server and create an instance called myinstance using all the defaults
+============================================================================================================================
 
 ```puppet
 node 'default' {
@@ -33,8 +58,8 @@ node 'default' {
 }
 ```
 
-*Advanced usage* - Multiple instances.
-
+*Advanced usage* - Multiple instances
+=====================================
 ```puppet
 node 'default' {
  
@@ -54,8 +79,8 @@ node 'default' {
 }
 ```
 
-*Templates* - This will copy "mytemplate" placed in modules/tcserver/files/templates on the puppet master and will create the instance with "-t mytemplate".  Due to the way the instances are managed changing templates on an existing instance configuration will not actually change the template. 
-
+Template
+========
 ```puppet
 
   # Creates an instance named custom-templates using the templates 'nio' and 'nio-ssl'
@@ -69,7 +94,9 @@ node 'default' {
 
 This module is licensed under Apache 2.0 license
 
+tc Server is licensed under the tc Server EULA.
+
 # Configuration Variables
 
-See init.pp and instance.pp for variable details
+See [init.pp](https://github.com/pivotal/app-manage/raw/master/puppet/pivotal-tcserver/manifests/init.pp) and [instance.pp](https://github.com/pivotal/app-manage/raw/master/puppet/pivotal-tcserver/manifests/instance.pp) for variable details
 
