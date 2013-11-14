@@ -38,6 +38,11 @@ Puppet::Type.type(:tcruntime_instance).provide(:tcruntime_instance) do
       all_opts = all_opts + property_opts
     end
 
+    if resource[:instance_directory]
+      instance_directory_opt = "-i #{resource[:instance_directory]} "
+      all_opts = all_opts + instance_directory_opt
+    end
+
     if resource[:version]
       version_opt = "-v #{resource[:version]} "
       all_opts = all_opts + version_opt
@@ -61,8 +66,7 @@ Puppet::Type.type(:tcruntime_instance).provide(:tcruntime_instance) do
   end
 
   def exists?
-    puts "Checking if #{resource[:name]} exists"
-    File.exists?(resource[:instances_root]  + "/" + (resource[:name]))
+    File.exists?(resource[:instance_directory]  + "/" + (resource[:name]))
   end
 end
 

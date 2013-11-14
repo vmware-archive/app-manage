@@ -24,16 +24,10 @@ Puppet::Type.newtype(:tcruntime_instance) do
     'hash of properties to use'
   end
 
-  newparam(:instances_root) do
+  newparam(:instance_directory) do
     'root directory to create instances in'
 
     defaultto "/opt/vmware/vfabric-tc-server-standard"
-  end
-
-  newparam(:instance_script) do
-    'name of script to create new instances'
-
-    defaultto "tcruntime-instance.sh"
   end
 
   newparam(:use_java_home) do
