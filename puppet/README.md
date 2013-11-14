@@ -51,8 +51,8 @@ node 'default' {
   }
 
   tcserver::instance {"mySiteWebApps":
-    bio_http_port => "8081",
-    java_home => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64',
+    properties  => [['bio-ssl.https.port' => '8444'], ['bio.http.port' => '8081']],
+    java_home   => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64',
   }
 
   vfws::instance { "mySite":

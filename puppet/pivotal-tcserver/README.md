@@ -27,7 +27,7 @@ node 'default' {
 
   # Creates a single instance named myinstance
   tcserver::instance {'myinstance':
-    java_home => '/opt/java/jdk7'
+    java_home => '/opt/java/jdk7',
   }
 
 }
@@ -40,13 +40,13 @@ node 'default' {
  
   # This creates an instance named default_properties and sets the java_home used to create the instance to /opt/java/jdk7
   tcserver::instance {'default_properties':
-    java_home    => '/opt/java/jdk7'
+    java_home    => '/opt/java/jdk7',
   }
 
   # This creates a second instance named special_ports, deploys the contents of webapps from the puppet master to the instance,
   # ensures that the instance is running, and sets the java home. 
   tcserver::instance {'special_ports':
-    properties   => [['bio-http-port' => '8080'], ['bio-ssl-port' => '8443']]
+    properties  => [['bio-ssl.https.port' => '8444'], ['bio.http.port' => '8081']],
     deploy_apps  => true,
     java_home    => '/opt/java/jdk6'
   }
