@@ -44,8 +44,11 @@ At this time the module does not support changing templates or properties on an 
 
 # Example Usage
 
-*Basic usage* - The following example will install tc Server and create an instance called myinstance using all the defaults
-============================================================================================================================
+*Basic usage* 
+=============
+The following example will install tc Server and create an instance called myinstance using all the defaults
+
+
 
 ```puppet
 node 'default' {
@@ -58,8 +61,9 @@ node 'default' {
 }
 ```
 
-*Advanced usage* - Multiple instances
-=====================================
+*Advanced usage*
+================
+The following example will create multiple instances
 ```puppet
 node 'default' {
  
@@ -81,6 +85,8 @@ node 'default' {
 
 Template
 ========
+The following example will create an instance using templates
+
 ```puppet
 
   # Creates an instance named custom-templates using the templates 'nio' and 'nio-ssl'
@@ -94,7 +100,7 @@ Template
 
 This module is licensed under Apache 2.0 license
 
-tc Server is licensed under the tc Server EULA.
+tc Server is licensed under the [tc Server EULA](http://www.vmware.com/download/eula/universal_eula.html).
 
 # Configuration Variables
 
