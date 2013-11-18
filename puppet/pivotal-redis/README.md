@@ -37,6 +37,17 @@ The following will install Pivotal Redis with a master-slave replication config 
     masterauth   => 'mycoolpassword',
     slaveof      => '127.0.0.1 9001'
   }
+```
+
+The following will tell redis to bind to all addresses (0.0.0.0) and listen on port 9001 requiring mycoolpassword as a password from all clients.  By default redis listens on 127.0.0.1 so any time remote use is required such as replication you will need to specify the listen_address.  The values of listen_address and listen_port get used as bind and port configuration values in redis.conf.
+
+```puppet
+  redis {'master-9001':
+    listen_port    => '9001',
+    listen_address => '0.0.0.0',
+    requirepass    => 'mycoolpassword',
+```
+
 
 # License Information
 
