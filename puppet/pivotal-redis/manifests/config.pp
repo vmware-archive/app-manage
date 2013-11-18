@@ -88,7 +88,7 @@ define redis::config (
   if $::operatingsystem == 'Ubuntu' and !$daemonize {
     $daemonize_var = 'no'
   } else {
-    $daeminize_var = 'yes'
+    $daemonize_var = 'yes'
   }
 
   file { $working_dir:
