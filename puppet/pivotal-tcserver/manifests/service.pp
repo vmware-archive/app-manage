@@ -25,7 +25,7 @@ define tcserver::service (
   if $ensure == absent {
     $service_ensure = stopped
   } else {
-    $service_Ensure = running
+    $service_ensure = running
   }
   service { "tcserver-instance-${name}":
     ensure    => $service_ensure,
