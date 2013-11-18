@@ -146,16 +146,13 @@ define tcserver::instance (
       ensure      => absent,
       name        => $name,
       cwd         => $cwd,
-    }
-
+    }->
     file { "${cwd}/${name}":
       ensure      => absent,
       force       => true
-    }
-
+    }->
     file { "/etc/init.d/tcserver-instance-${name}":
       ensure      => absent,
-      require     => File["${cwd}/${name}"],
     }
   }
 }
