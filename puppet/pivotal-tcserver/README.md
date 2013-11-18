@@ -96,6 +96,26 @@ The following example will create an instance using templates
   }
 ```
 
+Removing Instances
+==================
+
+You can use the absent value to ensure to remove instances. This does not uninstall any packages. 
+
+```puppet
+  tcserver::instance {"myinstance":
+    ensure      => running,
+}
+```
+
+When all the instances are removed you can remove the .rpm/.deb by specifying absent for the class. 
+
+```puppet
+
+  class {'tcserver':
+    ensure => absent
+  }
+```
+
 # License Information
 
 This module is licensed under Apache 2.0 license
