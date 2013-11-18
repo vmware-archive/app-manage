@@ -4,7 +4,7 @@ This README covers the initial release of the Pivotal's Redis module for puppet.
 
 # About this module
 
-This module installs redis from the Pivotal APT Repo (YUM Repo Pending). For RHEL/Yum usage you will need to add a separate repository prior to invoking this module.
+This module installs redis from the Pivotal Package Repository (APT/YUM). Currently only RHEL 5 & 6, Ubuntu 10.04 & 12.04 are supported. 
 
 # Before you begin
 
@@ -12,7 +12,7 @@ This module depends on the pivotal\_repo module
 
 # Example Usage
 
-The following will install Pivotal Redis and configure 2 instances on the same node. 
+The following will install Pivotal Redis and configure 2 instances on the same node.
 ```puppet
   redis {'redis-9001':
     ensure => running,
@@ -40,7 +40,7 @@ The following will install Pivotal Redis with a master-slave replication config 
 
 # License Information
 
-This module is licensed under the Apache 2.0 license
+This module is licensed under the Apache 2.0 license. Redis is license information is available [here](http://www.redis.io/topics/license)
 
 # Configuration Variables
 
