@@ -89,12 +89,6 @@ define tcserver::instance (
     $tcserver_group = $group
   }
 
-  if $template {
-    $template_option = "-t ${template}"
-  } else {
-    $template_option = ''
-  }
-
   if $base_dir {
     $cwd = $base_dir
   } else {
