@@ -73,12 +73,6 @@ define redis::config (
   $aof_rewrite_incremental_fsync = 'yes'
 ) {
 
-  if $ensure == present {
-    $file_ensure = file
-  } else {
-    $file_ensure = absent
-  }
-
   if $dir != undef {
     $working_dir = $dir
   } else {
@@ -96,12 +90,18 @@ define redis::config (
     owner   => $owner,
     group   => $group,
   }
-  file { "/etc/opt/pivotal/pivotal-redis/redis-${listen_port}.conf":
-    ensure  => $file_ensure,
-    owner   => $owner,
-    group   => $group,
-    mode    => '0444',
-    content => template('redis/redis.conf.erb'),
-    notify  => Service["redis-${listen_port}"]
+  if $ensure == absent {
+    file { "/etc/opt/pivotal/pivotal-redis/redis-${listen_port}.conf":
+      ensure => absent
+    }
+  } else {
+    file { "/etc/opt/pivotal/pivotal-redis/redis-${listen_port}.conf":
+      ensure  => $file_ensure,
+      owner   => $owner,
+      group   => $group,
+      mode    => '0444',
+      content => template('redis/redis.conf.erb'),
+      notify  => Service["redis-${listen_port}"]
+    }
   }
 }

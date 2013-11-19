@@ -95,6 +95,7 @@ define redis (
   }
 
   redis::config {$listen_port:
+    ensure                        => $ensure,
     owner                         => $owner,
     group                         => $group,
     require                       => Class['redis::install'],
