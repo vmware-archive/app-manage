@@ -37,6 +37,7 @@ define redis (
   $group = 'pivotal',
   $version = 'latest',
   $listen_address = '127.0.0.1',
+  $no_bind = false,   #If you want redis to listen on all interfaces this needs to be set to true and any address in listen_address will be ignored
   $listen_port = '6379',
   $timeout = '0',
   $daemonize = undef,

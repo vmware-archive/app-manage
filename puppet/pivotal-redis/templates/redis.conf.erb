@@ -40,7 +40,9 @@ port <%= @listen_port %>
 # specified all the interfaces will listen for incoming connections.
 #
 # bind 127.0.0.1
+<% if !@no_bind %>
 bind <%= @listen_address %>
+<% end %>
 
 # Specify the path for the unix socket that will be used to listen for
 # incoming connections. There is no default, so Redis will not listen

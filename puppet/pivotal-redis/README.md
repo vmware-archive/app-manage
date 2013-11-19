@@ -44,10 +44,20 @@ The following will tell redis to bind to all addresses (0.0.0.0) and listen on p
 ```puppet
   redis {'master-9001':
     listen_port    => '9001',
-    listen_address => '0.0.0.0',
+    listen_address => '192.168.1.1',
     requirepass    => 'mycoolpassword',
+  }
 ```
 
+If you need redis to listen on all addresses you can not specify '0.0.0.0' as the listen_address. Instead set no_bind to true
+
+```puppet
+  redis {'master-9001':
+    listen_port    => '9001',
+    no_bind        => true,
+    requirepass    => 'mycoolpassword',
+  }
+```
 
 # License Information
 

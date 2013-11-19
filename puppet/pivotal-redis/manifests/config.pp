@@ -85,7 +85,7 @@ define redis::config (
     $working_dir = "/var/opt/pivotal/pivotal-redis/lib/${listen_port}"
   }
 
-  if $::operatingsystem == 'Ubuntu' and !$daemonize {
+  if $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '10.04' and !$daemonize {
     $daemonize_var = 'no'
   } else {
     $daemonize_var = 'yes'
