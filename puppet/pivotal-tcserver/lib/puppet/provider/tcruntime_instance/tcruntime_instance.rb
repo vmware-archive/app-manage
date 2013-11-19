@@ -25,7 +25,7 @@ Puppet::Type.type(:tcruntime_instance).provide(:tcruntime_instance) do
     end
 
     all_opts = " "
-    if resource[:templates]
+    if resource[:templates] and resource[:templates].length > 0
       template_opts = "-t " + resource[:templates].join(" -t ")
       all_opts = all_opts + template_opts
     end
