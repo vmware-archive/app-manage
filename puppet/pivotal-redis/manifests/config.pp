@@ -18,7 +18,7 @@ define redis::config (
   $owner = 'redis',
   $group = 'redis',
   $ensure = 'present',
-  $listen_address = '127.0.0.1',
+  $listen_address = undef,
   $listen_port = '6379',
   $unixsocket = '',
   $daemonize = undef,

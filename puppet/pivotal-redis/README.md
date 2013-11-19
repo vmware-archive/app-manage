@@ -25,7 +25,7 @@ The following will install Pivotal Redis and configure 2 instances on the same n
 
 ```
 
-The following will install Pivotal Redis with a master-slave replication config on the same node and include authentication
+The following will install Pivotal Redis with a master-slave replication config on the same node and include authentication. In redis 2.6 the default is for slaves to be read-only.
 ```puppet
   redis {'master-9001':
     listen_port  => '9001',
@@ -39,25 +39,16 @@ The following will install Pivotal Redis with a master-slave replication config 
   }
 ```
 
-The following will tell redis to bind to all addresses (0.0.0.0) and listen on port 9001 requiring mycoolpassword as a password from all clients.  By default redis listens on 127.0.0.1 so any time remote use is required such as replication you will need to specify the listen_address.  The values of listen_address and listen_port get used as bind and port configuration values in redis.conf.
+The following will tell redis to bind to '127.0.0.1' only.
 
 ```puppet
   redis {'master-9001':
     listen_port    => '9001',
-    listen_address => '192.168.1.1',
+    listen_address => '127.0.0.1',
     requirepass    => 'mycoolpassword',
   }
 ```
 
-If you need redis to listen on all addresses you can not specify '0.0.0.0' as the listen_address. Instead set no_bind to true
-
-```puppet
-  redis {'master-9001':
-    listen_port    => '9001',
-    no_bind        => true,
-    requirepass    => 'mycoolpassword',
-  }
-```
 
 # License Information
 
