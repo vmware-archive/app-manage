@@ -42,7 +42,7 @@ define redis (
   $daemonize = undef,
   $tcp_keepalive = '0',
   $redis_loglevel = 'notice', #this has redis_ prefixed to avoid a conflict with puppet loglevel
-  $logfile = 'stdout',
+  $logfile = undef,
   $syslog_enabled = 'no',
   $syslog_ident = 'redis',
   $syslog_facility = 'local0',

@@ -85,7 +85,11 @@ loglevel <%= @redis_loglevel %>
 # Specify the log file name. Also 'stdout' can be used to force
 # Redis to log on the standard output. Note that if you use standard
 # output for logging but daemonize, logs will be sent to /dev/null
+<% if @logfile %>
 logfile <%= @logfile %>
+<% else %>
+logfile /var/opt/pivotal/pivotal-redis/log/redis-<%= @listen_port %>.log
+<% end %>
 
 # To enable logging to the system logger, just set 'syslog-enabled' to yes,
 # and optionally update the other syslog parameters to suit your needs.

@@ -26,7 +26,7 @@ define redis::config (
   $timeout = '0',
   $tcp_keepalive = '0',
   $redis_loglevel = 'notice',
-  $logfile = 'stdout',
+  $logfile = undef,
   $syslog_enabled = 'no',
   $syslog_ident = 'redis',
   $syslog_facility = 'local0',
