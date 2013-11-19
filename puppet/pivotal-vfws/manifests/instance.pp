@@ -117,13 +117,11 @@ define vfws::instance (
       name    => "vfws-instance-${name}",
       status  => "ps -p `cat ${cwd}/${name}/logs/vfws.pid` > /dev/null 2>&1",
       before  => File["${cwd}/${name}"]
-    }
-
+    }->
     file { "${cwd}/${name}":
       ensure  => absent,
       force   => true
-    }
-
+    }->
     file { "/etc/init.d/vfws-instance-${name}":
       ensure  => absent,
       require => File["${cwd}/${name}"],
