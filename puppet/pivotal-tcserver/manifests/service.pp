@@ -24,7 +24,7 @@ define tcserver::service (
 ) {
   if $ensure == absent {
     service { "tcserver-instance-${name}":
-      ensure    => stopped, 
+      ensure    => stopped,
       status    => "ps -p `cat ${cwd}/${name}/logs/tcserver.pid` > /dev/null 2>&1",
     }
   } else {

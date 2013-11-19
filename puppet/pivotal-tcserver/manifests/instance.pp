@@ -106,7 +106,7 @@ define tcserver::instance (
       properties_file => $properties_file,
       java_home       => $my_java_home,
       use_java_home   => $use_java_home,
-      require     => Class['::tcserver::postinstall']
+      require         => Class['::tcserver::postinstall']
     }
 
     file { "${cwd}/${name}":
