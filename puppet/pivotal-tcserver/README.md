@@ -103,7 +103,7 @@ You can use the absent value to ensure to remove instances. This does not uninst
 
 ```puppet
   tcserver::instance {"myinstance":
-    ensure      => running,
+    ensure      => absent,
 }
 ```
 
