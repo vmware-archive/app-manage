@@ -27,6 +27,7 @@ class rabbitmq::config {
   $wipe_db_on_cookie_change   = $rabbitmq::wipe_db_on_cookie_change
   $config_variables           = $rabbitmq::config_variables
   $cluster_partition_handling = $rabbitmq::cluster_partition_handling
+  $group                      = $rabbitmq::group
   $default_env_variables      =  {
     'RABBITMQ_NODE_PORT'        => $port,
     'RABBITMQ_NODE_IP_ADDRESS'  => $node_ip_address
@@ -87,7 +88,7 @@ class rabbitmq::config {
       ensure  => 'present',
       path    => '/var/lib/rabbitmq/.erlang.cookie',
       owner   => 'rabbitmq',
-      group   => 'rabbitmq',
+      group   => $group,
       mode    => '0400',
       content => $erlang_cookie,
       replace => true,

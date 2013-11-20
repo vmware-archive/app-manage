@@ -41,6 +41,7 @@ class rabbitmq(
   $cluster_partition_handling = $rabbitmq::params::cluster_partition_handling,
   $environment_variables      = $rabbitmq::params::environment_variables,
   $config_variables           = $rabbitmq::params::config_variables,
+  $group                      = $rabbitmq::params::group,
 ) inherits rabbitmq::params {
 
   validate_bool($admin_enable)
