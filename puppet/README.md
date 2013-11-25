@@ -1,9 +1,3 @@
-# IMPORTANT NOTICE
-
-**TODO: Remove this before public release**
-
-This github repository contains code which is currently in development. Please do not distribute to customers, PoCs, or other 3rd parties. The code contained in this repo is subject to breakage.
-
 # Pivotal/vFabric Puppet Modules
 
 These modules are provided to simplify the installation of vFabric/Pivotal products.  They may be used together or separately. Tested with puppet 3.x.
@@ -46,34 +40,40 @@ The following example shows basic usage and includes all modules
 ```puppet
 node 'default' {
   
+# This is required by add modules
   class {'pivotal_repo':
     i_accept_eula => true
   }
 
+# Create a tc Server instance named 'mySiteWebApps' and customize the http port and https ports
   tcserver::instance {"mySiteWebApps":
-    properties  => [['bio-ssl.https.port' => '8444'], ['bio.http.port' => '8081']],
+    properties  => [['bio.https.port' => '8444'], ['bio.http.port' => '8081']],
     java_home   => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64',
   }
 
+# Create a vFabric Web Server Instance named 'mySite' listening on port 8093
   vfws::instance { "mySite":
-    port => "8093",
+    port => '8093',
   }
 
+# Install rabbitmq, manage the service, set it to listen on 5672, and delete the guest user
   class { '::rabbitmq':
     service_manage    => true,
     port              => '5672',
     delete_guest_user => true,
   }
 
+# Create a redis slave instance listening on port 9003
   redis {'9003':
     listen_port => '9003',
-    requirepass => 'mySecurePassword',
+    masterauth  => 'mySecurePassword',
     slaveof     => '127.0.0.1 9002'
   }
 
+# Create a redis master listening on port 9002
   redis {'9002':
-    listen_port => '9002',
-    masterauth  => 'mySecurePassword'
+    listen_port  => '9002',
+    requirepass  => 'mySecurePassword'
   }
 }
 
