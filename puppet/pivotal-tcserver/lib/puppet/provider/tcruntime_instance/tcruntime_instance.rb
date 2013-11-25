@@ -26,7 +26,12 @@ Puppet::Type.type(:tcruntime_instance).provide(:tcruntime_instance) do
 
     all_opts = " "
     if resource[:templates] and resource[:templates].length > 0
-      template_opts = "-t " + resource[:templates].join(" -t ")
+      #  It seems that if a puppet array has a single element it arrives here as a string.
+      if resource[:templates].respond_to?('join')
+        template_opts = "-t " + resource[:templates].join(" -t ")
+      else
+        template_opts = "-t " + resource[:templates]
+      end
       all_opts = all_opts + template_opts
     end
     
