@@ -75,7 +75,7 @@ node 'default' {
   # This creates a second instance named special_ports, deploys the contents of webapps from the puppet master to the instance,
   # ensures that the instance is running, and sets the java home. 
   tcserver::instance {'special_ports':
-    properties   => [['bio-ssl.https.port' => '8444'], ['bio.http.port' => '8081']],
+    properties   => [['bio.https.port' => '8444'], ['bio.http.port' => '8081'], ['base.jmx.port' => '6970']],
     deploy_apps  => true,
     java_home    => '/opt/java/jdk6'
   }
