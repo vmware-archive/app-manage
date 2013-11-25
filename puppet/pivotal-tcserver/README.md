@@ -18,6 +18,14 @@ This module depends on the pivotal\_repo module
 
 tc Server requires a working java installation. Installation of java is beyond the scope of this module.
 
+## tcserver class
+
+The tcserver class doesn't need to be redefined in manifests unless you need to override a default or uninstall the package. 
+
+## tcserver::instance
+
+The tcserver::instance resource definition is the primary interface to the puppet module. Each tcserver::instance represents a tc Server instance installed on the node. The resource uses tcruntime-instance.sh to create the instances. Configuration properties provided to the instance are passed to tcruntime-instance.sh without verification. If tcruntime-instance.sh finds an error with a configuration property the instance will fail to be created. 
+
 ## Templates and Properties
 
 You may specify multiple templates via the "templates" configuration variable. It takes them in the form of a comma separated list enclosed in square brackets \[ \]. Example:
@@ -34,10 +42,15 @@ By default if there are custom templates located on the puppet master's tcserver
   }
 ```
 
-Properties may also be specified as an array in the form of \['key' => 'value'\]. Example:
+Properties may also be specified as an array in the form of \['key' => 'value'\]. Properties are not validated by this resource. tcruntime-instance.sh will attempt to match properties with what is expected and ignore ones it can not verify. As of this writing tcruntime-instance does not provide feedback for ignored properties.  If you find your properties are not showing up in conf/catalina.properties as expected please verify that they are valid. 
+
+Example Usage of Properties:
 
 ```puppet
-    properties  => [['bio-ssl.https.port' => '8444'], ['bio.http.port' => '8081']],
+    properties  => [['bio.https.port' => '8444'], 
+                    ['bio.http.port'  => '8081'], 
+                    ['base.jmx.port'  => '6970']
+                   ],
 ```
 
 At this time the module does not support changing templates or properties on an existing template.
@@ -48,25 +61,17 @@ At this time the module does not support changing templates or properties on an 
 =============
 The following example will install tc Server and create an instance called myinstance using all the defaults
 
-
-
 ```puppet
-node 'default' {
-
   # Creates a single instance named myinstance
   tcserver::instance {'myinstance':
     java_home => '/opt/java/jdk7',
   }
-
-}
 ```
 
 *Advanced usage*
 ================
 The following example will create multiple instances
 ```puppet
-node 'default' {
- 
   # This creates an instance named default_properties and sets the java_home used to create the instance to /opt/java/jdk7
   tcserver::instance {'default_properties':
     java_home    => '/opt/java/jdk7',
@@ -79,8 +84,6 @@ node 'default' {
     deploy_apps  => true,
     java_home    => '/opt/java/jdk6'
   }
-
-}
 ```
 
 Template
