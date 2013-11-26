@@ -49,6 +49,14 @@ The following will tell redis to bind to '127.0.0.1' only.
   }
 ```
 
+On some systems (Ubuntu) the .deb package installed by puppet automatically starts an instance on port 6379. If you're not using that port you can tell puppet to stop or remove the config. The following will remove the config for that port and stop the service. 
+
+```puppet
+  redis {'default-6379-off':
+    ensure => absent,
+  }
+```
+
 
 # License Information
 
