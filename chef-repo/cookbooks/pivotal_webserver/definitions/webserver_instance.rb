@@ -24,9 +24,33 @@ define :webserver_instance,
 
   serverdir = params[:serverdir] ? params[:serverdir] : params[:name]
 
-  execute "run-newserver" do
-    command "/opt/vmware/vfabric-web-server/newserver #{args}"
-    creates "#{params[:rootdir]}/#{serverdir}"
+  if params[:action] == :delete
+    service "vFabric-httpd-#{params[:name]}" do
+      action "stop"
+    end
+
+    directory "#{params[:rootdir]}/#{serverdir}" do
+      recursive true
+      action :delete
+    end
+
+    link "/etc/init.d/vFabric-httpd-#{params[:name]}" do
+      action :delete
+    end
+  else
+    execute "run-newserver" do
+      command "/opt/vmware/vfabric-web-server/newserver #{args}"
+      creates "#{params[:rootdir]}/#{serverdir}"
+    end
+    
+    link "/etc/init.d/vFabric-httpd-#{params[:name]}" do
+      to "#{params[:rootdir]}/#{serverdir}/bin/httpdctl"
+    end
+
+    service "vFabric-httpd-#{params[:name]}" do
+      action params[:action]
+    end
+
   end
 
 end
