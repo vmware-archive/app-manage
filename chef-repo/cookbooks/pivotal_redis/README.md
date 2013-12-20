@@ -47,9 +47,13 @@ redis_instance "disable-default" do
   action :stop
 end
 ```
-
-
 The above example is the simplest form of usage. It will install pivotal-redis, if not already installed and the default configuration will be used. An instance listening on port 6379 will be started.
+
+```ruby
+redis_instance "example-of-underscore" do
+  tcp_keepalive '30'   # This is the equivilent of "tcp-keepalive 30" in redis.conf
+end
+```
 
 License
 -------------------
