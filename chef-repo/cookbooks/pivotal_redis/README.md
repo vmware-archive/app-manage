@@ -30,8 +30,24 @@ Be sure to include the Cookbook in your runlist. There is no default recipe so n
 In your recipe you can use the redis_instance as follows. 
 
 ```ruby
-redis_instance "default
+redis_instance "default"
 ```
+The above example is the simplest form of usage. It will install pivotal-redis, if not already installed and the default configuration will be used. An instance listening on port 6379 will be started.
+
+If you need more advanced configuration it is available. All redis.conf options are available. Because hyphens are not allowed in names in ruby any redis option with a hyphen is changed to have an underscore.
+```ruby
+redis_instance "port-9001" do
+  port 9001
+end
+```
+
+On Ubuntu the redis package will automatically start an instance on port 6397. If you do not wish this instance to be running you can just stop it
+```ruby
+redis_instance "disable-default" do
+  action :stop
+end
+```
+
 
 The above example is the simplest form of usage. It will install pivotal-redis, if not already installed and the default configuration will be used. An instance listening on port 6379 will be started.
 
