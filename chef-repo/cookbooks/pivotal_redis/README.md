@@ -17,14 +17,10 @@ Usage
 -----
 #### redis_instance
 
-Be sure to include the Cookbook in your runlist. There is no default recipe so no action will be taken.
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[pivotal_redis]"
-  ]
-}
+Your recipe should depend on 'pivotal_redis'
+metadata.rb
+```ruby
+depends 'pivotal_redis'
 ```
 
 In your recipe you can use the redis_instance as follows. 
