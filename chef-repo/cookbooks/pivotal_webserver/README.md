@@ -7,6 +7,13 @@ Requirements
 #### Cookbooks
 - pivotal_repo - Required to set up the necessary packages.
 
+Actions
+-------
+
+- :stop - Tells chef to stop the instance, if running
+- :start - Tells chef to start the instance, if not already running
+- :delete - Stops the instance and removes the entire contents of the instance directory. Caution: This action is destructive
+
 Usage
 -----
 Your cookbook should depend on 'pivotal_webserver'
@@ -24,6 +31,13 @@ webserver_instance "foo" do
 end
 ```
 
+If you need to delete a created instance you can use the following in your recipe
+```ruby
+webserver_instance "foo" do
+  action :delete
+end
+```
+Note: When deleting an instance the entire directory is recursively deleted.
 
 License
 -------
