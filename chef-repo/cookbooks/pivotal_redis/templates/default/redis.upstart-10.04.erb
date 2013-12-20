@@ -1,0 +1,16 @@
+env PORT=<%= @port %>
+
+description "Redis Server $PORT"
+
+start on filesystem or runlevel [2345]
+stop on runlevel [!2345]
+
+limit nofile 10032 10500
+
+# This is a 10.04 specific job due to upstart version not supporting the
+# setuid stanza. This job requires 'daemonize no' in the Redis conf file.
+
+exec sudo -u <%= @user %> /usr/bin/redis-server /etc/opt/pivotal/pivotal-redis/redis-$PORT.conf
+
+#respawn
+
