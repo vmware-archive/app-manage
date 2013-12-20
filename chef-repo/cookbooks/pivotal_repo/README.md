@@ -23,6 +23,14 @@ Just include `pivotal_repo` in your node's `run_list`:
 }
 ```
 
+The repository setup by this cookbook allows you to install pivotal packages in your recipes. 
+```ruby
+package 'vfabric-web-server' do
+  action :install
+end
+```
+The above example installs the vfabric-web-server .rpm or .deb, depending on the platform's distribution. 
+
 License
 -------------------
 This cookbook is licensed under the Apache 2.0 License. This cookbook provides access to software which is licensed under commercial licenses.
