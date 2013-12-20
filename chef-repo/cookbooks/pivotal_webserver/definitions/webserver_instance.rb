@@ -26,16 +26,19 @@ define :webserver_instance,
 
   if params[:action] == :delete
     service "vFabric-httpd-#{params[:name]}" do
-      action "stop"
+      supports :status => true
+      action :stop
+      notifies :delete, "directory[#{params[:rootdir]}/#{serverdir}]", :immediately
     end
 
     directory "#{params[:rootdir]}/#{serverdir}" do
       recursive true
-      action :delete
+      action :nothing
+      notifies :delete, "link[/etc/init.d/vFabric-httpd-#{params[:name]}]", :immediately
     end
 
     link "/etc/init.d/vFabric-httpd-#{params[:name]}" do
-      action :delete
+      action :nothing
     end
   else
     execute "run-newserver" do
@@ -48,6 +51,7 @@ define :webserver_instance,
     end
 
     service "vFabric-httpd-#{params[:name]}" do
+      supports :status => true
       action params[:action]
     end
 
