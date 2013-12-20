@@ -1,47 +1,23 @@
 pivotal_redis Cookbook
 ======================
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+This cookbook provides a resource, 'redis_instance', which installs Pivotal Redis and allows the user to configure instances of redis
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+#### Cookbooks
+- pivotal_repo
 
-e.g.
-#### packages
-- `toaster` - pivotal_redis needs toaster to brown your bagel.
-
-Attributes
+Options
 ----------
-TODO: List you cookbook attributes here.
+#### pivotal_redis::redis_instance
 
-e.g.
-#### pivotal_redis::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['pivotal_redis']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+All options corespond to redis.conf options with the exception that any redis.conf option which contains a hyphen(-). In this case the hyphen(-) has been replaced with an underscore(_). See Usage for example.
 
 Usage
 -----
-#### pivotal_redis::default
-TODO: Write usage instructions for each cookbook.
+#### redis_instance
 
-e.g.
-Just include `pivotal_redis` in your node's `run_list`:
-
+Be sure to include the Cookbook in your runlist. There is no default recipe so no action will be taken.
 ```json
 {
   "name":"my_node",
@@ -51,18 +27,14 @@ Just include `pivotal_redis` in your node's `run_list`:
 }
 ```
 
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
+In your recipe you can use the redis_instance as follows. 
 
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+```ruby
+redis_instance "default
+```
 
-License and Authors
+The above example is the simplest form of usage. It will install pivotal-redis, if not already installed and the default configuration will be used. An instance listening on port 6379 will be started.
+
+License
 -------------------
-Authors: TODO: List authors
+This cookbook is licensed under the Apache License 2.0. The software installed by this cookbook may be subject to commercial licenses
