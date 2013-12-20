@@ -18,7 +18,8 @@ Usage
 #### redis_instance
 
 Your recipe should depend on 'pivotal_redis'
-metadata.rb
+
+metadata.rb:
 ```ruby
 depends 'pivotal_redis'
 ```
