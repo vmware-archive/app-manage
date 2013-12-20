@@ -9,16 +9,21 @@ Requirements
 
 Usage
 -----
-#### pivotal_webserver::default
+Your cookbook should depend on 'pivotal_webserver'
 
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[pivotal_webserver]"
-  ]
-}
+metadata.rb:
+```ruby
+depends `pivotal_webserver`
 ```
+
+Then in your recipe you can use the webserver_instance resource. The name of the code block is used to name the instance. In the below example the instance name is "foo".
+```ruby
+webserver_instance "foo" do
+  admin_email "me@example.com"
+  port "8085"
+end
+```
+
 
 License
 -------
