@@ -1,7 +1,7 @@
 
 
 define :webserver_instance,
-  :action => "start",
+  :action => "start".to_sym,
   :rootdir => "/opt/vmware/vfabric-web-server" do
 
   package node['pivotal_webserver']['package'] do
@@ -28,6 +28,7 @@ define :webserver_instance,
     service "vFabric-httpd-#{params[:name]}" do
       supports :status => true
       action :stop
+      status_command "ps -p `cat #{params[:rootdir]}/#{serverdir}/logs/httpd.pid` > /dev/null 2>&1"
       notifies :delete, "directory[#{params[:rootdir]}/#{serverdir}]", :immediately
     end
 
@@ -52,7 +53,8 @@ define :webserver_instance,
 
     service "vFabric-httpd-#{params[:name]}" do
       supports :status => true
-      action params[:action]
+      status_command "ps -p `cat #{params[:rootdir]}/#{serverdir}/logs/httpd.pid` > /dev/null 2>&1"
+      action :start
     end
 
   end
