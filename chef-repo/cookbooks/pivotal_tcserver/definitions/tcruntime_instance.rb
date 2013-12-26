@@ -4,6 +4,12 @@ define :tcruntime_instance,
   
   install_dir = node['pivotal_tcserver']['install_dir']
 
+  if params[:java_home]
+    java_home = params[:java_home]
+  else
+    Chef::Application.fatal!("java_home must be set. No action taken.")
+  end
+
   if params[:instance_dir] 
     instance_dir = params[:instance_dir]
   else
@@ -34,16 +40,17 @@ define :tcruntime_instance,
   cmd = "#{install_dir}/tcruntime-instance.sh"
 
   execute "create-instance" do
+    environment ({ "JAVA_HOME" => "#{java_home}" })
     command cmd + " create" + args
     creates "#{instance_dir}/params[:name]"
   end
 
-  directory "#{instance_dir}/params[:name]" do
+  directory "#{instance_dir}/#{params[:name]}" do
     
   end
 
-  link "#{instance_dir}/#{params[:name]}/bin/init.d.sh" do
-    to "/etc/init.d/tcserver-instance-#{params[:name]}"
+  link "/etc/init.d/tcserver-instance-#{params[:name]}" do
+    to "#{instance_dir}/#{params[:name]}/bin/init.d.sh" 
   end
 
   service "tcserver-instance-#{params[:name]}" do
