@@ -60,10 +60,16 @@ define :redis_instance,
     owner params[:owner]
     group params[:group]
     mode 00755
-    action :create
+    recursive true
+    if params[:action] == :delete
+      action :delete
+    else
+      action :create
+    end
   end
   
   template "/etc/opt/pivotal/pivotal-redis/redis-#{@params[:port]}.conf" do
+    action :delete if params[:action] == :delete
     source 'redis.conf.erb'
     owner params[:owner]
     group params[:group]
@@ -94,7 +100,11 @@ define :redis_instance,
       )
     end
     service "redis-#{params[:port]}" do
-      action params[:action]
+      if params[:action] == :delete
+        action :stop
+      else
+        action params[:action]
+      end
     end
   when 'redhat', 'centos'
     template "/etc/init.d/pivotal-redis-#{params[:port]}" do
@@ -109,7 +119,11 @@ define :redis_instance,
       )
     end
     service "pivotal-redis-#{params[:port]}" do
-      action params[:action]
+      if params[:action] == :delete
+        action :stop
+      else
+        action params[:action]
+      end
     end
 
   end
