@@ -54,7 +54,7 @@ define :webserver_instance,
     service "vFabric-httpd-#{params[:name]}" do
       supports :status => true
       status_command "ps -p `cat #{params[:rootdir]}/#{serverdir}/logs/httpd.pid` > /dev/null 2>&1"
-      action :start
+      action params[:action]
     end
 
   end
