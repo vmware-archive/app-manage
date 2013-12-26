@@ -1,6 +1,8 @@
 
 define :tcruntime_instance,
-  :action => "start" do
+  :action => "start",
+  :user => "tcserver",
+  :group => "vfabric" do
   
   install_dir = node['pivotal_tcserver']['install_dir']
 
@@ -45,8 +47,9 @@ define :tcruntime_instance,
     creates "#{instance_dir}/#{params[:name]}"
   end
 
-  directory "#{instance_dir}/#{params[:name]}" do
-    
+  #Chef's directory resource does not recursive set ownership
+  execute "set-ownership" do
+    command "chown -R #{params[:user]}:#{params[:group]} #{instance_dir}/#{params[:name]}"
   end
 
   link "/etc/init.d/tcserver-instance-#{params[:name]}" do
