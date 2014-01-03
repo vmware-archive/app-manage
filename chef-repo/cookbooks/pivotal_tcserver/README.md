@@ -35,6 +35,15 @@ end
 
 ```
 
+Example of properties and templates
+```ruby
+tcruntime_instance "tcruntime-8081" do
+  java_home "/usr"
+  properties [{'bio.http.port' => '8081'}, {'bio.httpS.port' => '8444'}, {'base.jmx.port' => '6970'}]
+  templates ['bio',  'bio-ssl']
+end
+```
+
 License
 -------
 This cookbook is licensed under the Apache 2.0 License. It uses software which is licensed under commercial licenses.
