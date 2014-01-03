@@ -2,7 +2,7 @@ pivotal_tcserver Cookbook
 =========================
 This cookbook provides a definition which installs vFabric tc Server and creates runtime instances.
 
-
+iThis cookbook does installs the needed packages on the target nodes. When deleting instances it does not remove the package in case the admin wants to manually create and control instances. To remove the package use the Chef package resource.
 
 Requirements
 ------------
@@ -20,6 +20,12 @@ Configuration
 |layout|The value to give the --layout argument. (Optional)
 |templates|An array of templates to use. (Optional)
 |properties|An array of properties to pass to tcruntime-instance.sh (Optional)
+
+Actions
+-------
+- :stop - Tells chef to stop the instance, if running
+- :start - Tells chef to start the instance, if not already running
+- :delete - Stops the instance and removes the entire contents of the instance directory. Caution: This action is destructive. This action does NOT remove the .rpm/.deb package.
 
 Usage
 -----
@@ -41,7 +47,7 @@ end
 Example of properties and templates
 ```ruby
 tcruntime_instance "tcruntime-8081" do
-  java_home "/usr"
+  java_home "/usr/java"
   properties [{'bio.http.port' => '8081'}, {'bio.httpS.port' => '8444'}, {'base.jmx.port' => '6970'}]
   templates ['bio',  'bio-ssl']
 end
