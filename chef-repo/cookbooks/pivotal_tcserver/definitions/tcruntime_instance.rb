@@ -36,8 +36,10 @@ define :tcruntime_instance,
   end
 
   if params[:properties]
-    params[:properties].each do |k,v|
-      args +=" -p #{k}=#{v} "
+    params[:properties].each do |p|
+      p.each do |k,v|
+        args +=" -p #{k}=#{v} "
+      end
     end
   end
 
