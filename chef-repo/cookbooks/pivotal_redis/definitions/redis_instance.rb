@@ -87,7 +87,7 @@ define :redis_instance,
 
     case node['platform']
     when 'ubuntu'
-      link "/etc/init.d/redis-#{params[:port]}" do
+      link "/etc/init.d/#{servicename}" do
         to '/lib/init/upstart-job'
       end
 
@@ -103,7 +103,7 @@ define :redis_instance,
         )
       end
     when 'redhat', 'centos'
-      template "/etc/init.d/pivotal-redis-#{params[:port]}" do
+      template "/etc/init.d/#{servicename}" do
         source "pivotal-redis.erb"
         owner params[:owner]
         group params[:group]
@@ -119,22 +119,18 @@ define :redis_instance,
       action params[:action]
     end
   else
-    case node['platform']
-    when 'redhat', 'centos'
-      servicename = "pivotal-redis-#{params[:port]}"
-    when 'ubuntu'
-      servicename = "redis-#{params[:port]}"
-    end
-
-    case params[:action]
-      when :stop, :delete
-        service_action = "stop"
-      when :start
-        service_action = "start"
-    end
-
     service servicename do
-      action service_action
+      action :stop
+    end
+
+    file "/etc/init.d/#{servicename}" do
+      action :delete
+    end
+
+    if node['platform'] == 'ubuntu'
+      file "/etc/init/redis-#{params[:port]}.conf" do
+        action :delete
+      end
     end
 
     directory dir do
