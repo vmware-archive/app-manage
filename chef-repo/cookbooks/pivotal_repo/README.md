@@ -29,6 +29,7 @@ package 'vfabric-web-server' do
   action :install
 end
 ```
+
 The above example installs the vfabric-web-server .rpm or .deb, depending on the platform's distribution. 
 
 License

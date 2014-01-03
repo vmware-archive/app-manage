@@ -42,7 +42,7 @@ define vfws::instance (
   require vfws
 
   if $admin_email {
-    $set_admin_email = "--set AdminEmail=${admin_email}"
+    $set_admin_email = "--set ServerAdmin=${admin_email}"
   }
 
   if $sslport {

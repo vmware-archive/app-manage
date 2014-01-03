@@ -36,12 +36,15 @@ define :tcruntime_instance,
   end
 
   if params[:properties]
-    args += " -p " +  params[:properties].join(" -p ")
+    params[:properties].each do |k,v|
+      args +=" -p #{k}=#{v} "
+    end
   end
 
   cmd = "#{install_dir}/tcruntime-instance.sh"
 
   execute "create-instance" do
+    puts cmd + " create" + args
     environment ({ "JAVA_HOME" => "#{java_home}" })
     command cmd + " create" + args
     creates "#{instance_dir}/#{params[:name]}"

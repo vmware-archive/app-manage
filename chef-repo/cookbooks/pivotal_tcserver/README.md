@@ -5,19 +5,38 @@ This cookbook provides a definition which installs vFabric tc Server and creates
 Requirements
 ------------
 #### cookbooks
-- `pivotal_repo` - This is needed to install the Pivotal/vFabric package repository
+- `pivotal_repo` - This is needed to install the Pivotal/vFabric package repositorya
+- A JDK already installed.
+
+Configuration
+-------------
+||name||definition
+|java_home|The value to set JAVA_HOME environment variable to when invoking tcruntime-instance.sh (Required)
+|instance_dir|The root directory to create the instance in. This defaults to the base path of tcruntime-instance.sh script (Optional)
+|version|The value to give the --version argument. (Optional)
+|layout|The value to give the --layout argument. (Optional)
+|templates|An array of templates to use. (Optional)
+|properties|An array of properties to pass to tcruntime-instance.sh (Optional)
 
 Usage
 -----
+Your cookbook should depend on 'pivotal_webserver'
 
 metadata.rb:
 ```ruby
 depends `pivotal_webserver`
 ```
+You must set java_home to point to a valid JDK installation on the target system.
 
 ```ruby
 tcruntime_instance "test1" do
-  java_home "/usr"
+  java_home "/usr/java"
 end
 
 ```
+
+License
+-------
+This cookbook is licensed under the Apache 2.0 License. It uses software which is licensed under commercial licenses.
+
+
