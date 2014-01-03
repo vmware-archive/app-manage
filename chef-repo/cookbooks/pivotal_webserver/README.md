@@ -14,7 +14,7 @@ Actions
 
 - :stop - Tells chef to stop the instance, if running
 - :start - Tells chef to start the instance, if not already running
-- :delete - Stops the instance and removes the entire contents of the instance directory. Caution: This action is destructive
+- :delete - Stops the instance and removes the entire contents of the instance directory. Caution: This action is destructive. This action does NOT remove the .rpm/.deb package.
 
 Usage
 -----
