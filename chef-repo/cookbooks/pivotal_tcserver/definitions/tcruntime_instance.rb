@@ -45,8 +45,22 @@ define :tcruntime_instance,
 
   cmd = "#{install_dir}/tcruntime-instance.sh"
 
+  if params[:action] == :delete
+    service "tcserver-instance-#{params[:name]}" do
+      supports :status => true
+      status_command "ps -p `cat #{install_dir}/#{params[:name]}/logs/tcserver.pid` > /dev/null 2>&1"
+      action :stop
+    end
+    link "/etc/init.d/tcserver-instance-#{params[:name]}" do
+      action :nothing
+    end
+    directory "#{instance_dir}/#{params[:name]}" do
+      action :delete
+      recursive true
+    end
+  else
   execute "create-instance" do
-    puts cmd + " create" + args
+    action :nothing 
     environment ({ "JAVA_HOME" => "#{java_home}" })
     command cmd + " create" + args
     creates "#{instance_dir}/#{params[:name]}"
@@ -62,7 +76,9 @@ define :tcruntime_instance,
   end
 
   service "tcserver-instance-#{params[:name]}" do
+    status_command "ps -p `cat #{install_dir}/#{params[:name]}/logs/tcserver.pid` > /dev/null 2>&1"
     supports :status => true
     action params[:action]
+  end
   end
 end
