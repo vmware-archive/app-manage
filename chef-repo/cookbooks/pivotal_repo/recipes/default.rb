@@ -6,9 +6,9 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-case node['platform']
-when 'redhat', 'centos'
+case node['platform_family']
+when 'rhel'
   include_recipe 'pivotal_repo::_rhel'
-when 'ubuntu'
+when 'debian'
   include_recipe 'pivotal_repo::_ubuntu'
 end

@@ -36,6 +36,7 @@ dpkg_package node['pivotal_repo']['package'] do
   source "#{Chef::Config[:file_cache_path]}/#{node['pivotal_repo']['package']}"
   only_if { ::File.exists?("#{Chef::Config[:file_cache_path]}/#{node['pivotal_repo']['package']}") }
   action :install
+  notifies :run, "execute[import-key]", :immediately
 end
 
 bash "accept_eula" do
