@@ -46,6 +46,13 @@ define :redis_instance,
     action :install
   end
 
+  case node['platform']
+  when 'redhat', 'centos'
+    servicename = "pivotal-redis-#{params[:port]}"
+  when 'ubuntu'
+    servicename = "redis-#{params[:port]}"
+  end
+
   dir = params[:dir] ? params[:dir] : "/var/opt/pivotal/pivotal-redis/lib/#{params[:port]}"
   # On lucid the daemonize option should be no
   if params[:daemonize]
@@ -56,75 +63,87 @@ define :redis_instance,
     daemonize = 'yes'
   end
 
-  directory dir do
-    owner params[:owner]
-    group params[:group]
-    mode 00755
-    recursive true
-    if params[:action] == :delete
-      action :delete
-    else
+  if params[:action] != :delete
+    directory dir do
+      owner params[:owner]
+      group params[:group]
+      mode 00755
+      recursive true
       action :create
-    end
-  end
+      end
   
-  template "/etc/opt/pivotal/pivotal-redis/redis-#{@params[:port]}.conf" do
-    action :delete if params[:action] == :delete
-    source 'redis.conf.erb'
-    owner params[:owner]
-    group params[:group]
-    mode 00644
-    cookbook params[:cookbook] ? params[:cookbook] : 'pivotal_redis'
-    variables(
-      :dir => dir,
-      :daemonize => daemonize,
-      :params => params
-    )
-  end
-
-  case node['platform']
-  when 'ubuntu'
-    link "/etc/init.d/redis-#{params[:port]}" do
-      to '/lib/init/upstart-job'
-    end
-
-    template "/etc/init/redis-#{params[:port]}.conf" do
-      source "redis.upstart-#{node['platform_version']}.erb"
+    template "/etc/opt/pivotal/pivotal-redis/redis-#{@params[:port]}.conf" do
+      source 'redis.conf.erb'
       owner params[:owner]
       group params[:group]
       mode 00644
       cookbook params[:cookbook] ? params[:cookbook] : 'pivotal_redis'
       variables(
-        :user => params[:owner],
-        :port => params[:port]
+        :dir => dir,
+        :daemonize => daemonize,
+        :params => params
       )
-    end
-    service "redis-#{params[:port]}" do
-      if params[:action] == :delete
-        action :stop
-      else
-        action params[:action]
-      end
-    end
-  when 'redhat', 'centos'
-    template "/etc/init.d/pivotal-redis-#{params[:port]}" do
-      source "pivotal-redis.erb"
-      owner params[:owner]
-      group params[:group]
-      mode 00554
-      cookbook params[:cookbook] ? params[:cookbook] : 'pivotal_redis'
-      variables(
-        :user => params[:owner],
-        :port => params[:port]
-      )
-    end
-    service "pivotal-redis-#{params[:port]}" do
-      if params[:action] == :delete
-        action :stop
-      else
-        action params[:action]
-      end
     end
 
+    case node['platform']
+    when 'ubuntu'
+      link "/etc/init.d/redis-#{params[:port]}" do
+        to '/lib/init/upstart-job'
+      end
+
+      template "/etc/init/redis-#{params[:port]}.conf" do
+        source "redis.upstart-#{node['platform_version']}.erb"
+        owner params[:owner]
+        group params[:group]
+        mode 00644
+        cookbook params[:cookbook] ? params[:cookbook] : 'pivotal_redis'
+        variables(
+          :user => params[:owner],
+          :port => params[:port]
+        )
+      end
+    when 'redhat', 'centos'
+      template "/etc/init.d/pivotal-redis-#{params[:port]}" do
+        source "pivotal-redis.erb"
+        owner params[:owner]
+        group params[:group]
+        mode 00554
+        cookbook params[:cookbook] ? params[:cookbook] : 'pivotal_redis'
+        variables(
+          :user => params[:owner],
+          :port => params[:port]
+        )
+      end
+    end
+    service servicename  do
+      action params[:action]
+    end
+  else
+    case node['platform']
+    when 'redhat', 'centos'
+      servicename = "pivotal-redis-#{params[:port]}"
+    when 'ubuntu'
+      servicename = "redis-#{params[:port]}"
+    end
+
+    case params[:action]
+      when :stop, :delete
+        service_action = "stop"
+      when :start
+        service_action = "start"
+    end
+
+    service servicename do
+      action service_action
+    end
+
+    directory dir do
+      action :delete
+      recursive true
+    end
+
+    file "/etc/opt/pivotal/pivotal-redis/redis-#{@params[:port]}.conf" do
+      action :delete
+    end
   end
 end
