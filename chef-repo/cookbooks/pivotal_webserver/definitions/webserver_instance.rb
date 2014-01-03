@@ -9,7 +9,7 @@ define :webserver_instance,
   end
 
   args = " --quiet #{params[:name]}"
-  args += " --set AdminEmail=#{params[:admin_email]}" if params[:admin_email]
+  args += " --set ServerAdmin=#{params[:server_admin]}" if params[:server_admin]
   args += " --set User=#{params[:user]}" if params[:user]
   args += " --set Group=#{params[:group]}" if params[:group]
   args += " --set Port=#{params[:port]}" if params[:port]
