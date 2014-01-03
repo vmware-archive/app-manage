@@ -60,7 +60,6 @@ define :tcruntime_instance,
     end
   else
   execute "create-instance" do
-    action :nothing 
     environment ({ "JAVA_HOME" => "#{java_home}" })
     command cmd + " create" + args
     creates "#{instance_dir}/#{params[:name]}"
