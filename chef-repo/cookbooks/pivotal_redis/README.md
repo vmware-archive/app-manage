@@ -2,10 +2,20 @@ pivotal_redis Cookbook
 ======================
 This cookbook provides a resource, 'redis_instance', which installs Pivotal Redis and allows the user to configure instances of redis
 
+This cookbook does installs the needed packages on the target nodes. When deleting instances it does not remove the package in case the admin wants to manually create and control instances. To remove the package use the Chef
+ package resource in your recipe.
+
 Requirements
 ------------
 #### Cookbooks
 - pivotal_repo
+
+Actions
+-------
+
+- :stop - Tells chef to stop the instance, if running
+- :start - Tells chef to start the instance, if not already running
+- :delete - Stops the instance and removes the entire contents of the instance directory. Caution: This action is destructive. This action does NOT remove the .rpm/.deb package.
 
 Options
 ----------
