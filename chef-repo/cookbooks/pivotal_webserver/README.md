@@ -2,6 +2,8 @@ pivotal_webserver Cookbook
 ==========================
 This cookbook provides a resource, 'webserver_instance', which installs and creates a Pivotal Web Server.
 
+This cookbook does installs the needed packages on the target nodes. When deleting instances it does not remove the package in case the admin wants to manually create and control instances. To remove the package use the Chef package resource.
+
 Requirements
 ------------
 #### Cookbooks
@@ -38,6 +40,7 @@ webserver_instance "foo" do
 end
 ```
 Note: When deleting an instance the entire directory is recursively deleted.
+
 
 License
 -------
