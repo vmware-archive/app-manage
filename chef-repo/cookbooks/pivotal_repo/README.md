@@ -1,6 +1,6 @@
 pivotal_repo Cookbook
 =====================
-This cookbook sets up the Pivotal package repository on the target node.
+This cookbook sets up the Pivotal package repository on the target node. This cookbook does not support repository removal at this time.
 
 Requirements
 ------------
