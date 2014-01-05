@@ -1,5 +1,21 @@
 .rake_test_cache
 
+cookbooks/apt
+cookbooks/build-essential
+cookbooks/erlang
+cookbooks/esl-erlang
+cookbooks/yum
+cookbooks/rabbitmq
+cookbooks/yum-epel
+cookbooks/yum-erlang_solutions
+cookbooks/myCookbook
+myCookbook.json
+*.rpm
+*.deb
+*.out
+*.pid
+*.asc
+
 ###
 # Ignore Chef key files and secrets
 ###
