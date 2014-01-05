@@ -16,6 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+#
+# Modified by Pivotal to property parse plugin output from vFabric RabbitMQ
+#
+
 
 def plugins_bin_path(return_array=false)
   path = ENV.fetch('PATH') + ':/usr/lib/rabbitmq/bin'
