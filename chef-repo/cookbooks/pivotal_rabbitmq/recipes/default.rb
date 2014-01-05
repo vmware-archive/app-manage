@@ -1,11 +1,5 @@
-#
-# Cookbook Name:: pivotal_rabbitmq
-# Recipe:: default
-#
-# Copyright 2014, YOUR_COMPANY_NAME
-#
-# All rights reserved - Do Not Redistribute
-#
-
+if (node['platform'] == 'ubuntu')
+  include_recipe "esl-erlang::esl"
+end
 include_recipe 'rabbitmq::default'
 

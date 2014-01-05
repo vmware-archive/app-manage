@@ -1,4 +1,6 @@
 
+default['rabbitmq']['version'] = "3.2.1"
+
 case node['platform_family']
 when 'debian'
   default['rabbitmq']['use_distro_version'] = "true"
