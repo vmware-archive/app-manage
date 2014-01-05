@@ -19,5 +19,6 @@ myCookbook.json
 ###
 # Ignore Chef key files and secrets
 ###
+.chef/knife.rb
 .chef/*.pem
 .chef/encrypted_data_bag_secret
