@@ -8,7 +8,7 @@ Requirements
 #### cookbooks
 - `rabbitmq` -The OpsCode RabbitMQ Cookbook.
 - `esl-erlang` - The Erlang Solutions Apt Cookbook. 
-
+- The above cookbooks also depend on yum, apt, yum-epel, yum-erlang_solutions, and erlang
 
 Usage
 =====
