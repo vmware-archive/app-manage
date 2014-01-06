@@ -33,7 +33,7 @@ Your cookbook should depend on 'pivotal_webserver'
 
 metadata.rb:
 ```ruby
-depends `pivotal_tcserver`
+depends "pivotal_tcserver"
 ```
 You must set java_home to point to a valid JDK installation on the target system.
 
