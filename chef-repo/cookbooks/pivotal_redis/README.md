@@ -62,6 +62,15 @@ redis_instance "example-of-underscore" do
 end
 ```
 
+For slaves you pass both the address and port as a string to the slaveof option.
+```ruby
+redis_instance "slave" do
+  port '9001'
+  slaveof "127.0.0.1 6379"
+end
+
+```
+
 License
 -------------------
 This cookbook is licensed under the Apache License 2.0. The software installed by this cookbook may be subject to commercial licenses
