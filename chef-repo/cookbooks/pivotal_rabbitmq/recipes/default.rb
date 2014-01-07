@@ -2,7 +2,7 @@
 group "rabbitmq"
 
 if (node['platform'] == 'ubuntu')
-  include_recipe "esl-erlang::esl"
+  include_recipe "erlang::esl"
 end
 include_recipe 'rabbitmq::default'
 
