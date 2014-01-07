@@ -22,7 +22,7 @@ Your cookbook should depend on 'pivotal_webserver'
 
 metadata.rb:
 ```ruby
-depends `pivotal_webserver`
+depends "pivotal_webserver"
 ```
 
 Then in your recipe you can use the webserver_instance resource. The name of the code block is used to name the instance. In the below example the instance name is "foo".
