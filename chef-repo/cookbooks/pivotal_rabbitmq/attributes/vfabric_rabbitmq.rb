@@ -1,7 +1,7 @@
 
 
 # We need to override soem of the defaults
-node.override['rabbitmq']['version'] = "3.2.1"
+node.override['rabbitmq']['version'] = "3.2.2"
 node.override['rabbitmq']['package-release'] = "3"
 
 case node['platform_family']
