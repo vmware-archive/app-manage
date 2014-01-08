@@ -13,6 +13,7 @@ when 'rhel'
     rhel = 5
   else
     rhel = 6
+    node.override['yum']['erlang_solutions']['baseurl'] = 'http://packages.erlang-solutions.com/rpm/centos/6/$basearch'
   end
     node.override['rabbitmq']['package'] = "http://packages.gopivotal.com/pub/rpm/rhel#{rhel}/vfabric/5.3/x86_64/vfabric-rabbitmq-server-#{node['rabbitmq']['version']}-#{node['rabbitmq']['package-release']}.x86_64.rpm"
 end
