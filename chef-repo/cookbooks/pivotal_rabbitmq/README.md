@@ -26,6 +26,12 @@ There is one exception and that is with plugins. The OpsCode plugin resource isn
 pivotal_rabbitmq_plugin "rabbitmq_stomp" do
   action :enable
 end
+
+pivotal_rabbitmq_plugin "rabbitmq_management" do
+  action :enable
+  notifies :restart, "service[rabbitmq-server]"
+end
+
 ```
 
 License
