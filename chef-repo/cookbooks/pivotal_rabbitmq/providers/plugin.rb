@@ -1,7 +1,4 @@
 #
-# Cookbook Name:: rabbitmq
-# Provider:: plugin
-#
 # Copyright 2012-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,8 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-#
-# Modified by Pivotal to property parse plugin output from vFabric RabbitMQ
+# Original file from: https://github.com/opscode-cookbooks/rabbitmq/blob/212fa203ff4dd508f19d4cc4d84758330c8af6ab/providers/plugin.rb
+# Modified by Pivotal to property parse plugin output from vFabric RabbitMQ.
+# A space was added after {name} to prevent misparsing of "supported plugins" added
+# by vFabric RabbitMQ
 #
 
 

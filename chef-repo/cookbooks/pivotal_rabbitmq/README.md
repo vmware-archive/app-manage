@@ -1,18 +1,20 @@
 pivotal_rabbitmq Cookbook
 =========================
-This cookbook wraps around the Opscode RabbitMQ Cookbook to override attributes so that vFabric RabbitMQ will be installed instead of the Open Source Licensed Version
 
+This cookbook wraps around the Opscode RabbitMQ Cookbook to override attributes so that vFabric RabbitMQ will be installed instead of the Open Source Licensed Version
 
 Requirements
 ------------
 #### cookbooks
+- `pivotal_repo` - To install the necessary apt/yum repository
 - `rabbitmq` -The OpsCode RabbitMQ Cookbook.
-- `esl-erlang` - The Erlang Solutions Apt Cookbook. 
-- The above cookbooks also depend on yum, apt, yum-epel, yum-erlang_solutions, and erlang
+- `erlang` - For Erlang Solutions Apt. 
+- The above cookbooks also depend on yum, apt, yum-epel, and yum-erlang_solutions
 
 Usage
 =====
-Simply include the default recipe and then this cookbook may be used just like the [rabbitmq cookbook](https://github.com/opscode-cookbooks/rabbitmq)
+Simply include the default recipe and then this cookbook may be used just like the [rabbitmq cookbook](https://github.com/opscode-cookbooks/rabbitmq). Please
+see the documentation of the [rabbitmq cookbook](https://github.com/opscode-cookbooks/rabbitmq) for usage of that cookbook.
 
 ```ruby
 include_recipe "pivotal_rabbitmq"
@@ -36,4 +38,4 @@ end
 
 License
 -------------------
-Apache 2.0 License. This cookbook installs software which is subject to commerical license terms.
+Apache 2.0 License. This cookbook installs software which is subject to commercial license terms.
