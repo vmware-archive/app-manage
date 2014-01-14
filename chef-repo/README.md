@@ -1,5 +1,4 @@
 Overview
 ========
 
-This is a NON-TESTED, NON-SUPPORTED, BETA repository of Chef Cookbooks for Pivotal products. 
-
+This is the github repository of Pivotal Chef Cookbooks. Please view each individual cookbook for specifics of usage.
