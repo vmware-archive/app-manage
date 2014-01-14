@@ -14,7 +14,7 @@
 #
 
 
-# We need to override soem of the defaults
+# We need to override some of the defaults
 node.override['rabbitmq']['version'] = "3.2.2"
 node.override['rabbitmq']['package-release'] = "3"
 
