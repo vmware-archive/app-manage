@@ -1,4 +1,3 @@
-## RHEL specific recipe
 ##
 ## Copyright 2013 GoPivotal, Inc
 ##
