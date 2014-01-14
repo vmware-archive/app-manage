@@ -1,1 +1,3 @@
-The Cookbooks in this directory are NOT SUPPORTED and considered beta at this time
+Pivotal Chef Cookbooks
+======================
+Please see the README in each individual cookbook for more information
