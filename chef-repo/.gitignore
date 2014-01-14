@@ -16,6 +16,8 @@ myCookbook.json
 *.pid
 *.asc
 
+solo.rb
+
 ###
 # Ignore Chef key files and secrets
 ###
