@@ -23,7 +23,7 @@ with the commercial RabbitMQ packages provided by Pivotal.
 The rabbitmq module sets up rabbitmq and has a number of providers to manage
 everything from vhosts to exchanges after setup.
 
-This module has been tested against 2.7.1 and is known to not support
+This module has been tested against 3.2.1 and is known to not support
 all features against earlier versions.
 
 ##Setup
