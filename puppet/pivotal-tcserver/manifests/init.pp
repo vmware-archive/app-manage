@@ -50,9 +50,8 @@ class tcserver (
   $tcserver_group = 'vfabric',
   $uses_templates = true,
   $templates_source = 'puppet:///modules/tcserver/templates',
+  $installed_base = '/opt/vmware/vfabric-tc-server-standard',
   ) {
-
-  $installed_base = '/opt/vmware/vfabric-tc-server-standard'
 
   if $ensure == absent {
     $package_ensure = absent
