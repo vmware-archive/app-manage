@@ -57,7 +57,7 @@ class pivotal_repo (
         # The Repo RPM installs the acceptance script so instead of maintaining the repo with a yumrepo resource we have to install
         # the rpm ourselves.
 	exec { 'copy eula':
-		command => 'cp /etc/${org_name}/vfabric/vfabric-5.3-eula-acceptance.sh /etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh',
+		command => '/bin/cp /etc/${org_name}/vfabric/vfabric-5.3-eula-acceptance.sh /etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh',
 	}
         package { $package_name:
           ensure   => $ensure,
