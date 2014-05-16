@@ -53,6 +53,7 @@ class tcserver (
   $installed_base = '/opt/vmware/vfabric-tc-server-standard',
   ) {
 
+
   if $ensure == absent {
     $package_ensure = absent
   } else {
