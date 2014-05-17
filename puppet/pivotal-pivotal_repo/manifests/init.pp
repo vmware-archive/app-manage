@@ -43,8 +43,8 @@ class pivotal_repo (
         $org_name = 'vmware' # Red Hat YUM repo uses vmware
         $package_name = "vfabric-${release}-repo"
 	## TODO - figure out how to generate proper acceptance.sh files for each release
-        ##$cmd = "/etc/${org_name}/vfabric/vfabric-5.3-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
-        $cmd = "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
+        ##$cmd = "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
+        $cmd = "/etc/${org_name}/vfabric/vfabric-5.3-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
         $rhel_release = $::operatingsystemrelease ? {
           /^5/    => '5',
           /^6/    => '6',
