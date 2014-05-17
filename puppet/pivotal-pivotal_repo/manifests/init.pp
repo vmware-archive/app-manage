@@ -105,7 +105,8 @@ class pivotal_repo (
       }
     }
     exec { 'vfabric-eula-acceptance':
-      command => $cmd,
+      #command => $cmd,
+      command => 'echo 1',
       require => Package[$package_name]
     }
   } else {
