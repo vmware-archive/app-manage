@@ -44,13 +44,33 @@ class pivotal_repo (
         $package_name = "vfabric-${release}-repo"
 	## TODO - figure out how to generate proper acceptance.sh files for each release
         ##$cmd = "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
-        $cmd = "/etc/${org_name}/vfabric/vfabric-5.3-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
+        $cmd = "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
         $rhel_release = $::operatingsystemrelease ? {
           /^5/    => '5',
           /^6/    => '6',
           default => Fail["OS Release ${::operatingsystemrelease} not supported at this time"]
         }
-        $pivotal_repo_url = "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm"
+	
+        if ($release == '5.1') {
+          file { "vfabric-acceptance":
+            path => "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh",
+            content => template("pivotal_repo/vfabric-eula-acceptance.sh"),
+          }
+          file { "accept-vfabric-eula":
+            path => "/etc/${org_name}/vfabric/accept-vfabric-eula.txt",
+            content => template("pivotal_repo/accept-vfabric-eula.txt"),
+          }
+          file { "accept-vfabric5.1-eula":
+            path => "/etc/${org_name}/vfabric/accept-vfabric5.1-eula.txt",
+            content => template("pivotal_repo/accept-vfabric5.1-eula.txt"),
+          }
+        }
+
+        $pivotal_repo_url = $release ? {
+          /^5.2/  => "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-5.noarch.rpm",
+          default => "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm",
+        }
+
         $vfabric_gpg_url = "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
         exec { 'gpg_import':
           command => "/bin/rpm --import ${vfabric_gpg_url}",
@@ -106,7 +126,6 @@ class pivotal_repo (
     }
     exec { 'vfabric-eula-acceptance':
       command => $cmd,
-      #command => '/bin/echo 1',
       require => Package[$package_name]
     }
   } else {
