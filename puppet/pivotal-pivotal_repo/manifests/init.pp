@@ -42,15 +42,15 @@ class pivotal_repo (
       'RedHat', 'CentOS': {
         $org_name = 'vmware' # Red Hat YUM repo uses vmware
         $package_name = "vfabric-${release}-repo"
-	## TODO - figure out how to generate proper acceptance.sh files for each release
-        ##$cmd = "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
         $cmd = "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
         $rhel_release = $::operatingsystemrelease ? {
           /^5/    => '5',
           /^6/    => '6',
           default => Fail["OS Release ${::operatingsystemrelease} not supported at this time"]
         }
-	
+
+        # 5.1 is a special case because it doesn't include an acceptance.sh file
+        # so, we create a blank one and drop acceptance files as if it worked.
         if ($release == '5.1') {
           file { "vfabric-acceptance":
             path => "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh",
@@ -67,6 +67,8 @@ class pivotal_repo (
           }
         }
 
+        # release 5.2's RPM is actually '-5.noarch.rpm' 
+        # rather than '-1.noarch.rpm' 
         $pivotal_repo_url = $release ? {
           /^5.2/  => "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-5.noarch.rpm",
           default => "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm",
