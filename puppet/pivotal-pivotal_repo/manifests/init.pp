@@ -54,6 +54,7 @@ class pivotal_repo (
         if ($release == '5.1') {
           file { "vfabric-acceptance":
             path => "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh",
+            mode => '0744',
             content => template("pivotal_repo/vfabric-eula-acceptance.sh"),
           }
           file { "accept-vfabric-eula":
