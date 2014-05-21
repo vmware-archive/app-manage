@@ -16,15 +16,15 @@
 
 class tcserver::install(
   $version = 'latest',
-  $installed_base = '/opt/vmware/vfabric-tc-server-standard',
 ) {
 
   if defined('pivotal_repo') {
+    notify { "installing tcserver to ${installed_base}":}
     package {'vfabric-tc-server-standard':
       ensure    => $version,
-      install_options => [ { 'prefix' => $installed_base } ],
       require   => Exec['vfabric-eula-acceptance'],
     }
+
   } else {
     fail 'pivotal_repo module not included'
   }
