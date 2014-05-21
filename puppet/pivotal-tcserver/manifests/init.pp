@@ -61,7 +61,8 @@ class tcserver (
   }
 
   class {'tcserver::install':
-    version => $package_ensure
+    version => $package_ensure,
+    installed_base => $installed_base,
   } ->
   class {'tcserver::postinstall':
     ensure         => $package_ensure,
