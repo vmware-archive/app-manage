@@ -64,6 +64,7 @@ define tcserver::instance (
   $apps_dir = 'webapps',
   $apps_source = 'puppet:///modules/tcserver/webapps',
   $deploy_apps = false,
+  $instance_directory = $::tcserver::installed_base,
 ){
   require tcserver
 
@@ -106,6 +107,7 @@ define tcserver::instance (
       properties_file => $properties_file,
       java_home       => $my_java_home,
       use_java_home   => $use_java_home,
+      instance_directory => $instance_directory,
       require         => Class['::tcserver::postinstall']
     }
 
