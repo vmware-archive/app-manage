@@ -111,18 +111,18 @@ define tcserver::instance (
       require         => Class['::tcserver::postinstall']
     }
 
-    file { "${cwd}/${name}":
+    file { "${instance_directory}/${name}":
       ensure      => directory,
       owner       => $tcserver_user,
       group       => $tcserver_group,
       recurse     => true,
-      ignore      => "${cwd}/${name}/${apps_dir}",
+      ignore      => "${instance_directory}/${name}/${apps_dir}",
       require     => Tcruntime_instance[$name]
     }
 
     file { "/etc/init.d/tcserver-instance-${name}":
       ensure      => link,
-      target      => "${cwd}/${name}/bin/init.d.sh",
+      target      => "${instance_directory}/${name}/bin/init.d.sh",
     }
 
     tcserver::service {$name:
@@ -132,7 +132,7 @@ define tcserver::instance (
     }
 
     if $deploy_apps {
-      file { "${cwd}/${name}/${apps_dir}":
+      file { "${instance_directory}/${name}/${apps_dir}":
         recurse   => true,
         source    => $apps_source
       }
@@ -141,9 +141,9 @@ define tcserver::instance (
     tcserver::service {$name:
       ensure      => absent,
       name        => $name,
-      cwd         => $cwd,
+      cwd         => $instance_directory,
     }->
-    file { "${cwd}/${name}":
+    file { "${instance_directory}/${name}":
       ensure      => absent,
       force       => true
     }->
