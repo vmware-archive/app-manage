@@ -108,7 +108,7 @@ define tcserver::instance (
       java_home       => $my_java_home,
       use_java_home   => $use_java_home,
       instance_directory => $instance_directory,
-      require         => Class['::tcserver::postinstall']
+      require         => Class['::tcserver::postinstall'],
     }
 
     file { "${instance_directory}/${name}":
@@ -116,6 +116,7 @@ define tcserver::instance (
       owner       => $tcserver_user,
       group       => $tcserver_group,
       recurse     => true,
+      mode        => 770,
       ignore      => "${instance_directory}/${name}/${apps_dir}",
       require     => Tcruntime_instance[$name]
     }
@@ -128,7 +129,7 @@ define tcserver::instance (
     tcserver::service {$name:
       ensure      => $ensure,
       name        => $name,
-      cwd         => $cwd,
+      cwd         => $instance_directory,
     }
 
     if $deploy_apps {
