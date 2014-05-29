@@ -99,7 +99,7 @@ define tcserver::instance (
 #  $properties.merge = "-p bio.http.port=${bio_http_port} -p bio.https.port=${bio_https_port} -p base.jmx.port=${base_jmx_port}"
 
   if $ensure == 'running' or $ensure == 'stopped' {
-    notify{" installing tcserver instance to directory: ${::tcserver::installed_base} (ensure: ${ensure})":}
+    notify{" installing tcserver instance to directory: ${instance_directory}/${name} (ensure: ${ensure})":}
 
     tcruntime_instance {$name:
       templates       => $templates,
@@ -141,7 +141,7 @@ define tcserver::instance (
       }
     }
   } else {
-    notify{" removing tcserver instance from directory: ${::tcserver::installed_base} (ensure: ${ensure})":}
+    notify{" removing tcserver instance from directory: ${instance_directory}/${name} (ensure: ${ensure})":}
 
     tcserver::service {$name:
       ensure      => absent,
