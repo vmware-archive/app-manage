@@ -49,6 +49,10 @@ class pivotal_repo (
           default => Fail["OS Release ${::operatingsystemrelease} not supported at this time"]
         }
 
+        file { ["/etc/${org_name}", "/etc/${org_name}/vfabric"]:
+          ensure => directory,
+        }
+
         # 5.1 is a special case because it doesn't include an acceptance.sh file
         # so, we create a blank one and drop acceptance files as if it worked.
         if ($release == '5.1') {
