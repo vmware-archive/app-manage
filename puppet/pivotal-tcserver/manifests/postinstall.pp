@@ -28,6 +28,7 @@ class tcserver::postinstall (
     } else {
       file { "${::tcserver::installed_base}/templates":
         recurse => true,
+		force => true,
         source  => $::tcserver::templates_source,
         require => Class['::tcserver::install']
       }
