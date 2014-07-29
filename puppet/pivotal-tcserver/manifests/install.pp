@@ -19,10 +19,12 @@ class tcserver::install(
 ) {
 
   if defined('pivotal_repo') {
+    notify { "installing tcserver to ${installed_base}":}
     package {'vfabric-tc-server-standard':
       ensure    => $version,
       require   => Exec['vfabric-eula-acceptance'],
     }
+
   } else {
     fail 'pivotal_repo module not included'
   }

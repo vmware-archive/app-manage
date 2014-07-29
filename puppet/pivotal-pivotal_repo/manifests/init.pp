@@ -48,8 +48,37 @@ class pivotal_repo (
           /^6/    => '6',
           default => Fail["OS Release ${::operatingsystemrelease} not supported at this time"]
         }
-        $pivotal_repo_url = "http://packages.gopivotal.com/pub/rpm/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm"
-        $vfabric_gpg_url = "http://packages.gopivotal.com/pub/rpm/rhel${rhel_release}/vfabric/${release}/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
+
+        file { ["/etc/${org_name}", "/etc/${org_name}/vfabric"]:
+          ensure => directory,
+        }
+
+        # 5.1 is a special case because it doesn't include an acceptance.sh file
+        # so, we create a blank one and drop acceptance files as if it worked.
+        if ($release == '5.1') {
+          file { "vfabric-acceptance":
+            path => "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh",
+            mode => '0744',
+            content => template("pivotal_repo/vfabric-eula-acceptance.sh"),
+          }
+          file { "accept-vfabric-eula":
+            path => "/etc/${org_name}/vfabric/accept-vfabric-eula.txt",
+            content => template("pivotal_repo/accept-vfabric-eula.txt"),
+          }
+          file { "accept-vfabric5.1-eula":
+            path => "/etc/${org_name}/vfabric/accept-vfabric5.1-eula.txt",
+            content => template("pivotal_repo/accept-vfabric5.1-eula.txt"),
+          }
+        }
+
+        # release 5.2's RPM is actually '-5.noarch.rpm' 
+        # rather than '-1.noarch.rpm' 
+        $pivotal_repo_url = $release ? {
+          /^5.2/  => "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-5.noarch.rpm",
+          default => "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm",
+        }
+
+        $vfabric_gpg_url = "http://repo.vmware.com/pub/rhel${rhel_release}/vfabric/${release}/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
         exec { 'gpg_import':
           command => "/bin/rpm --import ${vfabric_gpg_url}",
           creates => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"

@@ -52,7 +52,15 @@ class tcserver (
   $templates_source = 'puppet:///modules/tcserver/templates',
   ) {
 
+  # rpm installs into this directory
   $installed_base = '/opt/vmware/vfabric-tc-server-standard'
+
+  # set the file defaults
+  File {
+    owner => $tcserver_user,
+    group => $tcserver_group,
+  }
+
 
   if $ensure == absent {
     $package_ensure = absent
@@ -61,7 +69,7 @@ class tcserver (
   }
 
   class {'tcserver::install':
-    version => $package_ensure
+    version => $package_ensure,
   } ->
   class {'tcserver::postinstall':
     ensure         => $package_ensure,

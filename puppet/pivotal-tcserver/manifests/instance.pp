@@ -64,6 +64,7 @@ define tcserver::instance (
   $apps_dir = 'webapps',
   $apps_source = 'puppet:///modules/tcserver/webapps',
   $deploy_apps = false,
+  $instance_directory = $::tcserver::installed_base,
 ){
   require tcserver
 
@@ -98,6 +99,8 @@ define tcserver::instance (
 #  $properties.merge = "-p bio.http.port=${bio_http_port} -p bio.https.port=${bio_https_port} -p base.jmx.port=${base_jmx_port}"
 
   if $ensure == 'running' or $ensure == 'stopped' {
+    notify{" installing tcserver instance to directory: ${instance_directory}/${name} (ensure: ${ensure})":}
+
     tcruntime_instance {$name:
       templates       => $templates,
       properties      => $properties,
@@ -106,42 +109,46 @@ define tcserver::instance (
       properties_file => $properties_file,
       java_home       => $my_java_home,
       use_java_home   => $use_java_home,
-      require         => Class['::tcserver::postinstall']
+      instance_directory => $instance_directory,
+      require         => Class['::tcserver::postinstall'],
     }
 
-    file { "${cwd}/${name}":
+    file { "${instance_directory}/${name}":
       ensure      => directory,
       owner       => $tcserver_user,
       group       => $tcserver_group,
       recurse     => true,
-      ignore      => "${cwd}/${name}/${apps_dir}",
+      mode        => 770,
+      ignore      => "${instance_directory}/${name}/${apps_dir}",
       require     => Tcruntime_instance[$name]
     }
 
     file { "/etc/init.d/tcserver-instance-${name}":
       ensure      => link,
-      target      => "${cwd}/${name}/bin/init.d.sh",
+      target      => "${instance_directory}/${name}/bin/init.d.sh",
     }
 
     tcserver::service {$name:
       ensure      => $ensure,
       name        => $name,
-      cwd         => $cwd,
+      cwd         => $instance_directory,
     }
 
     if $deploy_apps {
-      file { "${cwd}/${name}/${apps_dir}":
+      file { "${instance_directory}/${name}/${apps_dir}":
         recurse   => true,
         source    => $apps_source
       }
     }
   } else {
+    notify{" removing tcserver instance from directory: ${instance_directory}/${name} (ensure: ${ensure})":}
+
     tcserver::service {$name:
       ensure      => absent,
       name        => $name,
-      cwd         => $cwd,
+      cwd         => $instance_directory,
     }->
-    file { "${cwd}/${name}":
+    file { "${instance_directory}/${name}":
       ensure      => absent,
       force       => true
     }->

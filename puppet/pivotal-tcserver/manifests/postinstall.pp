@@ -27,13 +27,19 @@ class tcserver::postinstall (
       }
     } else {
       file { "${::tcserver::installed_base}/templates":
-        group   => $::tcserver::tcserver_group,
         recurse => true,
+		force => true,
         source  => $::tcserver::templates_source,
         require => Class['::tcserver::install']
       }
     }
   }
+
+  # set permissions of all files to user/group passed in
+  exec { 'setting permissions':
+    command => "/bin/chown -R ${::tcserver::tcserver_user}:${::tcserver::tcserver_group} ${::tcserver::installed_base}",
+  }
+
   user { $::tcserver::tcserver_user:
     groups  => $::tcserver::tcserver_group,
     require => Class['::tcserver::install']
