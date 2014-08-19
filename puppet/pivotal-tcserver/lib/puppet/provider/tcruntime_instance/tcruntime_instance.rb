@@ -19,8 +19,8 @@ Puppet::Type.type(:tcruntime_instance).provide(:tcruntime_instance) do
   def create
     # We create the command here so we can get the java_home variable from the manifest
     resource = @resource
-    Puppet::Provider.has_command(:tcruntime_instance, "/opt/vmware/vfabric-tc-server-standard/tcruntime-instance.sh" ) do
-      environment :HOME => "/opt/vmware/vfabric-tc-server-standard/"
+    Puppet::Provider.has_command(:tcruntime_instance, "/opt/pivotal/pivotal-tc-server-standard/tcruntime-instance.sh" ) do
+      environment :HOME => "/opt/pivotal/pivotal-tc-server-standard/"
       environment :JAVA_HOME => resource[:java_home]
     end
 

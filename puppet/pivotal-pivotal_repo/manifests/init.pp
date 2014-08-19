@@ -1,6 +1,6 @@
 ## Pivotal RPM/DEB Repository Module
 ##
-## Copyright 2013 GoPivotal, Inc
+## Copyright 2013 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -32,27 +32,26 @@
 
 class pivotal_repo (
   $ensure = installed,
-  $release = '5.3',   #For YUM Repo
+  $app_suite_repo_version = '1.0-4',
   $i_accept_eula = false
   ) {
-  $vfabric5_repo_url = 'http://repo.vmware.com/pub/rhel5/vfabric/5.3/vfabric-5.3-repo-5.3-1.noarch.rpm'
 
   if $i_accept_eula {
     case $::operatingsystem {
       'RedHat', 'CentOS': {
         $org_name = 'vmware' # Red Hat YUM repo uses vmware
-        $package_name = "vfabric-${release}-repo"
-        $cmd = "/etc/${org_name}/vfabric/vfabric-${release}-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
+        $package_name = "pivotal-app-suite-${release}-repo"
+        $cmd = "/etc/pivotal/pivotal-eula-acceptance.sh --accept_eula_file=Pivotal_EULA.txt > /dev/null 2>&1"
         $rhel_release = $::operatingsystemrelease ? {
           /^5/    => '5',
           /^6/    => '6',
           default => Fail["OS Release ${::operatingsystemrelease} not supported at this time"]
         }
-        $pivotal_repo_url = "http://packages.gopivotal.com/pub/rpm/rhel${rhel_release}/vfabric/${release}/vfabric-${release}-repo-${release}-1.noarch.rpm"
-        $vfabric_gpg_url = "http://packages.gopivotal.com/pub/rpm/rhel${rhel_release}/vfabric/${release}/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
+        $pivotal_repo_url = "http://packages.gopivotal.com/pub/rpm/rhel${rhel_release}/app-suite/app-suite-repo-${app_suite_repo_version}.noarch.rpm"
+        $pivotal_gpg_url = "http://packages.gopivotal.com/pub/rpm/rhel${rhel_release}/app-suite/RPM-GPG-KEY-PIVOTAL-APP-SUITE-EL${rhel_release}"
         exec { 'gpg_import':
-          command => "/bin/rpm --import ${vfabric_gpg_url}",
-          creates => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${release}-EL${rhel_release}"
+          command => "/bin/rpm --import ${pivotal_gpg_url}",
+          creates => "/etc/pki/rpm-gpg/RPM-GPG-KEY-PIVOTAL-APP-SUITE-EL${rhel_release}"
         } ->
         # The Repo RPM installs the acceptance script so instead of maintaining the repo with a yumrepo resource we have to install
         # the rpm ourselves.
@@ -60,38 +59,39 @@ class pivotal_repo (
           ensure   => $ensure,
           provider => 'rpm',
           source   => $pivotal_repo_url,
-          before   => Exec['vfabric-eula-acceptance']
+          before   => Exec['pivotal-eula-acceptance']
         }
       }
       'Ubuntu': {
         $org_name = 'pivotal' # Ubuntu apt repo uses pivotal
-        $pivotal_repo_package_gpgurl = 'http://packages.gopivotal.com/pub/apt/ubuntu/DEB-GPG-KEY-VFABRIC'
-        $cmd = "/etc/${org_name}/vfabric/vfabric-eula-acceptance.sh --accept_eula_file=VMware_EULA_20120515b_English.txt > /dev/null 2>&1"
+        $pivotal_repo_package_gpgurl = 'http://packages.pivotal.io/pub/apt/ubuntu/DEB-GPG-KEY-PIVOTAL-APP-SUITE'
+        $cmd = "/etc/pivotal/app-suite/pivotal-eula-acceptance.sh --accept_eula_file=Pivotal_Software_EULA--8.4.14.txt > /dev/null 2>&1"
         $pivotal_repo_package_url = $::operatingsystemrelease ? {
-          /^10.04/ => 'http://packages.gopivotal.com/pub/apt/ubuntu/vfabric-repo-lucid_1.0-6_all.deb',
-          /^12.04/ => 'http://packages.gopivotal.com/pub/apt/ubuntu/vfabric-repo-precise_1.0-6_all.deb',
+          /^10.04/ => 'http://packages.pivotal.io/pub/apt/ubuntu/pivotal-app-suite-repo-lucid_1.0-5_all.deb',
+          /^12.04/ => 'http://packages.pivotal.io/pub/apt/ubuntu/pivotal-app-suite-repo-precise_1.0-5_all.deb',
           default  => Fail["OS Release ${::operatingsystemrelease} not supported at this time"]
         }
         $package_name = $::operatingsystemrelease ? {
-          /^10.04/ => 'vfabric-repo-lucid',
-          /^12.04/ => 'vfabric-repo-precise'
+          /^10.04/ => 'pivotal-app-suite-repo-lucid',
+          /^12.04/ => 'pivotal-app-suite-repo-precise'
         }
         class { 'apt':
           always_apt_update    => true,
         } ->
-        apt::key {'vfabric':
-          key_source => 'http://packages.gopivotal.com/pub/apt/ubuntu/DEB-GPG-KEY-VFABRIC'
+        apt::key {'pivotal-app-suite':
+          key        => '7C4B3B36',
+          key_source => 'http://packages.pivotal.io/pub/apt/ubuntu/DEB-GPG-KEY-PIVOTAL-APP-SUITE'
         } ->
         wget::fetch { $pivotal_repo_package_url :
-          destination => "/tmp/${package_name}",
+          destination => "/tmp/${package_name}.deb",
           timeout     => 0,
           verbose     => false,
         } ->
         package { $package_name:
           ensure   => $ensure,
           provider => 'dpkg',
-          source   => "/tmp/${package_name}",
-          before   => Exec['vfabric-eula-acceptance']
+          source   => "/tmp/${package_name}.deb",
+          before   => Exec['pivotal-eula-acceptance']
         }
         exec { 'apt-update':
           command      => '/usr/bin/apt-get update',
@@ -102,7 +102,7 @@ class pivotal_repo (
         fail "OS ${::operatingsystem} not supported at this time"
       }
     }
-    exec { 'vfabric-eula-acceptance':
+    exec { 'pivotal-eula-acceptance':
       command => $cmd,
       require => Package[$package_name]
     }

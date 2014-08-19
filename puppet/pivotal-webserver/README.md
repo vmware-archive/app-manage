@@ -1,11 +1,10 @@
 # Pivotal vFabric Web Server Module for Puppet
 
-This README covers the initial release of the vFabric Web Server module for puppet. This README assumes the reader has a basic understanding of puppet and vFabric Web Server.
+This README covers the initial release of the Pivotal Web Server module for puppet. This README assumes the reader has a basic understanding of puppet and Pivotal Web Server.
 
 # About this module
 
-This module installs vfabric-web-server and manages instances. It is important to note that this module uses the newserver command to create the instances. This means that if a configuration variable changes in a manifest that it will not be reflected in the instance unless it is destroyed first and allowed to be recreated.
-
+This module installs pivotal-webserver and manages instances. It is important to note that this module uses the newserver command to create the instances. This means that if a configuration variable changes in a manifest that it will not be reflected in the instance unless it is destroyed first and allowed to be recreated.
 
 
 # Before you begin
@@ -18,7 +17,7 @@ This module depends on the pivotal\_repo module.
 
 ```puppet
 
-  vfws::instance { 'myserver':
+  webserver::instance { 'myserver':
     port => '8000',
   }
 
@@ -27,12 +26,12 @@ This module depends on the pivotal\_repo module.
 *More Options* - The following example will install vFabric Web Server and create two instances on the same node running on separate ports
 ```puppet
 
-  vfws::instance { 'web1':
+  webserver::instance { 'web1':
     port => '8081',
     mpm  => 'worker'
   }
 
-  vfws::instance { 'web2':
+  webserver::instance { 'web2':
     port => '8082',
     mpm  => 'worker'
 }

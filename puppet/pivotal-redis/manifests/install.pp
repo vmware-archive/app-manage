@@ -17,7 +17,7 @@
 class redis::install ( $version = 'latest' ) {
   package {'pivotal-redis':
     ensure  => $version,
-    require => Exec['vfabric-eula-acceptance']
+    require => Exec['pivotal-eula-acceptance']
   }
 }
 

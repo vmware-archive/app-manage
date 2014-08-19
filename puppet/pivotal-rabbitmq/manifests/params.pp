@@ -16,11 +16,11 @@ class rabbitmq::params {
     }
     'RedHat': {
       $package_ensure   = 'installed'
-      $package_name   = 'vfabric-rabbitmq-server'
+      $package_name   = 'pivotal-rabbitmq-server'
       $package_provider = 'yum'
       $service_name     = 'rabbitmq-server'
       $version          = 'latest'
-      $group            = 'vfabric'
+      $group            = 'pivotal'
       # This must remain at the end as we need $base_version and $version defined first.
     }
     default: {

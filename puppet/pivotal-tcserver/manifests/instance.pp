@@ -1,6 +1,6 @@
-## Web Server Puppet Module
+## tc Server Puppet Module
 ##
-## Copyright 2013 GoPivotal, Inc
+## Copyright 2013-2014 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ define tcserver::instance (
   $properties = [],
   $layout = undef,
   $version = undef,
-  $base_dir = undef,
+  $base_dir = '/var/opt/pivotal/pivotal-tc-server-standard',
   $user = undef,
   $group = undef,
   $apps_dir = 'webapps',
@@ -89,13 +89,7 @@ define tcserver::instance (
     $tcserver_group = $group
   }
 
-  if $base_dir {
-    $cwd = $base_dir
-  } else {
-    $cwd = $::tcserver::installed_base
-  }
-
-#  $properties.merge = "-p bio.http.port=${bio_http_port} -p bio.https.port=${bio_https_port} -p base.jmx.port=${base_jmx_port}"
+  $cwd = $base_dir
 
   if $ensure == 'running' or $ensure == 'stopped' {
     tcruntime_instance {$name:

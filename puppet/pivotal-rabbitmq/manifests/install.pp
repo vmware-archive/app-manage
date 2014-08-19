@@ -13,7 +13,7 @@ class rabbitmq::install {
     ensure   => $package_ensure,
     name     => $package_name,
     provider => $package_provider,
-    require  => Exec['vfabric-eula-acceptance'],
+    require  => Exec['pivotal-eula-acceptance'],
     notify   => Class['rabbitmq::service'],
   }
 

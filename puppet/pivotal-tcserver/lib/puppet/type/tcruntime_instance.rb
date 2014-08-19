@@ -27,7 +27,7 @@ Puppet::Type.newtype(:tcruntime_instance) do
   newparam(:instance_directory) do
     'root directory to create instances in'
 
-    defaultto "/opt/vmware/vfabric-tc-server-standard"
+    defaultto "/var/opt/pivotal/pivotal-tc-server-standard/"
   end
 
   newparam(:use_java_home) do

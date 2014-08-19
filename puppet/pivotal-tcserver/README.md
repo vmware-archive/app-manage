@@ -4,9 +4,9 @@ This README covers the initial release of the tc Server module for puppet. This 
 
 # About this module
 
-This module will install tc Server to the target node(s) from the Pivotal Package Repository(APT/YUM). It is important to note that this module uses the tcruntime-instance create command to create the instances. This means that if a configuration variable changes in a manifest that it will not be reflected in the instance unless it is destroyed first and allowed to be recreated.
+This module will install tc Server 3.0 to the target node(s) from the Pivotal Package Repository(APT/YUM). It is important to note that this module uses the tcruntime-instance create command to create the instances. This means that if a configuration variable changes in a manifest that it will not be reflected in the instance unless it is destroyed first and allowed to be recreated.
 
-At this time only a single template is supported. 
+This module is only compatible with tc Server 3.0 or newer.
 
 # Important information about JAVA\_HOME
 

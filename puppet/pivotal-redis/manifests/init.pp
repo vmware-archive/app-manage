@@ -33,7 +33,7 @@
 
 define redis (
   $ensure = running,
-  $owner = 'redis',
+  $owner = 'p-redis',
   $group = 'pivotal',
   $version = 'latest',
   $listen_address = undef,

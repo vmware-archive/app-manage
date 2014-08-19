@@ -1,6 +1,6 @@
 ## vFabric Web Server Puppet Module
 ##
-## Copyright 2013 GoPivotal, Inc
+## Copyright 2013-2014 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@
 ##    Default - running
 ##    The default state of the instance. Valid options are running, absent, stopped
 ##
-## The remainder of thevariables below correspond to vfws "newserver"
+## The remainder of thevariables below correspond to webserver "newserver"
 ## command options. Please see the appropriate documentation for details
 
-define vfws::instance (
+define webserver::instance (
   $ensure = 'running',
   $admin_email = undef,
   $sslport = undef,
@@ -39,7 +39,7 @@ define vfws::instance (
   $sourcedir = undef,
 
 ){
-  require vfws
+  require webserver
 
   if $admin_email {
     $set_admin_email = "--set ServerAdmin=${admin_email}"
@@ -89,40 +89,40 @@ define vfws::instance (
 
   $options = "${options_overlay} ${options_serverdir} ${options_mpm} ${options_httpdver} ${options_sourcedir}"
 
-  $cwd = $::vfws::installed_base
+  $cwd = $::webserver::installed_base
 
   if $ensure == running or $ensure == stopped {
     exec { "create_instance-${name}":
       cwd     => $cwd,
-      command => "${vfws::installed_base}/newserver --quiet ${name} ${options} ${set}",
+      command => "${webserver::installed_base}/newserver --quiet ${name} ${options} ${set}",
       creates => "${cwd}/${name}",
-      require => File[$::vfws::installed_base]
+      require => File[$::webserver::installed_base]
     }
 
-    file { "/etc/init.d/vFabric-httpd-${name}":
+    file { "/etc/init.d/pivotal-httpd-${name}":
       ensure  => link,
       source  => "${cwd}/${name}/bin/httpdctl",
       require => Exec["create_instance-${name}"],
     }
 
-    service { "vfws-instance-${name}":
+    service { "webserver-instance-${name}":
       ensure  => $ensure,
-      name    => "vFabric-httpd-${name}",
+      name    => "pivotal-httpd-${name}",
       status  => "ps -p `cat ${cwd}/${name}/logs/httpd.pid` > /dev/null 2>&1",
-      require => File["/etc/init.d/vFabric-httpd-${name}"]
+      require => File["/etc/init.d/pivotal-httpd-${name}"]
     }
   } else {
-    service { "vfws-instance-${name}":
+    service { "webserver-instance-${name}":
       ensure  => stopped,
-      name    => "vfws-instance-${name}",
-      status  => "ps -p `cat ${cwd}/${name}/logs/vfws.pid` > /dev/null 2>&1",
+      name    => "webserver-instance-${name}",
+      status  => "ps -p `cat ${cwd}/${name}/logs/webserver.pid` > /dev/null 2>&1",
       before  => File["${cwd}/${name}"]
     }->
     file { "${cwd}/${name}":
       ensure  => absent,
       force   => true
     }->
-    file { "/etc/init.d/vfws-instance-${name}":
+    file { "/etc/init.d/webserver-instance-${name}":
       ensure  => absent,
       require => File["${cwd}/${name}"],
     }
