@@ -21,7 +21,7 @@
 
 define :redis_instance,
   :action => "start",
-  :owner => 'redis', # Name of the system user who owns the file belonging to this instance
+  :owner => 'p-redis', # Name of the system user who owns the file belonging to this instance
   :group => 'pivotal', # Name of the system group who owns the file belonging to this instance
   :port => 6379,
   :timeout => 0,

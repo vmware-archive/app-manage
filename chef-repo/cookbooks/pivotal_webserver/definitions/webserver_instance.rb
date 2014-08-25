@@ -1,4 +1,4 @@
-## Copyright 2013 GoPivotal, Inc
+## Copyright 2013-2014 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 
 define :webserver_instance,
   :action => "start".to_sym,
-  :rootdir => "/opt/vmware/vfabric-web-server" do
+  :rootdir => "/opt/pivotal/webserver" do
 
   package node['pivotal_webserver']['package'] do
     action :install
@@ -56,15 +56,15 @@ define :webserver_instance,
     end
   else
     execute "run-newserver" do
-      command "/opt/vmware/vfabric-web-server/newserver #{args}"
+      command "/opt/pivotal/webserver/newserver #{args}"
       creates "#{params[:rootdir]}/#{serverdir}"
     end
     
-    link "/etc/init.d/vFabric-httpd-#{params[:name]}" do
+    link "/etc/init.d/pivotal-httpd-#{params[:name]}" do
       to "#{params[:rootdir]}/#{serverdir}/bin/httpdctl"
     end
 
-    service "vFabric-httpd-#{params[:name]}" do
+    service "pivotal-httpd-#{params[:name]}" do
       supports :status => true
       status_command "ps -p `cat #{params[:rootdir]}/#{serverdir}/logs/httpd.pid` > /dev/null 2>&1"
       action params[:action]

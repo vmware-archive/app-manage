@@ -1,13 +1,13 @@
 pivotal_tcserver Cookbook
 =========================
-This cookbook provides a definition which installs vFabric tc Server and creates runtime instances.
+This cookbook provides a definition which installs Pivotal tc Server and creates runtime instances.
 
 iThis cookbook does installs the needed packages on the target nodes. When deleting instances it does not remove the package in case the admin wants to manually create and control instances. To remove the package use the Chef package resource.
 
 Requirements
 ------------
 #### cookbooks
-- `pivotal_repo` - This is needed to install the Pivotal/vFabric package repositorya
+- `pivotal_repo` - This is needed to install the Pivotal package repository
 - A JDK already installed.
 - /bin/sh should point to bash. On some systems, especially Ubuntu, /bin/sh points to a different shell. This is a requirement for tcruntime-instance.sh to run correctly.
 

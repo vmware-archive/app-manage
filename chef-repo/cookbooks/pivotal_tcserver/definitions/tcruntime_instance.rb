@@ -17,7 +17,7 @@
 define :tcruntime_instance,
   :action => "start",
   :user => "tcserver",
-  :group => "vfabric" do
+  :group => "pivotal" do
   
   install_dir = node['pivotal_tcserver']['install_dir']
 

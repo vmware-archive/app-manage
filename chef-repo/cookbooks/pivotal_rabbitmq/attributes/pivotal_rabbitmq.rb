@@ -15,7 +15,7 @@
 
 
 # We need to override some of the defaults
-node.override['rabbitmq']['version'] = "3.2.2"
+node.override['rabbitmq']['version'] = "3.3.4"
 node.override['rabbitmq']['package-release'] = "3"
 
 case node['platform_family']
@@ -31,9 +31,7 @@ when 'rhel'
     node.override['yum']['erlang_solutions']['baseurl'] = 'http://packages.erlang-solutions.com/rpm/centos/6/$basearch'
   end
   if(node['kernel']['machine'] =~ /x86_64/)
-    node.override['rabbitmq']['package'] = "http://packages.gopivotal.com/pub/rpm/rhel#{rhel}/vfabric/5.3/x86_64/vfabric-rabbitmq-server-#{node['rabbitmq']['version']}-#{node['rabbitmq']['package-release']}.x86_64.rpm"
-  else
-    node.override['rabbitmq']['package'] = "http://packages.gopivotal.com/pub/rpm/rhel#{rhel}/vfabric/5.3/i386/vfabric-rabbitmq-server-#{node['rabbitmq']['version']}-#{node['rabbitmq']['package-release']}.i686.rpm"
+    node.override['rabbitmq']['package'] = "http://packages.gopivotal.com/pub/rpm/rhel#{rhel}/app-suite/x86_64/pivotal-rabbitmq-server-#{node['rabbitmq']['version']}-#{node['rabbitmq']['package-release']}.noarch.rpm"
   end
 end
 
