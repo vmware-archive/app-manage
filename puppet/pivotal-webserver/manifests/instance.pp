@@ -1,4 +1,4 @@
-## vFabric Web Server Puppet Module
+## Pivotal Web Server Puppet Module
 ##
 ## Copyright 2013-2014 Pivotal Software, Inc
 ##

@@ -1,12 +1,12 @@
-# Pivotal vFabric Package Repository Module for Puppet
+# Pivotal Package Repository Module for Puppet
 
-This README covers the initial release of the vFabric Package Repository module for puppet. This README assumes the reader has a basic understanding of puppet and vFabric Package Repository.
+This README covers the initial release of the Pivotal Package Repository module for puppet. This README assumes the reader has a basic understanding of puppet and Pivotal Package Repository.
 
 # About this module
 
-This module will install vFabric Package Repository to the target node(s). Use of this module requires acceptance of the End User License Agreement(EULA) located at http://www.vmware.com/download/eula/vfabric_app-platform_eula.html
+This module will install Pivotal Package Repository to the target node(s). Use of this module requires acceptance of the End User License Agreement(EULA) located at http://www.vmware.com/download/eula/fabric_app-platform_eula.html
 
-All other vFabric/Pivotal modules depend on this module for product installation. 
+All other Pivotal modules depend on this module for product installation. 
 
 # Before you begin 
 

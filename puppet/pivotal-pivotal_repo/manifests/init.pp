@@ -20,14 +20,9 @@
 ##    Default - installed
 ##    The state of the repository
 ##
-##  $release
-##    Default - '5.3'
-##    The vFabric Release to use. This is only valid on RHEL/Yum based systems
-##    Ubuntu doesn't require this to be specified
-##
 ##  $i_accept_eula
 ##    Default - false
-##    When true this indicates that the vFabric EULA is accepted which allows
+##    When true this indicates that the Pivotal EULA is accepted which allows
 ##    the repository to be installed.
 
 class pivotal_repo (

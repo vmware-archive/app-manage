@@ -1,4 +1,4 @@
-## vFabric Web Server Puppet Module
+## Pivotal tc Server Puppet Module
 ##
 ## Copyright 2013 Pivotal Software, Inc
 ##

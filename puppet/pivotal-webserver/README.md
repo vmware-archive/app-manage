@@ -1,4 +1,4 @@
-# Pivotal vFabric Web Server Module for Puppet
+# Pivotal Web Server Module for Puppet
 
 This README covers the initial release of the Pivotal Web Server module for puppet. This README assumes the reader has a basic understanding of puppet and Pivotal Web Server.
 
@@ -13,7 +13,7 @@ This module depends on the pivotal\_repo module.
 
 # Example Usage
 
-*Default options on port 8000* - The following example will install vFabric Web Server and create an instance called myserver on port 8000
+*Default options on port 8000* - The following example will install Pivotal Web Server and create an instance called myserver on port 8000
 
 ```puppet
 
@@ -23,7 +23,7 @@ This module depends on the pivotal\_repo module.
 
 ```
 
-*More Options* - The following example will install vFabric Web Server and create two instances on the same node running on separate ports
+*More Options* - The following example will install Pivotal Web Server and create two instances on the same node running on separate ports
 ```puppet
 
   webserver::instance { 'web1':
