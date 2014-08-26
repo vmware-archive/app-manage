@@ -24,6 +24,10 @@
 ##    Specify the state for the instance. Valid values are
 ##    running, stopped, absent.
 ##
+##  $base_dir
+##    Default - /var/opt/pivotal/pivotal-tc-server-standard
+##    The parent directory to create the instance in
+##
 ##  $java_home
 ##    Default - JAVA_HOME environment variable
 ##    The value of JAVA_HOME which should be set for the instance.
@@ -93,14 +97,15 @@ define tcserver::instance (
 
   if $ensure == 'running' or $ensure == 'stopped' {
     tcruntime_instance {$name:
-      templates       => $templates,
-      properties      => $properties,
-      version         => $version,
-      layout          => $layout,
-      properties_file => $properties_file,
-      java_home       => $my_java_home,
-      use_java_home   => $use_java_home,
-      require         => Class['::tcserver::postinstall']
+      templates          => $templates,
+      properties         => $properties,
+      version            => $version,
+      layout             => $layout,
+      properties_file    => $properties_file,
+      java_home          => $my_java_home,
+      use_java_home      => $use_java_home,
+      instance_directory => $cwd,
+      require            => Class['::tcserver::postinstall']
     }
 
     file { "${cwd}/${name}":
