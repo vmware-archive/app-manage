@@ -93,14 +93,15 @@ define tcserver::instance (
 
   if $ensure == 'running' or $ensure == 'stopped' {
     tcruntime_instance {$name:
-      templates       => $templates,
-      properties      => $properties,
-      version         => $version,
-      layout          => $layout,
-      properties_file => $properties_file,
-      java_home       => $my_java_home,
-      use_java_home   => $use_java_home,
-      require         => Class['::tcserver::postinstall']
+      instance_directory  => $base_dir,
+      templates           => $templates,
+      properties          => $properties,
+      version             => $version,
+      layout              => $layout,
+      properties_file     => $properties_file,
+      java_home           => $my_java_home,
+      use_java_home       => $use_java_home,
+      require             => Class['::tcserver::postinstall']
     }
 
     file { "${cwd}/${name}":
