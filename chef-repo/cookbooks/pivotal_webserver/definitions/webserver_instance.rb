@@ -38,7 +38,7 @@ define :webserver_instance,
   serverdir = params[:serverdir] ? params[:serverdir] : params[:name]
 
   if params[:action] == :delete
-    service "vFabric-httpd-#{params[:name]}" do
+    service "pivotal-httpd-#{params[:name]}" do
       supports :status => true
       action :stop
       status_command "ps -p `cat #{params[:rootdir]}/#{serverdir}/logs/httpd.pid` > /dev/null 2>&1"
@@ -47,12 +47,12 @@ define :webserver_instance,
 
     directory "#{params[:rootdir]}/#{serverdir}" do
       recursive true
-      action :nothing
-      notifies :delete, "link[/etc/init.d/vFabric-httpd-#{params[:name]}]", :immediately
+      action :delete
+      notifies :delete, "link[/etc/init.d/pivotal-httpd-#{params[:name]}]", :immediately
     end
 
-    link "/etc/init.d/vFabric-httpd-#{params[:name]}" do
-      action :nothing
+    link "/etc/init.d/pivotal-httpd-#{params[:name]}" do
+      action :delete
     end
   else
     execute "run-newserver" do
