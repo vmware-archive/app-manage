@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 # Original file from: https://github.com/opscode-cookbooks/rabbitmq/blob/212fa203ff4dd508f19d4cc4d84758330c8af6ab/providers/plugin.rb
-# Modified by Pivotal to property parse plugin output from vFabric RabbitMQ.
+# Modified by Pivotal to property parse plugin output from Pivotal RabbitMQ.
 # A space was added after {name} to prevent misparsing of "supported plugins" added
-# by vFabric RabbitMQ
+# by Pivotal RabbitMQ
 #
 
 

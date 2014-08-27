@@ -22,7 +22,7 @@ when 'rhel'
   end
   default['pivotal_repo']['package'] = "app-suite-repo-1.0-4.noarch.rpm"
   default['pivotal_repo']['url'] = "http://packages.gopivotal.com/pub/rpm/rhel#{rhel_version}/app-suite/#{node['pivotal_repo']['package']}"
-  default['pivotal_repo']['gpg_url'] = "http://packages.gopivotal.com/pub/rpm/rhel#{rhel_version}/vfabric/5.3/RPM-GPG-KEY-VFABRIC-5.3-EL#{rhel_version}"
+  default['pivotal_repo']['gpg_url'] = "http://packages.gopivotal.com/pub/rpm/rhel#{rhel_version}/app-suite/RPM-GPG-KEY-PIVOTAL-APP-SUITE-EL#{rhel_version}"
   default['pivotal_repo']['eula_accept_cmd'] = "/etc/pivotal/pivotal-eula-acceptance.sh --accept_eula_file=Pivotal_EULA.txt > /dev/null 2>&1"
   default['pivotal_repo']['eula_accepted_file'] = "/etc/pivotal/accepted-Pivotal_EULA.txt"
 when 'debian'
