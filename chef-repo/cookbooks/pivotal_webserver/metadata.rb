@@ -1,4 +1,4 @@
-name             'pivotal_rabbitmq'
+name             'pivotal_webserver'
 maintainer       'Pivotal'
 maintainer_email 'wschlichter@pivotal.io'
 license          'Apache 2.0 License'
