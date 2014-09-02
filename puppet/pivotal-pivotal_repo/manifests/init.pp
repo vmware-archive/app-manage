@@ -35,7 +35,7 @@ class pivotal_repo (
     case $::operatingsystem {
       'RedHat', 'CentOS': {
         $org_name = 'vmware' # Red Hat YUM repo uses vmware
-        $package_name = "pivotal-app-suite-${release}-repo"
+        $package_name = "app-suite-repo"
         $cmd = "/etc/pivotal/pivotal-eula-acceptance.sh --accept_eula_file=Pivotal_EULA.txt > /dev/null 2>&1"
         $rhel_release = $::operatingsystemrelease ? {
           /^5/    => '5',
