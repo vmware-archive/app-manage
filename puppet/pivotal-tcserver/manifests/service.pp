@@ -27,8 +27,17 @@ define tcserver::service (
       ensure    => stopped,
       status    => "ps -p `cat ${cwd}/${name}/logs/tcserver.pid` > /dev/null 2>&1",
     }
+    service { "${name}":
+      ensure    => stopped,
+      status    => "ps -p `cat ${cwd}/${name}/logs/tcserver.pid` > /dev/null 2>&1",
+    }
   } else {
     service { "tcserver-instance-${name}":
+      ensure    => $ensure,
+      status    => "ps -p `cat ${cwd}/${name}/logs/tcserver.pid` > /dev/null 2>&1",
+      require   => File["${cwd}/${name}"]
+    }
+    service { "${name}":
       ensure    => $ensure,
       status    => "ps -p `cat ${cwd}/${name}/logs/tcserver.pid` > /dev/null 2>&1",
       require   => File["${cwd}/${name}"]
