@@ -123,7 +123,7 @@ define tcserver::instance (
       require     => Tcruntime_instance[$name]
     }
 
-    file { "/etc/init.d/tcserver-instance-${name}":
+    file { "/etc/init.d/${name}":
       ensure      => link,
       target      => "${instance_directory}/${name}/bin/init.d.sh",
     }
@@ -153,6 +153,9 @@ define tcserver::instance (
       force       => true
     }->
     file { "/etc/init.d/tcserver-instance-${name}":
+      ensure      => absent,
+    } ->
+    file { "/etc/init.d/${name}":
       ensure      => absent,
     }
   }
