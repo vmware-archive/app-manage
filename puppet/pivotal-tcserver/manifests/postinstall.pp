@@ -37,7 +37,9 @@ class tcserver::postinstall (
 
   # set permissions of all files to user/group passed in
   exec { 'setting permissions':
-    command => "/bin/chown -R ${::tcserver::tcserver_user}:${::tcserver::tcserver_group} ${::tcserver::installed_base}",
+#    command => "/bin/chown -R ${::tcserver::tcserver_user}:${::tcserver::tcserver_group} ${::tcserver::installed_base}",
+    command => "/usr/bin/find ${::tcserver::installed_base} -not -path "*/webapps/*" -exec chown ${::tcserver::tcserver_user}:${::tcserver::tcserver_group} ${::tcserver::installed_base} {} \;",
+
   }
 
   user { $::tcserver::tcserver_user:
