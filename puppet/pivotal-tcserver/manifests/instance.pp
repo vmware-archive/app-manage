@@ -119,7 +119,7 @@ define tcserver::instance (
       group       => $tcserver_group,
       recurse     => true,
       mode        => 770,
-      ignore      => "${instance_directory}/${name}/${apps_dir}",
+      ignore      => ["${instance_directory}/${name}/${apps_dir}", "${apps_dir}", "webapps"],
       require     => Tcruntime_instance[$name]
     }
 
