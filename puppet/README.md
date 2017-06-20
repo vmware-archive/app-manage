@@ -1,6 +1,6 @@
-# Pivotal/vFabric Puppet Modules
+# Pivotal Puppet Modules
 
-These modules are provided to simplify the installation of vFabric/Pivotal products.  They may be used together or separately. Tested with puppet 3.x.
+These modules are provided to simplify the installation of Pivotal App Suite products.  They may be used together or separately. Tested with puppet 3.x.
 
 # Before you begin
 
@@ -51,8 +51,8 @@ node 'default' {
     java_home   => '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64',
   }
 
-# Create a vFabric Web Server Instance named 'mySite' listening on port 8093
-  vfws::instance { "mySite":
+# Create a Pivotal Web Server Instance named 'mySite' listening on port 8093
+  webserver::instance { "mySite":
     port => '8093',
   }
 

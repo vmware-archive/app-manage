@@ -1,4 +1,4 @@
-## Copyright 2014 GoPivotal, Inc
+## Copyright 2014 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 
 define :redis_instance,
   :action => "start",
-  :owner => 'redis', # Name of the system user who owns the file belonging to this instance
+  :owner => 'p-redis', # Name of the system user who owns the file belonging to this instance
   :group => 'pivotal', # Name of the system group who owns the file belonging to this instance
   :port => 6379,
   :timeout => 0,

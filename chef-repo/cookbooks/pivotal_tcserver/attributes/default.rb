@@ -1,4 +1,4 @@
-## Copyright 2014 GoPivotal, Inc
+## Copyright 2014 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -13,5 +13,5 @@
 ## limitations under the License.
 #
 
-default['pivotal_tcserver']['package'] = "vfabric-tc-server-standard"
-default['pivotal_tcserver']['install_dir'] = "/opt/vmware/vfabric-tc-server-standard/"
+default['pivotal_tcserver']['package'] = "pivotal-tc-server-standard"
+default['pivotal_tcserver']['install_dir'] = "/opt/pivotal/pivotal-tc-server-standard/"

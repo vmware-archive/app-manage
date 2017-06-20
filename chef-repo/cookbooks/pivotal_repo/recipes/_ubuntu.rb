@@ -1,6 +1,6 @@
 ## Ubuntu specific recipe
 ##
-## Copyright 2013 GoPivotal, Inc
+## Copyright 2013 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{node['pivotal_repo']['package']
 end
 
 execute "import-key" do
-  command "wget -q -O - http://packages.gopivotal.com/pub/apt/ubuntu/DEB-GPG-KEY-VFABRIC | apt-key add -"
+  command "wget -q -O - http://packages.pivotal.io/pub/apt/ubuntu/DEB-GPG-KEY-PIVOTAL-APP-SUITE | apt-key add -"
   notifies :run, "execute[apt-update]", :immediately
   action :nothing
 end

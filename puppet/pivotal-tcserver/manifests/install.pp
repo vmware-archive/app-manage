@@ -1,6 +1,6 @@
-## vFabric Web Server Puppet Module
+## Pivotal tc Server Puppet Module
 ##
-## Copyright 2013 GoPivotal, Inc
+## Copyright 2013 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ class tcserver::install(
 ) {
 
   if defined('pivotal_repo') {
-    package {'vfabric-tc-server-standard':
+    package {'pivotal-tc-server-standard':
       ensure    => $version,
-      require   => Exec['vfabric-eula-acceptance'],
+      require   => Exec['pivotal-eula-acceptance'],
     }
   } else {
     fail 'pivotal_repo module not included'

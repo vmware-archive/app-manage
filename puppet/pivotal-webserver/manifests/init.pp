@@ -1,6 +1,6 @@
-## vFabric Web Server Puppet Module
+## Pivotal Web Server Puppet Module
 ##
-## Copyright 2013 GoPivotal, Inc
+## Copyright 2013-2014 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -30,37 +30,37 @@
 ##
 ##  $templates_dir
 ##    Default - 'templates'
-##    The location of the templates directory on the vfws installation. Normally
+##    The location of the templates directory on the webserver installation. Normally
 ##    this value would never need to be changed.
 ##
 ##  $templates_source
-##    Default - 'puppet:///modules/vfws/templates'
+##    Default - 'puppet:///modules/webserver/templates'
 ##    Specifies the location to find the template files to copy from. This should be
 ##    a valid puppet url.
 
-class vfws (
+class webserver (
   $version = latest,
   $uses_templates = false,
   $templates_dir = 'templates',
-  $templates_source = 'puppet:///modules/vfws/templates'  #Location to copy templates from
+  $templates_source = 'puppet:///modules/webserver/templates'  #Location to copy templates from
   ) {
 
-  $installed_base = '/opt/vmware/vfabric-web-server'
+  $installed_base = '/opt/pivotal/webserver'
 
   if defined('pivotal_repo') {
-    package {'vfabric-web-server':
+    package {'pivotal-web-server':
       ensure   => $version,
-      require  => Exec['vfabric-eula-acceptance'],
+      require  => Exec['pivotal-eula-acceptance'],
     }
     if $uses_templates {
       file { "${installed_base}/${templates_dir}":
         recurse => true,
         source  => $templates_source,
-        require => Package['vfabric-web-server']
+        require => Package['pivotal-web-server']
       }
     }
     file { $installed_base:
-      require => Package['vfabric-web-server']  #this just gives us something to require from the instance
+      require => Package['pivotal-web-server']  #this just gives us something to require from the instance
     }
   } else {
     fail 'pivotal_repo module missing'

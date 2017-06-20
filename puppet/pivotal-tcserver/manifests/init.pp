@@ -1,6 +1,6 @@
 ## Web Server Puppet Module
 ##
-## Copyright 2013 GoPivotal, Inc
+## Copyright 2013 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@
 ##    except for expert usage.
 ##
 ##  $tcserver_group
-##    Default - vfabric
+##    Default - pivotal
 ##    The user to user for ownership of files. This variable should be left at
 ##    except for expert usage.
 
@@ -47,12 +47,12 @@ class tcserver (
   $ensure = present,
   $version = 'latest',
   $tcserver_user = 'tcserver',
-  $tcserver_group = 'vfabric',
+  $tcserver_group = 'pivotal',
   $uses_templates = true,
   $templates_source = 'puppet:///modules/tcserver/templates',
   ) {
 
-  $installed_base = '/opt/vmware/vfabric-tc-server-standard'
+  $installed_base = '/opt/pivotal/pivotal-tc-server-standard'
 
   if $ensure == absent {
     $package_ensure = absent

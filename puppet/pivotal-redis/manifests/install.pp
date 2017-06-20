@@ -1,6 +1,6 @@
-## vFabric Web Server Puppet Module
+## Pivotal Web Server Puppet Module
 ##
-## Copyright 2013 GoPivotal, Inc
+## Copyright 2013 Pivotal Software, Inc
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 class redis::install ( $version = 'latest' ) {
   package {'pivotal-redis':
     ensure  => $version,
-    require => Exec['vfabric-eula-acceptance']
+    require => Exec['pivotal-eula-acceptance']
   }
 }
 
